@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.conf.urls.static import static
 from django.conf.urls import url
-from . import views
+from . import views, patient
 
 
 urlpatterns = [
@@ -9,6 +9,8 @@ urlpatterns = [
     url(r'^login/$', views.login, name='login'),
     url(r'^logout/$', views.logout, name='logout'),
     url(r'^signup/$', views.signup, name='signup'),
+    url(r'^edit_patient_profile/$', patient.profile_edit,
+        name='edit_patient_profile'),
 ]
 
 # this will help to serve uploaded images on the development server

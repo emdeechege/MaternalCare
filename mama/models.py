@@ -11,6 +11,12 @@ from datetime import datetime
 class Location(models.Model):
     location = models.CharField(max_length=50)
 
+    def delete_location(self):
+        return self.delete()
+
+    def __str__(self):
+        return self.location
+
 
 class LocationAdmin(admin.ModelAdmin):
     search_fields = ('location',)
@@ -23,39 +29,7 @@ class LocationForm(forms.ModelForm):
         fields = ()
 
 
-# -- Patient
-
-
-class Patient(models.Model):
-    user = models.OneToOneField(User, primary_key=True)
-    first_name = models.CharField(max_length=50)
-    last_name = models.CharField(max_length=50)
-    id_number = models.CharField(max_length=8, unique=True)
-    birthday = models.DateField()
-    location = models.ForeignKey(Location)
-
-    GENDER_CHOICES = (
-        ('M', 'Male'),
-        ('F', 'Female'),
-    )
-    gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
-
-    def __unicode__(self):
-        return f'{self.first_name} {self.last_name}'
-
-
-class PatientAdmin(admin.ModelAdmin):
-    raw_id_fields = ('user',)
-    search_fields = ('first_name', 'last_name', 'id_number')
-    list_display = ('__unicode__', 'birthday', 'id_number', )
-
-
-class PatientForm(forms.ModelForm):
-    class Meta:
-        model = Patient
-        exclude = ['user']
-
-# --
+# -- Doctor classes
 
 
 class DoctorSpeciality(models.Model):
@@ -80,9 +54,16 @@ class DoctorSpecialityForm(forms.ModelForm):
 
 class Doctor(models.Model):
     user = models.OneToOneField(User, primary_key=True)
+    photo = models.FileField(upload_to='images', null=True)
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     specialty = models.ForeignKey(DoctorSpeciality)
+
+    def patients(self):
+        return Patient.doctor_patients(self)
+
+    def delete_doctor(self):
+        self.delete()
 
     def save_doctor(self, user):
         self.user = user
@@ -105,6 +86,48 @@ class DoctorAdmin(admin.ModelAdmin):
     list_display = ('__unicode__', 'specialty',)
 
 
+# -- Patient
+
+
+class Patient(models.Model):
+    user = models.OneToOneField(User, primary_key=True)
+    photo = models.FileField(upload_to='images', null=True)
+    doctors = models.ManyToManyField(Doctor)
+    first_name = models.CharField(max_length=50)
+    last_name = models.CharField(max_length=50)
+    id_number = models.CharField(max_length=8, unique=True)
+    birthday = models.DateField()
+    location = models.ForeignKey(Location)
+
+    GENDER_CHOICES = (
+        ('M', 'Male'),
+        ('F', 'Female'),
+    )
+    gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
+
+    @classmethod
+    def doctor_patients(cls, doctor):
+        return cls.objects.filter(doctor=doctor)
+
+    def save_patient(self, user):
+        self.user = user
+        self.save()
+
+    def __unicode__(self):
+        return f'{self.first_name} {self.last_name}'
+
+
+class PatientAdmin(admin.ModelAdmin):
+    raw_id_fields = ('user',)
+    search_fields = ('first_name', 'last_name', 'id_number')
+    list_display = ('__unicode__', 'birthday', 'id_number', )
+
+
+class PatientForm(forms.ModelForm):
+    class Meta:
+        model = Patient
+        exclude = ['user', 'doctors']
+
 # --
 
 
@@ -124,6 +147,7 @@ class MidWifeSpecialityAdmin(admin.ModelAdmin):
 
 class MidWife(models.Model):
     user = models.OneToOneField(User, primary_key=True)
+    photo = models.FileField(upload_to='images', null=True)
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     specialty = models.ForeignKey(MidWifeSpeciality)
