@@ -72,6 +72,12 @@ class DoctorSpecialityAdmin(admin.ModelAdmin):
     search_fields = ('specialty', )
 
 
+class DoctorSpecialityForm(forms.ModelForm):
+    class Meta:
+        model = DoctorSpeciality
+        exclude = []
+
+
 class Doctor(models.Model):
     user = models.OneToOneField(User, primary_key=True)
     first_name = models.CharField(max_length=50)
@@ -122,7 +128,7 @@ class MidWife(models.Model):
         return self.first_name + ' ' + self.last_name
 
 
-class NurseAdmin(admin.ModelAdmin):
+class MidWifeAdmin(admin.ModelAdmin):
     raw_id_fields = ('user',)
     search_fields = ('first_name', )
     list_filter = ('specialty',)
