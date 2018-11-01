@@ -84,15 +84,32 @@ class Doctor(models.Model):
     last_name = models.CharField(max_length=50)
     specialty = models.ForeignKey(DoctorSpeciality)
 
+    def save_doctor(self, user):
+        self.user = user
+        self.save()
+
     def __unicode__(self):
         return self.first_name + ' ' + self.last_name
 
 
+class DoctorForm(forms.ModelForm):
+    class Meta:
+        model = Doctor
+        exclude = ['user']
+
+
 class DoctorAdmin(admin.ModelAdmin):
     raw_id_fields = ('user',)
-    search_fields = ('first_name', 'last_name', )
+    list_display = ('first_name', 'last_name', )
     list_filter = ('specialty',)
     list_display = ('__unicode__', 'specialty',)
+
+
+class DoctorForm(forms.ModelForm):
+    class Meta:
+        model = Doctor
+        exclude = ['user']
+
 
 # --
 
@@ -197,7 +214,7 @@ class VisitForm(forms.ModelForm):
 
     class Meta:
         model = Visit
-        exclude = []
+        exclude = ['date']
         fields = ()
 
 
@@ -228,6 +245,12 @@ class Prescription(models.Model):
         return self.visit
 
 
+class PrescriptionForm(forms.ModelForm):
+    class Meta:
+        model = Prescription
+        exclude = ['visit']
+
+
 class PrescriptionAdmin(admin.ModelAdmin):
     search_fields = ('medication__name', 'visit__patient__last_name', 'visit__patient__first_name',
                      'visit__doctor__user__last_name', 'visit__doctor__user__first_name')
@@ -245,6 +268,12 @@ class Department(models.Model):
 
     def __unicode__(self):
         return self.name
+
+
+class DepartmentForm(forms.ModelForm):
+    class Meta:
+        model = Department
+        exclude = []
 
 
 class DepartmentAdmin(admin.ModelAdmin):
@@ -265,6 +294,12 @@ class Vaccine(models.Model):
 
     def __unicode__(self):
         return self.name
+
+
+class VaccineForm(forms.ModelForm):
+    class Meta:
+        model = Vaccine
+        exclude = []
 
 
 class VaccineAdmin(admin.ModelAdmin):
