@@ -105,12 +105,6 @@ class DoctorAdmin(admin.ModelAdmin):
     list_display = ('__unicode__', 'specialty',)
 
 
-class DoctorForm(forms.ModelForm):
-    class Meta:
-        model = Doctor
-        exclude = ['user']
-
-
 # --
 
 
@@ -156,7 +150,7 @@ class MidWifeAdmin(admin.ModelAdmin):
 
 class Medication(models.Model):
     name = models.CharField(max_length=150)
-    description = models.CharField(max_length=500)
+    description = models.TextField()
     grams = models.IntegerField()
 
     def __unicode__(self):
@@ -164,37 +158,45 @@ class Medication(models.Model):
 
 
 class MedicationsForm(forms.ModelForm):
-    description = forms.CharField(widget=forms.Textarea)
 
     class Meta:
         model = Medication
         exclude = []
-        fields = ()
 
 
 class MedicationAdmin(admin.ModelAdmin):
-    search_fields = ('name', )
-    list_display = ('name', 'grams')
+    list_display = ('name',)
     form = MedicationsForm
 
 
 class MedPrice(models.Model):
-    date = models.DateTimeField()
-    medication = models.ForeignKey(Medication)
+    date = models.DateTimeField(auto_now_add=datetime.utcnow)
+    medication = models.ForeignKey(Medication, related_name='medication')
     price = models.IntegerField()
 
+    @property
+    def med_name(self):
+        return self.medication.name
+
     def __unicode__(self):
-        return f'{self.medication.name} {self.date}'
+        return f'{self.medication} {self.price}'
 
     class Meta:
         verbose_name_plural = 'Medications Prices'
 
 
+class MedPriceForm(forms.ModelForm):
+    class Meta:
+        model = MedPrice
+        exclude = []
+
+
 class MedPriceAdmin(admin.ModelAdmin):
     raw_id_fields = ('medication', )
     search_fields = ('medication', )
-    list_display = ('medication', 'price', 'date')
+    list_display = ('med_name', 'price', 'date')
     list_filter = ('date', )
+    form = MedPriceForm
 
 # --
 
@@ -327,3 +329,57 @@ class VaccineAppliedAdmin(admin.ModelAdmin):
     list_display = ('patient', 'nurse', 'vaccine', 'date')
     raw_id_fields = ('patient', 'nurse', 'vaccine', )
     list_display_links = ('patient', 'nurse',)
+
+
+# -- DoctorReview
+
+class DoctorReview(models.Model):
+    doctor = models.ForeignKey(Doctor, null=True)
+    patient = models.ForeignKey(Patient, null=True)
+    review = models.TextField()
+
+    def __str__(self):
+        return self.review
+
+    class Meta:
+        verbose_name_plural = 'Doctor reviews'
+
+
+class DoctorReviewAdmin(admin.ModelAdmin):
+    list_display = ('doctor', 'patient', 'review')
+
+
+class DoctorReviewForm(forms.ModelForm):
+    class Meta:
+        model = DoctorReview
+        exclude = ['doctor', 'patient']
+
+
+# -- Live Chat
+
+class LiveChat(models.Model):
+    doctor = models.ForeignKey(Doctor, null=True)
+    patient = models.ForeignKey(Patient, null=True)
+    time = models.DateTimeField(auto_now_add=datetime.utcnow)
+    review = models.TextField()
+    pinned_message = models.BooleanField(default=False)
+
+    def delete_message(self):
+        self.delete()
+
+    def pin_message(self):
+        self.pinnned_message = True
+        self.save()
+
+    def __str__(self):
+        return self.review
+
+
+class LiveChatAdmin(admin.ModelAdmin):
+    list_display = ('doctor', 'patient', 'review')
+
+
+class LiveChatForm(forms.ModelForm):
+    class Meta:
+        model = LiveChat
+        exclude = ['doctor', 'patient']
