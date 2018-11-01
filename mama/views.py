@@ -8,9 +8,7 @@ from .models import *
 import datetime
 
 
-def home(request):
-    return render(request, 'index.html')
-
+# -- Authentication views
 
 def login(request):
     if request.user.is_authenticated():
@@ -42,9 +40,7 @@ def signup(request):
     if request.method == 'POST':
         form = MyRegistrationForm(request.POST)
         if form.is_valid():
-            user = form.save()
-            Profile.create_profile(user)
-            print(user.profile.user_name)
+            form.save()
             return redirect('login')
 
     form = MyRegistrationForm()
@@ -53,3 +49,7 @@ def signup(request):
         'form': form
     }
     return render(request, 'auth/register.html', context)
+
+
+def home(request):
+    return render(request, 'index.html')

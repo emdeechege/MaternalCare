@@ -92,7 +92,7 @@ class DoctorAdmin(admin.ModelAdmin):
 class Patient(models.Model):
     user = models.OneToOneField(User, primary_key=True)
     photo = models.FileField(upload_to='images', null=True)
-    doctors = models.ManyToManyField(Doctor)
+    doctors = models.ManyToManyField(Doctor, null=True)
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     id_number = models.CharField(max_length=8, unique=True)
