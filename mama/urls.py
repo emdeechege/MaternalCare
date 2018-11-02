@@ -13,7 +13,7 @@ urlpatterns = [
 
     # -- general views
     url(r'^search_doctors/$', views.search_doctors, name='search_doctors'),
-    url(r'^individual_doctors_page/$', views.individual_doctors_page,
+    url(r'^individual_doctors_page/(\d+)/(\w+)/$', views.individual_doctors_page,
         name='individual_doctors_page'),
 
 

@@ -73,5 +73,9 @@ def search_doctors(request):
     return render(request, 'doctors_search.html', context)
 
 
-def individual_doctors_page(request):
-    return HttpResponse('doctors page here')
+def individual_doctors_page(request, doctor_id, doctor_name):
+    doctor = Doctor.get_one_doctor(doctor_id)
+    context = {
+        'doctor': doctor
+    }
+    return render(request, 'doctor_page.html', context)

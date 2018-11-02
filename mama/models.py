@@ -67,8 +67,9 @@ class Doctor(models.Model):
         return search_results
 
     @classmethod
-    def search_one_doctor(cls, doctor_id):
-        return cls.objects.filter(pk=doctor_id)
+    def get_one_doctor(cls, doctor_id):
+        user = User.objects.get(pk=doctor_id)
+        return cls.objects.get(pk=user)
 
     def patients(self):
         return Patient.doctor_patients(self)

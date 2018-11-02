@@ -30,8 +30,9 @@
 
     {% for doctor in doctors %}
     <p style="font-family: 'Oswald', sans-serif;">
-        <a href="{% url 'individual_doctors_page' %}">
+        <a href="{% url 'individual_doctors_page' doctor.user.id doctor.user.username %}">
             {{doctor.user.username}}
+            {{ doctor.user.id }}
         </a>
     </p>
     {% endfor %}
