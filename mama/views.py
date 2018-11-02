@@ -60,141 +60,25 @@ def home(request):
 
 
 def search_doctors(request):
-    doctors = Doctor.search_doctors_by_term(search_term)
+    search_form = SearchDoctorsForm()
+    doctors = []
+
+    if 'search_term' in request.GET and request.GET['search_term']:
+        search_term = request.GET.get('search_term')
+        doctors = Doctor.search_doctors_by_term(search_term)
+
     context = {
+        'search_form': search_form,
         'doctors': doctors
     }
     return render(request, 'doctors_search.html', context)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+def individual_doctors_page(request, doctor_id, doctor_name):
+    doctor = Doctor.get_one_doctor(doctor_id)
+    context = {
+        'doctor': doctor
+    }
+    return render(request, 'doctor_page.html', context)
 
 def due(request):
     return render(request, 'patient/info.html')

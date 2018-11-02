@@ -6,6 +6,14 @@
 
 {% block content %}
 
+<div>
+    <form action="{% url 'search_doctors' %}" method="GET">
+        {% csrf_token %}
+        {{ search_form }}
+        <button class="btn btn-info" type="submit">search</button>
+    </form>
+</div>
+
 <div class="container">
 
     <div class="row">
@@ -21,8 +29,12 @@
     <h1 style="font-family: 'Oswald', sans-serif;"><strong> These are the doctors found </strong></h1>
 
     {% for doctor in doctors %}
-    <p style="font-family: 'Oswald', sans-serif;"><a href="{% url 'individual_doctors_page' doctor.user.id %}">
-            {{doctor.user.username}}</a></p>
+    <p style="font-family: 'Oswald', sans-serif;">
+        <a href="{% url 'individual_doctors_page' doctor.user.id doctor.user.username %}">
+            {{doctor.user.username}}
+            {{ doctor.user.id }}
+        </a>
+    </p>
     {% endfor %}
 
 

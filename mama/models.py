@@ -61,11 +61,15 @@ class Doctor(models.Model):
 
     @classmethod
     def search_doctors_by_term(cls, search_term):
-        pass
+        by_first_name = cls.objects.filter(first_name__icontains=search_term)
+        by_last_name = cls.objects.filter(last_name__icontains=search_term)
+        search_results = list(by_first_name) + list(by_last_name)
+        return search_results
 
     @classmethod
-    def search_one_doctor(cls, doctor_id):
-        return cls.objects.filter(pk=doctor_id)
+    def get_one_doctor(cls, doctor_id):
+        user = User.objects.get(pk=doctor_id)
+        return cls.objects.get(pk=user)
 
     def patients(self):
         return Patient.doctor_patients(self)
