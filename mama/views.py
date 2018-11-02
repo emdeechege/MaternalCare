@@ -51,5 +51,16 @@ def signup(request):
     return render(request, 'auth/register.html', context)
 
 
+# -- General Pages views
+
+
 def home(request):
     return render(request, 'index.html')
+
+
+def search_doctors(request):
+    doctors = Doctor.search_doctors_by_term(search_term)
+    context = {
+        'doctors': doctors
+    }
+    return render(request, 'doctors_search.html', context)

@@ -23,3 +23,10 @@ class MyRegistrationForm(UserCreationForm):
         user.save()
 
         return user
+
+
+class SearchDoctorForm(forms.Form):
+    search_term = forms.CharField(max_length=50)
+
+    def search(self, Doctor):
+        pass

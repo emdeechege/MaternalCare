@@ -5,12 +5,21 @@ from . import views, patient
 
 
 urlpatterns = [
+    # -- authentication views
     url(r'^$', views.home, name='home'),
     url(r'^login/$', views.login, name='login'),
     url(r'^logout/$', views.logout, name='logout'),
     url(r'^signup/$', views.signup, name='signup'),
+
+    # -- general views
+    url(r'^search_doctors/$', views.search_doctors, name='search_doctors'),
+
+
+    # -- patient views
     url(r'^edit_patient_profile/$', patient.profile_edit,
         name='edit_patient_profile'),
+
+    # -- doctors views
 ]
 
 # this will help to serve uploaded images on the development server

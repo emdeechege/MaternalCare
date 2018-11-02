@@ -59,6 +59,14 @@ class Doctor(models.Model):
     last_name = models.CharField(max_length=50)
     specialty = models.ForeignKey(DoctorSpeciality)
 
+    @classmethod
+    def search_doctors_by_term(cls, search_term):
+        pass
+
+    @classmethod
+    def search_one_doctor(cls, doctor_id):
+        return cls.objects.filter(pk=doctor_id)
+
     def patients(self):
         return Patient.doctor_patients(self)
 
@@ -92,7 +100,7 @@ class DoctorAdmin(admin.ModelAdmin):
 class Patient(models.Model):
     user = models.OneToOneField(User, primary_key=True)
     photo = models.FileField(upload_to='images', null=True)
-    doctors = models.ManyToManyField(Doctor, null=True)
+    doctors = models.ManyToManyField(Doctor)
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     id_number = models.CharField(max_length=8, unique=True)

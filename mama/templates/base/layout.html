@@ -54,7 +54,7 @@
                     {% if user.is_authenticated %}
                     <div class="f-12 font-weight-bold mx-2 px-1  ml-auto d-flex"></a>
                         <a class="nav-link" href="/userdetails/{{ user.id }}/{{ user.username }}">
-                            <span class="">{{user.profile.user_name}}</span>
+                            <span class="">{{user}}</span>
                         </a>
                         <a href="/userdetails/{{ user.id }}/{{ user.username }}" class="md-icon d-flex justify-content-center rounded-circle border border-secondary mx-1">
                             <img class="h-100 judge-btn" src="{{ user.profile.profile_photo.url }}" alt="">
