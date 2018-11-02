@@ -29,4 +29,7 @@ class SearchDoctorForm(forms.Form):
     search_term = forms.CharField(max_length=50)
 
     def search(self, Doctor):
-        pass
+        self.save()
+        search_term = self.cleaned_data['search_term']
+        doctors = Doctor.search_doctors_by_term(search_term)
+        return doctors

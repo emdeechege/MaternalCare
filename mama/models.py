@@ -55,13 +55,16 @@ class DoctorSpecialityForm(forms.ModelForm):
 class Doctor(models.Model):
     user = models.OneToOneField(User, primary_key=True)
     photo = models.FileField(upload_to='images', null=True)
-    first_name = models.CharField(max_length=50)
+    firspecialtyst_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     specialty = models.ForeignKey(DoctorSpeciality)
 
     @classmethod
     def search_doctors_by_term(cls, search_term):
-        pass
+        by_first_name = cls.objects.filter(first_name__icontains=search_term)
+        by_last_name = cls.objects.filter(last_name__icontains=search_term)
+        search_results = list(by_first_name) + list(by_last_name)
+        return search_results
 
     @classmethod
     def search_one_doctor(cls, doctor_id):
