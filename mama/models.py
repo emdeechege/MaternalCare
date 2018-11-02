@@ -4,6 +4,7 @@ from django.contrib import admin
 from django.db import models
 from django import forms
 from datetime import datetime
+import numpy as np
 
 
 # -- Location
@@ -80,6 +81,21 @@ class Doctor(models.Model):
     def save_doctor(self, user):
         self.user = user
         self.save()
+
+    def average_service(self):
+        service_ratings = list(
+            map(lambda x: x.service_rating, self.reviews.all()))
+        return np.mean(service_ratings)
+
+    def average_professionalism(self):
+        professionalism_ratings = list(
+            map(lambda x: x.professionalism_rating, self.reviews.all()))
+        return np.mean(professionalism_ratings)
+
+    def average_friendliness(self):
+        friendliness_ratings = list(
+            map(lambda x: x.friendliness_rating, self.reviews.all()))
+        return np.mean(friendliness_ratings)
 
     def __unicode__(self):
         return self.first_name + ' ' + self.last_name
@@ -198,6 +214,7 @@ class MedicationsForm(forms.ModelForm):
     class Meta:
         model = Medication
         exclude = []
+
 
 
 class MedicationAdmin(admin.ModelAdmin):
@@ -370,15 +387,16 @@ class VaccineAppliedAdmin(admin.ModelAdmin):
 # -- DoctorReview
 
 class DoctorReview(models.Model):
+
+    class Meta:
+        verbose_name_plural = 'Doctor reviews'
+
     doctor = models.ForeignKey(Doctor, null=True)
     patient = models.ForeignKey(Patient, null=True)
     review = models.TextField()
 
     def __str__(self):
         return self.review
-
-    class Meta:
-        verbose_name_plural = 'Doctor reviews'
 
 
 class DoctorReviewAdmin(admin.ModelAdmin):
