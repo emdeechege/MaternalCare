@@ -54,6 +54,7 @@ def signup(request):
 # -- General Pages views
 
 
+
 def home(request):
     return render(request, 'index.html')
 
@@ -72,10 +73,12 @@ def search_doctors(request):
     }
     return render(request, 'doctors_search.html', context)
 
-
 def individual_doctors_page(request, doctor_id, doctor_name):
     doctor = Doctor.get_one_doctor(doctor_id)
     context = {
         'doctor': doctor
     }
     return render(request, 'doctor_page.html', context)
+
+def due(request):
+    return render(request, 'patient/info.html')
