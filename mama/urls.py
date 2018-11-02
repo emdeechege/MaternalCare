@@ -13,6 +13,8 @@ urlpatterns = [
 
     # -- general views
     url(r'^search_doctors/$', views.search_doctors, name='search_doctors'),
+    url(r'^individual_doctors_page/$', views.individual_doctors_page,
+        name='individual_doctors_page'),
 
 
     # -- patient views
