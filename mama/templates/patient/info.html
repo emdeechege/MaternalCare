@@ -1,0 +1,65 @@
+{%extends "base/layout.html"%}
+{% load bootstrap4 %}
+{%load static%}
+{% block content %}
+<br>
+<br>
+<script src="static/tom.js" charset="utf-8"></script>
+<div class="container">
+
+  <div class="row">
+    <div class="col6">
+      <table>
+        <tbody>
+          <tr>
+            <td>Please choose last period date:</td>
+            <td><input type="date" id="begin"></td>
+          </tr>
+          <tr>
+            <td>Conception Estimation Date:</td>
+            <td id="conception"></td>
+          </tr>
+          <tr>
+            <td>Pregnancy length estimation:</td>
+            <td id="sofar"></td>
+          </tr>
+          <tr>
+            <td>Approximate Time Left Before Delivery</td>
+            <td id="togo"></td>
+          </tr>
+          <tr>
+            <td>Due Date Estimation</td>
+            <td id="due"></td>
+          </tr>
+          <tr>
+            <td>Future date check</td>
+            <td><input type="date" id="on"></td>
+          </tr>
+          <tr>
+            <td>Baby age:</td>
+            <td id="onsofar"></td>
+          </tr>
+          <tr>
+            <td>Time left:</td>
+            <td id="ontogo"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <br>
+    <div class="col6">
+      <h3>How is my due date calculated?</h3>
+
+      <p>Your due date is calculated by adding 280 days (40 weeks) to the first day of your last menstrual period (assuming a 28 day cycle).</p>
+
+      <p>Note that your menstrual period and ovulation are counted as the first two weeks of pregnancy. If you deliver on your due date, your baby is actually only 38 weeks old, not 40.</p>
+
+      <h3>Your due date is only an estimate</h3>
+
+      <p>Please remember that your due date is only an estimate. Every pregnancy is unique and your baby will come when it's ready. Be sure to talk to your health care provider about your due date.</p>
+
+      <p>On average only 5% of births take place exactly on the estimated due date. Most are born within a week either side of the estimated due date. A normal pregnancy can last anywhere between 38 and 42 weeks.</p>
+    </div>
+  </div>
+</div>
+{% endblock %}
