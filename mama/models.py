@@ -60,6 +60,10 @@ class Doctor(models.Model):
     last_name = models.CharField(max_length=50)
     specialty = models.ForeignKey(DoctorSpeciality)
 
+    @property
+    def full_name(self):
+        return f'Dr.{self.first_name.capitalize()} {self.last_name.capitalize()}'
+
     @classmethod
     def search_doctors_by_term(cls, search_term):
         by_first_name = cls.objects.filter(first_name__icontains=search_term)
@@ -71,6 +75,10 @@ class Doctor(models.Model):
     def get_one_doctor(cls, doctor_id):
         user = User.objects.get(pk=doctor_id)
         return cls.objects.get(pk=user)
+
+    @classmethod
+    def get_all_doctors(cls):
+        return cls.objects.all()
 
     def patients(self):
         return Patient.doctor_patients(self)
@@ -112,6 +120,15 @@ class DoctorAdmin(admin.ModelAdmin):
     list_display = ('first_name', 'last_name', )
     list_filter = ('specialty',)
     list_display = ('__unicode__', 'specialty',)
+
+
+# --
+
+
+class DoctorSchedule(models.Model):
+    doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE)
+    availabe_from = models.TimeField(auto_now=False)
+    availabe_to = models.TimeField(auto_now=False)
 
 
 # -- Patient
@@ -159,6 +176,27 @@ class PatientForm(forms.ModelForm):
 # --
 
 
+class Appointment(models.Model):
+    doctor = models.ForeignKey(
+        Doctor, on_delete=models.CASCADE, related_name='appointments')
+    patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
+    booked  = models.BooleanField(default=False)
+    time_slot = models.IntegerField()
+
+
+# --
+
+
+class AppointmentDetails(models.Model):
+    appointment = models.ForeignKey(
+        Appointment, on_delete=models.CASCADE, related_name='details')
+    notes = models.TextField()
+    pass
+
+
+# --
+
+
 class MidWifeSpeciality(models.Model):
     specialty = models.CharField(max_length=60)
 
@@ -201,9 +239,11 @@ class MidWifeAdmin(admin.ModelAdmin):
 
 
 class Medication(models.Model):
+    image = models.FileField(upload_to='media')
     name = models.CharField(max_length=150)
     description = models.TextField()
-    grams = models.IntegerField()
+    price = models.PositiveIntegerField(default=0)
+    grams = models.IntegerField(default=0)
 
     def __unicode__(self):
         return self.name

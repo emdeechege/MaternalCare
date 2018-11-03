@@ -25,6 +25,7 @@ urlpatterns = [
     # -- doctors views
 ]
 
+
 # this will help to serve uploaded images on the development server
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,
