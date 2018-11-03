@@ -36,7 +36,7 @@ class LocationForm(forms.ModelForm):
 class DoctorSpeciality(models.Model):
     specialty = models.CharField(max_length=30, primary_key=True)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.specialty
 
     class Meta:
@@ -97,7 +97,7 @@ class Doctor(models.Model):
             map(lambda x: x.friendliness_rating, self.reviews.all()))
         return np.mean(friendliness_ratings)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.first_name + ' ' + self.last_name
 
 
@@ -111,7 +111,7 @@ class DoctorAdmin(admin.ModelAdmin):
     raw_id_fields = ('user',)
     list_display = ('first_name', 'last_name', )
     list_filter = ('specialty',)
-    list_display = ('__unicode__', 'specialty',)
+    list_display = ('__str__', 'specialty',)
 
 
 # -- Patient
@@ -142,14 +142,14 @@ class Patient(models.Model):
         self.user = user
         self.save()
 
-    def __unicode__(self):
+    def __str__(self):
         return f'{self.first_name} {self.last_name}'
 
 
 class PatientAdmin(admin.ModelAdmin):
     raw_id_fields = ('user',)
     search_fields = ('first_name', 'last_name', 'id_number')
-    list_display = ('__unicode__', 'birthday', 'id_number', )
+    list_display = ('__str__', 'birthday', 'id_number', )
 
 
 class PatientForm(forms.ModelForm):
@@ -163,7 +163,7 @@ class PatientForm(forms.ModelForm):
 class MidWifeSpeciality(models.Model):
     specialty = models.CharField(max_length=60)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.specialty
 
     class Meta:
@@ -188,7 +188,7 @@ class MidWife(models.Model):
     # )
     # degree = models.CharField(max_length=30, choices=degree_CHOICES)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.first_name + ' ' + self.last_name
 
 
@@ -196,7 +196,7 @@ class MidWifeAdmin(admin.ModelAdmin):
     raw_id_fields = ('user',)
     search_fields = ('first_name', )
     list_filter = ('specialty',)
-    list_display = ('__unicode__', 'specialty')
+    list_display = ('__str__', 'specialty')
 
 # --
 
@@ -208,7 +208,7 @@ class Medication(models.Model):
     image = models.FileField(upload_to='images', null=True)
     price= models.IntegerField(null=True)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
 
@@ -233,7 +233,7 @@ class MedPrice(models.Model):
     def med_name(self):
         return self.medication.name
 
-    def __unicode__(self):
+    def __str__(self):
         return f'{self.medication} {self.price}'
 
     class Meta:
@@ -262,7 +262,7 @@ class Visit(models.Model):
     doctor = models.ForeignKey(Doctor)
     comments = models.CharField(max_length=2000)
 
-    def __unicode__(self):
+    def __str__(self):
         return f'{self.patient} {self.doctor}'
 
 
@@ -292,7 +292,7 @@ class Prescription(models.Model):
     quantity = models.IntegerField()
     length = models.IntegerField()
 
-    def __unicode__(self):
+    def __str__(self):
         return f'{self.visit} {self.visit} {self.visit}'
 
     def patient(self):
@@ -323,7 +323,7 @@ class Department(models.Model):
     director = models.ForeignKey(User, null=True)
     staff = models.ManyToManyField(User, related_name='+')
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
 
@@ -349,7 +349,7 @@ class Vaccine(models.Model):
     inactivated = models.NullBooleanField()
     oral = models.NullBooleanField()
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
 
@@ -371,7 +371,7 @@ class VaccineApplied(models.Model):
     patient = models.ForeignKey(Patient)
     nurse = models.ForeignKey(MidWife)
 
-    def __unicode__(self):
+    def __str__(self):
         return f'{self.patient} {self.nurse} {self.date}'
 
     class Meta:
