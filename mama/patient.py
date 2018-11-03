@@ -14,3 +14,6 @@ def profile_edit(request):
         'form': form
     }
     return render(request, 'patient_edit.html', context)
+
+
+    return render(request, 'patient/info.html')
