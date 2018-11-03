@@ -216,7 +216,6 @@ class MedicationsForm(forms.ModelForm):
         exclude = []
 
 
-
 class MedicationAdmin(admin.ModelAdmin):
     list_display = ('name',)
     form = MedicationsForm
