@@ -79,3 +79,15 @@ def individual_doctors_page(request, doctor_id, doctor_name):
         'doctor': doctor
     }
     return render(request, 'doctor_page.html', context)
+
+def medicines(request):
+
+    if request.GET.get('search_term'):
+        medicines = Medication.search_medication(request.GET.get('search_term'))
+
+    else:
+        medicines = Medication.objects.all()
+
+
+    return render(request, 'medicines.html', {'medicines':medicines})
+

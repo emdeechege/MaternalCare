@@ -118,6 +118,7 @@ class DoctorAdmin(admin.ModelAdmin):
 
 
 class Patient(models.Model):
+    
     user = models.OneToOneField(User, primary_key=True)
     photo = models.FileField(upload_to='images', null=True)
     doctors = models.ManyToManyField(Doctor)
@@ -204,6 +205,8 @@ class Medication(models.Model):
     name = models.CharField(max_length=150)
     description = models.TextField()
     grams = models.IntegerField()
+    image = models.FileField(upload_to='images', null=True)
+    price= models.IntegerField(null=True)
 
     def __unicode__(self):
         return self.name
