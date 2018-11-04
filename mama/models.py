@@ -7,7 +7,24 @@ from datetime import datetime
 import numpy as np
 
 
+TIME_CHOICES = (
+    ('6', '6:00 am'),
+    ('7', '7:00 am'),
+    ('8', '8:00 am'),
+    ('9', '9:00 am'),
+    ('10', '10:00 am'),
+    ('11', '11:00 am'),
+    ('12', '12:00 am'),
+    ('13', '1: 00 pm'),
+    ('14', '2: 00 pm'),
+    ('15', '3: 00 pm'),
+    ('16', '4: 00 pm'),
+    ('17', '5: 00 pm'),
+    ('18', '6: 00 pm'),
+)
+
 # -- Location
+
 
 class Location(models.Model):
     location = models.CharField(max_length=50)
@@ -36,7 +53,7 @@ class LocationForm(forms.ModelForm):
 class DoctorSpeciality(models.Model):
     specialty = models.CharField(max_length=30, primary_key=True)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.specialty
 
     class Meta:
@@ -55,7 +72,8 @@ class DoctorSpecialityForm(forms.ModelForm):
 
 class Doctor(models.Model):
     user = models.OneToOneField(User, primary_key=True)
-    photo = models.FileField(upload_to='images', null=True)
+    photo = models.FileField(
+        upload_to='images', default='default.jpg', null=True)
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     specialty = models.ForeignKey(DoctorSpeciality)
@@ -105,7 +123,7 @@ class Doctor(models.Model):
             map(lambda x: x.friendliness_rating, self.reviews.all()))
         return np.mean(friendliness_ratings)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.first_name + ' ' + self.last_name
 
 
@@ -119,16 +137,30 @@ class DoctorAdmin(admin.ModelAdmin):
     raw_id_fields = ('user',)
     list_display = ('first_name', 'last_name', )
     list_filter = ('specialty',)
-    list_display = ('__unicode__', 'specialty',)
+    list_display = ('__str__', 'specialty',)
 
 
 # --
 
 
-class DoctorSchedule(models.Model):
-    doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE)
-    availabe_from = models.TimeField(auto_now=False)
-    availabe_to = models.TimeField(auto_now=False)
+class DoctorWorkingHours(models.Model):
+    doctor = models.ForeignKey(
+        Doctor, on_delete=models.CASCADE, related_name='working_hours')
+    working_from = models.CharField(max_length=2, choices=TIME_CHOICES)
+    working_to = models.CharField(max_length=2, choices=TIME_CHOICES)
+
+    def __str__(self):
+        return f'from-{self.working_from} to-{self.working_to}'
+
+
+class DoctorWorkingHoursForm(forms.ModelForm):
+    class Meta:
+        model = DoctorWorkingHours
+        exclude = ['doctor']
+
+
+class DoctorWorkingHoursAdmin(admin.ModelAdmin):
+    list_display = ('doctor', 'working_from', 'working_to',)
 
 
 # -- Patient
@@ -136,7 +168,8 @@ class DoctorSchedule(models.Model):
 
 class Patient(models.Model):
     user = models.OneToOneField(User, primary_key=True)
-    photo = models.FileField(upload_to='images', null=True)
+    photo = models.FileField(
+        upload_to='images', default='default.jpg', null=True)
     doctors = models.ManyToManyField(Doctor)
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
@@ -158,14 +191,14 @@ class Patient(models.Model):
         self.user = user
         self.save()
 
-    def __unicode__(self):
+    def __str__(self):
         return f'{self.first_name} {self.last_name}'
 
 
 class PatientAdmin(admin.ModelAdmin):
     raw_id_fields = ('user',)
     search_fields = ('first_name', 'last_name', 'id_number')
-    list_display = ('__unicode__', 'birthday', 'id_number', )
+    list_display = ('__str__', 'birthday', 'id_number', )
 
 
 class PatientForm(forms.ModelForm):
@@ -179,9 +212,38 @@ class PatientForm(forms.ModelForm):
 class Appointment(models.Model):
     doctor = models.ForeignKey(
         Doctor, on_delete=models.CASCADE, related_name='appointments')
+    day = models.DateField()
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
-    booked  = models.BooleanField(default=False)
-    time_slot = models.IntegerField()
+    time_slot = models.CharField(max_length=2, choices=TIME_CHOICES)
+    is_booked = models.BooleanField(default=False)
+    is_completed = models.BooleanField(default=False)
+
+    def doctor_appointment_slots(self):
+        start = self.doctor.working_hours.working_from
+        end = self.doctor.working_hours.working_to
+        return list(range(start, end))
+
+    def book_appointment(self, doctor, patient, time):
+        self.doctor = doctor
+        self.patient = patient
+        self.time_slot = time
+        self.booked = True
+        self.save()
+
+    def complete_appointment(self):
+        self.is_completed = True
+        self.save()
+
+
+class AppointmentForm(forms.ModelForm):
+    class Meta:
+        model = Appointment
+        exclude = ['doctor', 'patient', 'day', ]
+
+
+class AppointmentAdmin(admin.ModelAdmin):
+    list_display = ('doctor', 'day', 'patient', 'time_slot',
+                    'is_booked', 'is_completed',)
 
 
 # --
@@ -191,7 +253,16 @@ class AppointmentDetails(models.Model):
     appointment = models.ForeignKey(
         Appointment, on_delete=models.CASCADE, related_name='details')
     notes = models.TextField()
-    pass
+
+
+class AppointmentDetailsForm(forms.ModelForm):
+    class Meta:
+        model = AppointmentDetails
+        exclude = ['appointment']
+
+
+class AppointmentDetailsAdmin(admin.ModelAdmin):
+    list_display = ('appointment', 'notes',)
 
 
 # --
@@ -200,7 +271,7 @@ class AppointmentDetails(models.Model):
 class MidWifeSpeciality(models.Model):
     specialty = models.CharField(max_length=60)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.specialty
 
     class Meta:
@@ -213,7 +284,8 @@ class MidWifeSpecialityAdmin(admin.ModelAdmin):
 
 class MidWife(models.Model):
     user = models.OneToOneField(User, primary_key=True)
-    photo = models.FileField(upload_to='images', null=True)
+    photo = models.FileField(
+        upload_to='images', default='default.jpg', null=True)
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     specialty = models.ForeignKey(MidWifeSpeciality)
@@ -225,7 +297,7 @@ class MidWife(models.Model):
     # )
     # degree = models.CharField(max_length=30, choices=degree_CHOICES)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.first_name + ' ' + self.last_name
 
 
@@ -233,19 +305,20 @@ class MidWifeAdmin(admin.ModelAdmin):
     raw_id_fields = ('user',)
     search_fields = ('first_name', )
     list_filter = ('specialty',)
-    list_display = ('__unicode__', 'specialty')
+    list_display = ('__str__', 'specialty')
 
 # --
 
 
 class Medication(models.Model):
-    image = models.FileField(upload_to='media')
+    image = models.FileField(
+        upload_to='images', default='default.jpg', null=True)
     name = models.CharField(max_length=150)
     description = models.TextField()
     price = models.PositiveIntegerField(default=0)
     grams = models.IntegerField(default=0)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
 
@@ -270,7 +343,7 @@ class MedPrice(models.Model):
     def med_name(self):
         return self.medication.name
 
-    def __unicode__(self):
+    def __str__(self):
         return f'{self.medication} {self.price}'
 
     class Meta:
@@ -299,7 +372,7 @@ class Visit(models.Model):
     doctor = models.ForeignKey(Doctor)
     comments = models.CharField(max_length=2000)
 
-    def __unicode__(self):
+    def __str__(self):
         return f'{self.patient} {self.doctor}'
 
 
@@ -329,7 +402,7 @@ class Prescription(models.Model):
     quantity = models.IntegerField()
     length = models.IntegerField()
 
-    def __unicode__(self):
+    def __str__(self):
         return f'{self.visit} {self.visit} {self.visit}'
 
     def patient(self):
@@ -360,7 +433,7 @@ class Department(models.Model):
     director = models.ForeignKey(User, null=True)
     staff = models.ManyToManyField(User, related_name='+')
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
 
@@ -386,7 +459,7 @@ class Vaccine(models.Model):
     inactivated = models.NullBooleanField()
     oral = models.NullBooleanField()
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
 
@@ -408,7 +481,7 @@ class VaccineApplied(models.Model):
     patient = models.ForeignKey(Patient)
     nurse = models.ForeignKey(MidWife)
 
-    def __unicode__(self):
+    def __str__(self):
         return f'{self.patient} {self.nurse} {self.date}'
 
     class Meta:
