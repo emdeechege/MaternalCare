@@ -10,6 +10,8 @@ urlpatterns = [
     url(r'^login/$', views.login, name='login'),
     url(r'^logout/$', views.logout, name='logout'),
     url(r'^signup/$', views.signup, name='signup'),
+    url(r'^medicines/$', views.medicines, name='medicines'),
+
 
     # -- general views
     url(r'^search_doctors/$', views.search_doctors, name='search_doctors'),
@@ -20,7 +22,7 @@ urlpatterns = [
     # -- patient views
     url(r'^edit_patient_profile/$', patient.profile_edit,
         name='edit_patient_profile'),
-    url(r'^due/$', patient.due, name='due'),
+    # url(r'^due/$', patient.due, name='due'),
 
     # -- doctors views
 
