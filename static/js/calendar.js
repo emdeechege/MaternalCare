@@ -43,7 +43,7 @@ function getDaysInMonth(month, year) {
 
 function submitForm(form_id) {
 
-    var $bookForm = $('#' + )
+    var $bookForm = $('#' + form_id)
 
     $bookForm.submit(function (event) {
         event.preventDefault()

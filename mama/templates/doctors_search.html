@@ -51,12 +51,12 @@
                                     <td><input type="date" name="day" required id="id_day" /></td>
                                 </tr>
                                 {% for slot in doctor.working_hours.appointment_slots %}
-                                <button onclick="$(this.form.id).submit()" class="btn btn-success slot-width" type="text"
+                                <button onclick="submitForm(this.form.id)" class="btn btn-success slot-width" type="text"
                                     id="id_time_slot" value="{{ slot }}">
                                     {{ slot }}</button>
 
                                 {% endfor %}
-
+                                <button type="submit">asdfas</button>
                             </form>
                         </div>
                     </div>
