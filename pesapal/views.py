@@ -1,11 +1,8 @@
-# -*- coding: utf-8 -*-
 
 from __future__ import absolute_import
-
 import logging
 import oauth2 as oauth
 import requests
-
 from django.apps import apps
 from django.contrib.sites.models import Site
 

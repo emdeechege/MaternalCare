@@ -6,33 +6,75 @@ from django.contrib import auth, messages
 from .forms import *
 from .models import *
 import datetime
-
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
 
-# Create your views here.
+from pesapal.views import PaymentRequestMixin
 
 
+from django.conf import settings
+from django.views.generic import TemplateView
 
-@csrf_exempt
-def index(request):
-    if request.method == 'POST':
-        session_id = request.POST.get('sessionId')
-        service_code = request.POST.get('serviceCode')
-        phone_number = request.POST.get('phoneNumber')
-        text = request.POST.get('text')
+from django_pesapal.views import PaymentRequestMixin
 
-        response = ""
 
-        if text == "":
-            response = "CON What would you want to check \n"
-            # response .= "1. My Account \n"
-            response += "1. My Phone Number"
+class PaymentView(TemplateView, PaymentRequestMixin):
+    """
+    Make payment view
+    """
+    template_name = "mama/payment.html"
 
-        elif text == "1":
-            response = "END My Phone number is {0}".format(phone_number)
+    def get_context_data(self, **kwargs):
+        ctx = super(PaymentView, self).get_context_data(**kwargs)
 
-        return HttpResponse(response)
+        order_info = {
+            "amount": 10,
+            "description": "Payment for X",
+            "reference": 2,
+            "email": "pesapal@example.com",
+        }
+        ctx["pesapal_url"] = self.get_payment_url(**order_info)
+        return ctx
+
+
+# class PaymentView(PaymentRequestMixin):
+#
+#     def get_pesapal_payment_iframe(self):
+#
+#         '''
+#         Authenticates with pesapal to get the payment iframe src
+#         '''
+#         order_info = {
+#             'first_name': 'Some',
+#             'last_name': 'User',
+#             'amount': 100,
+#             'description': 'Payment for X',
+#             'reference': 2,  # some object id
+#             'email': 'user@example.com',
+#         }
+#
+#         iframe_src_url = self.get_payment_url(**order_info)
+#         return iframe_src_url
+
+# @csrf_exempt
+# def index(request):
+#     if request.method == 'POST':
+#         session_id = request.POST.get('sessionId')
+#         service_code = request.POST.get('serviceCode')
+#         phone_number = request.POST.get('phoneNumber')
+#         text = request.POST.get('text')
+#
+#         response = ""
+#
+#         if text == "":
+#             response = "CON What would you want to check \n"
+#             # response .= "1. My Account \n"
+#             response += "1. My Phone Number"
+#
+#         elif text == "1":
+#             response = "END My Phone number is {0}".format(phone_number)
+#
+#         return HttpResponse(response)
 
 
 # -- Authentication views
