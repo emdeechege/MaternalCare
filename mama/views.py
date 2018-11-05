@@ -54,24 +54,26 @@ def signup(request):
 # -- General Pages views
 
 
-
 def home(request):
     return render(request, 'index.html')
 
 
 def search_doctors(request):
     search_form = SearchDoctorsForm()
-    doctors = []
+    doctors = Doctor.get_all_doctors()
+    searched_doctors = None
 
     if 'search_term' in request.GET and request.GET['search_term']:
         search_term = request.GET.get('search_term')
-        doctors = Doctor.search_doctors_by_term(search_term)
+        searched_doctors = Doctor.search_doctors_by_term(search_term)
 
     context = {
         'search_form': search_form,
-        'doctors': doctors
+        'doctors': doctors,
+        'searched_doctors': searched_doctors
     }
     return render(request, 'doctors_search.html', context)
+
 
 def individual_doctors_page(request, doctor_id, doctor_name):
     doctor = Doctor.get_one_doctor(doctor_id)
