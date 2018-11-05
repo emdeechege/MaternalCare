@@ -14,6 +14,7 @@ import os
 import django_heroku
 import dj_database_url
 from decouple import config, Csv
+import django_pesapal
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -30,12 +31,11 @@ SECRET_KEY = 'v%=2_05cj_kkr%!oosk*n$6f11pht(lc2bw06--%s0ntpxpx0u'
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
-
 # Application definition
 
 INSTALLED_APPS = [
     'bootstrap4',
+    'pesapal',
     'mama.apps.MamaConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -43,7 +43,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+    'django_pesapal',
+
 ]
+
+SITE_ID = 1
 
 MIDDLEWARE = [
     'whitenoise.middleware.WhiteNoiseMiddleware',
@@ -146,8 +151,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'amama',
-        'USER': 'vikki',
-        'PASSWORD': 'sasawa',
+        'USER': 'melissamalala',
+        'PASSWORD': 'abc123',
         'HOST': '127.0.0.1',
         'PORT': '',
     }
@@ -157,3 +162,23 @@ DATABASES = {
 db_from_env = dj_database_url.config(conn_max_age=500)
 DATABASES['default'].update(db_from_env)
 ALLOWED_HOSTS = ['amama.herokuapp.com', 'localhost', '127.0.0.1']
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {"console": {"level": "DEBUG", "class": "logging.StreamHandler"}},
+    "loggers": {
+        "django_pesapal": {"handlers": ["console"], "level": "DEBUG", "propagate": True}
+    },
+}
+
+PESAPAL_DEMO = True
+PESAPAL_OAUTH_CALLBACK_URL = "transaction_completed"
+PESAPAL_OAUTH_SIGNATURE_METHOD = "SignatureMethod_HMAC_SHA1"
+PESAPAL_TRANSACTION_DEFAULT_REDIRECT_URL = 'home'
+PESAPAL_TRANSACTION_FAILED_REDIRECT_URL = ""
+PESAPAL_ITEM_DESCRIPTION = False
+PESAPAL_TRANSACTION_MODEL = "pesapal.Transaction"
+PESAPAL_CONSUMER_KEY ="qn8+6iz9KNHNiBmBrsB9OdnEhOWb1KlO"
+PESAPAL_CONSUMER_SECRET='tvXP5OJCTpXYD6ZPeCmMnh/lqYc='
+# Override pesapal keys
