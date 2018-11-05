@@ -1,11 +1,11 @@
 from __future__ import print_function
-
+from decouple import config, Csv
 import africastalking
 
 class SMS:
     def __init__(self):
-        self.username="sandbox"
-        self.api_key="95b80a0ea78f7fade739b827fa7d21cdaf2c456d4be794c9a21a623827b9cbff"
+        self.username=config("USERNAME")
+        self.api_key=config("API_KEY")
         africastalking.initialize(self.username, self.api_key)
         self.sms = africastalking.SMS
 
