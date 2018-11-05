@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.conf.urls.static import static
 from django.conf.urls import url
-from . import views, patient
+from . import views, patient, trimester
 
 
 urlpatterns = [
@@ -23,6 +23,16 @@ urlpatterns = [
     url(r'^due/$', patient.due, name='due'),
 
     # -- doctors views
+
+    # --trimester views
+    url(r'^trimester1/$', trimester.trimester1,
+        name='trimester1'),
+    url(r'^trimester2/$', trimester.trimester2,
+        name='trimester2'),
+    url(r'^trimester3/$', trimester.trimester3,
+        name='trimester3'),
+
+
 ]
 
 
