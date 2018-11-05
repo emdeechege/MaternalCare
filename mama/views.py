@@ -139,8 +139,6 @@ def search_doctors(request):
         search_term = request.GET.get('search_term')
         searched_doctors = Doctor.search_doctors_by_term(search_term)
 
-
-exclude = ['user', 'doct
     if request.method == 'POST':
         ap_form = AppointmentForm(request.POST)
         print(ap_form.is_valid())
@@ -192,10 +190,10 @@ def book_appointment(request):
 def medicines(request):
 
     if request.GET.get('search_term'):
-        medicines = Medication.search_medication(request.GET.get('search_term'))
+        medicines = Medication.search_medication(
+            request.GET.get('search_term'))
 
     else:
         medicines = Medication.objects.all()
-
 
     return render(request, 'medicines.html', {'medicines': medicines})
