@@ -40,10 +40,8 @@ function getDaysInMonth(month, year) {
 }
 
 // $(document).ready(function () {
-
-function submitForm(form_id) {
-
-    var $bookForm = $('#' + form_id)
+$(document).ready(function () {
+    var $bookForm = $('#book-form')
 
     $bookForm.submit(function (event) {
         event.preventDefault()
@@ -72,12 +70,40 @@ function submitForm(form_id) {
         console.log(textStatus)
         console.log(errorThrown)
     }
-}
+})
+
 
 function getId(id) {
     var el = $('#' + id)
     var $month = el.attr('data-month')
     var $day = $('#' + id).html();
+    var $date = '' + 2018 + '-' + $month + '-' + $day
+    var $setDate = $('#id_day')
+    $setDate.val($date)
 
-    console.log($month, $day)
+    console.log($date)
+}
+
+dc = {
+    '6:00 am': 6,
+    '7:00 am': 7,
+    '8:00 am': 8,
+    '9:00 am': 9,
+    '10:00 am': 10,
+    '11:00 am': 11,
+    '12:00 am': 12,
+    '1:00 pm': 13,
+    '2:00 pm': 14,
+    '3:00 pm': 15,
+    '4:00 pm': 16,
+    '5:00 pm': 17,
+    '6:00 pm': 18
+}
+
+function setSlot(id) {
+    var $setSlot = $('#id_time_slot')
+    console.log(dc[id])
+    $setSlot.val(dc[id])
+    // $setSlot.val(id)
+
 }
