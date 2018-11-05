@@ -1,9 +1,12 @@
+from __future__ import unicode_literals
 from django.contrib.auth.models import User
 from django.contrib.auth.models import User, AbstractBaseUser
 from django.contrib import admin
 from django.db import models
 from django import forms
 from datetime import datetime
+from datetime import date, datetime
+from django.utils import timezone
 import numpy as np
 
 
@@ -216,7 +219,6 @@ class MedicationsForm(forms.ModelForm):
         exclude = []
 
 
-
 class MedicationAdmin(admin.ModelAdmin):
     list_display = ('name',)
     form = MedicationsForm
@@ -408,8 +410,8 @@ class DoctorReviewForm(forms.ModelForm):
         model = DoctorReview
         exclude = ['doctor', 'patient']
 
-
 # -- Live Chat
+
 
 class LiveChat(models.Model):
     doctor = models.ForeignKey(Doctor, null=True)

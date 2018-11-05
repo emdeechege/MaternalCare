@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.conf.urls.static import static
 from django.conf.urls import url
-from . import views, patient
+from . import views, patient, trimester
 
 
 urlpatterns = [
@@ -20,10 +20,19 @@ urlpatterns = [
     # -- patient views
     url(r'^edit_patient_profile/$', patient.profile_edit,
         name='edit_patient_profile'),
-    url(r'^due/$', views.due,
-        name='due'),
+    url(r'^due/$', patient.due, name='due'),
 
     # -- doctors views
+
+    # --trimester views
+    url(r'^trimester1/$', trimester.trimester1,
+        name='trimester1'),
+    url(r'^trimester2/$', trimester.trimester2,
+        name='trimester2'),
+    url(r'^trimester3/$', trimester.trimester3,
+        name='trimester3'),
+
+
 ]
 
 # this will help to serve uploaded images on the development server

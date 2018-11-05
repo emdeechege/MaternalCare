@@ -79,6 +79,3 @@ def individual_doctors_page(request, doctor_id, doctor_name):
         'doctor': doctor
     }
     return render(request, 'doctor_page.html', context)
-
-def due(request):
-    return render(request, 'patient/info.html')
