@@ -30,12 +30,11 @@ SECRET_KEY = 'v%=2_05cj_kkr%!oosk*n$6f11pht(lc2bw06--%s0ntpxpx0u'
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
-
 # Application definition
 
 INSTALLED_APPS = [
     'bootstrap4',
+    'pesapal',
     'mama.apps.MamaConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -43,7 +42,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+
 ]
+
+SITE_ID = 1
 
 MIDDLEWARE = [
     'whitenoise.middleware.WhiteNoiseMiddleware',
@@ -153,7 +156,7 @@ DATABASES = {
     }
 
 }
-
+PESAPAL_TRANSACTION_DEFAULT_REDIRECT_URL = 'mama:https://amama.herokuapp.com/'
 db_from_env = dj_database_url.config(conn_max_age=500)
 DATABASES['default'].update(db_from_env)
 ALLOWED_HOSTS = ['amama.herokuapp.com', 'localhost', '127.0.0.1']
