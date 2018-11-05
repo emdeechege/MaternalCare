@@ -8,12 +8,13 @@ from .models import *
 import datetime
 
 
-def profile_edit(request):
-    form = PatientForm()
-    context = {
-        'form': form
-    }
-    return render(request, 'patient_edit.html', context)
+def trimester1(request):
+    return render(request, 'trimester 1.html')
 
-def due(request):
-    return render(request, 'patient/info.html')
+
+def trimester2(request):
+    return render(request, 'trimester 2.html')
+
+
+def trimester3(request):
+    return render(request, 'trimester 3.html')

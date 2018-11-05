@@ -16,48 +16,64 @@
 
 <div class="container">
 
-    <div class="row">
-        {% if doctors %}
-        <h2 style="font-family: 'Kodchasan', sans-serif;"> Here are doctors you have searched for : {{message}}</h2>
-        {% else %}
-        <h2 style="font-family: 'Kodchasan', sans-serif;"> It appears that there are 0 doctors for your search term
-            {{message}}, please try again. </h2>
-        {% endif %}
-
-    </div>
-
-    <h1 style="font-family: 'Oswald', sans-serif;"><strong> These are the doctors found </strong></h1>
-
-    {% for doctor in doctors %}
-    <p style="font-family: 'Oswald', sans-serif;">
-        <a href="{% url 'individual_doctors_page' doctor.user.id doctor.user.username %}">
-            {{doctor.user.username}}
-            {{ doctor.user.id }}
-        </a>
-    </p>
-    {% endfor %}
-
-
-
-
-    <div class="row">
-
-        {% if doctors %}
-        <div class="container">
-
-            <div class="card-columns">
-
+    <div class="list-of-doctors">
+        <h1>Find a Doctor</h1>
+        <div class="filter-doctors">
+            <div class="d-flex my-3">
+                <p class="mr-auto mb-0">Filter</p>
+                <button class="ml-3 btn btn-sm ">Location</button>
+                <button class="ml-3 btn btn-sm active">Ratings</button>
+                <button class="ml-3 btn btn-sm ">Price</button>
+            </div>
+        </div>
+        <div class="doctors">
+            <div class="card-deck w-100">
                 {% for doctor in doctors %}
-                <div class="card border-secondary">
-                    <img src="{{doctor.image.url}}" data-target="#imageModal{{doctor.id}}" data-toggle="modal" alt=""
-                        class="img-fluid" id="eachimage" size="100px200">
+                <div class="card w-25">
+                    <img class="card-img-top" src="" alt="">
+                    <div class="card-header">
+                        <h5>{{ doctor.full_name}}</h5>
+                    </div>
+                    <div>
+                        <h6>Book an Appointment</h6>
+
+                    </div>
                 </div>
+
                 {% endfor %}
             </div>
         </div>
+    </div>
 
+    <div class="row">
+        {% if searched_doctors %}
+        <h2 style="font-family: 'Kodchasan', sans-serif;"> Here are doctors you have searched for : {{message}}</h2>
+        {% endif %}
+        {% if searched_doctors.count is 0 %}
+        <h2 style="font-family: 'Kodchasan', sans-serif;"> It appears that there are 0 doctors for your search term
+            {{message}}, please try again. </h2>
         {% endif %}
     </div>
+
+
+
+
+    {% if searched_doctors %}
+    <h1 style="font-family: 'Oswald', sans-serif;"><strong> These are the doctors we found </strong></h1>
+    <div class="">
+
+        <div class="card-columns">
+
+            {% for doctor in doctors %}
+            <div class="card border-secondary">
+                <img src="{{doctor.image.url}}" data-target="#imageModal{{doctor.id}}" data-toggle="modal" alt="" class="img-fluid"
+                    id="eachimage" size="100px200">
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    {% endif %}
 </div>
 
 
@@ -95,44 +111,6 @@
     </div>
 </div>
 
-<script>
-    function copyLink(value) {
-        console.log('sdfgsdfg')
-
-        function handler(event) {
-            event.clipboardData.setData('text/plain', value);
-            event.preventDefault();
-            document.removeEventListener('copy', handler, true);
-        }
-
-        document.addEventListener('copy', handler, true);
-        document.execCommand('copy');
-
-    }
-</script>
-
 {% endfor %}
 
-
-<div class="container">
-    <div class="col-md-12">
-        <div class="footer text-center">
-            <ul id="footer1">
-                <li>ABOUT US</li>
-                <li>SUPPORT</li>
-                <li>PRESS</li>
-                <li>API</li>
-                <li>JOBS</li>
-                <li>PRIVACY</li>
-                <li>TERMS</li>
-                <li>DIRECTORY</li>
-                <li>PROFILES</li>
-                <li>HASHTAGS</li>
-                <li>LANGUAGE</li>
-                <br>
-                <li style="font-size:10px;"> <strong>© 2018 AMAMA</strong></li>
-            </ul>
-        </div>
-    </div>
-</div>
 {% endblock %}

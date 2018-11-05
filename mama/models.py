@@ -1,13 +1,33 @@
+from __future__ import unicode_literals
 from django.contrib.auth.models import User
 from django.contrib.auth.models import User, AbstractBaseUser
 from django.contrib import admin
 from django.db import models
 from django import forms
 from datetime import datetime
+from datetime import date, datetime
+from django.utils import timezone
 import numpy as np
 
 
+TIME_CHOICES = (
+    ('6', '6:00 am'),
+    ('7', '7:00 am'),
+    ('8', '8:00 am'),
+    ('9', '9:00 am'),
+    ('10', '10:00 am'),
+    ('11', '11:00 am'),
+    ('12', '12:00 am'),
+    ('13', '1: 00 pm'),
+    ('14', '2: 00 pm'),
+    ('15', '3: 00 pm'),
+    ('16', '4: 00 pm'),
+    ('17', '5: 00 pm'),
+    ('18', '6: 00 pm'),
+)
+
 # -- Location
+
 
 class Location(models.Model):
     location = models.CharField(max_length=50)
@@ -55,10 +75,15 @@ class DoctorSpecialityForm(forms.ModelForm):
 
 class Doctor(models.Model):
     user = models.OneToOneField(User, primary_key=True)
-    photo = models.FileField(upload_to='images', null=True)
+    photo = models.FileField(
+        upload_to='images', default='default.jpg', null=True)
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     specialty = models.ForeignKey(DoctorSpeciality)
+
+    @property
+    def full_name(self):
+        return f'Dr.{self.first_name.capitalize()} {self.last_name.capitalize()}'
 
     @classmethod
     def search_doctors_by_term(cls, search_term):
@@ -71,6 +96,10 @@ class Doctor(models.Model):
     def get_one_doctor(cls, doctor_id):
         user = User.objects.get(pk=doctor_id)
         return cls.objects.get(pk=user)
+
+    @classmethod
+    def get_all_doctors(cls):
+        return cls.objects.all()
 
     def patients(self):
         return Patient.doctor_patients(self)
@@ -113,6 +142,28 @@ class DoctorAdmin(admin.ModelAdmin):
     list_filter = ('specialty',)
     list_display = ('__str__', 'specialty',)
 
+# --
+
+
+class DoctorWorkingHours(models.Model):
+    doctor = models.ForeignKey(
+        Doctor, on_delete=models.CASCADE, related_name='working_hours')
+    working_from = models.CharField(max_length=2, choices=TIME_CHOICES)
+    working_to = models.CharField(max_length=2, choices=TIME_CHOICES)
+
+    def __str__(self):
+        return f'from-{self.working_from} to-{self.working_to}'
+
+
+class DoctorWorkingHoursForm(forms.ModelForm):
+    class Meta:
+        model = DoctorWorkingHours
+        exclude = ['doctor']
+
+
+class DoctorWorkingHoursAdmin(admin.ModelAdmin):
+    list_display = ('doctor', 'working_from', 'working_to',)
+
 
 # -- Patient
 
@@ -120,7 +171,8 @@ class DoctorAdmin(admin.ModelAdmin):
 class Patient(models.Model):
     
     user = models.OneToOneField(User, primary_key=True)
-    photo = models.FileField(upload_to='images', null=True)
+    photo = models.FileField(
+        upload_to='images', default='default.jpg', null=True)
     doctors = models.ManyToManyField(Doctor)
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
@@ -160,6 +212,65 @@ class PatientForm(forms.ModelForm):
 # --
 
 
+class Appointment(models.Model):
+    doctor = models.ForeignKey(
+        Doctor, on_delete=models.CASCADE, related_name='appointments')
+    day = models.DateField()
+    patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
+    time_slot = models.CharField(max_length=2, choices=TIME_CHOICES)
+    is_booked = models.BooleanField(default=False)
+    is_completed = models.BooleanField(default=False)
+
+    def doctor_appointment_slots(self):
+        start = self.doctor.working_hours.working_from
+        end = self.doctor.working_hours.working_to
+        return list(range(start, end))
+
+    def book_appointment(self, doctor, patient, time):
+        self.doctor = doctor
+        self.patient = patient
+        self.time_slot = time
+        self.booked = True
+        self.save()
+
+    def complete_appointment(self):
+        self.is_completed = True
+        self.save()
+
+
+class AppointmentForm(forms.ModelForm):
+    class Meta:
+        model = Appointment
+        exclude = ['doctor', 'patient', 'day', ]
+
+
+class AppointmentAdmin(admin.ModelAdmin):
+    list_display = ('doctor', 'day', 'patient', 'time_slot',
+                    'is_booked', 'is_completed',)
+
+
+# --
+
+
+class AppointmentDetails(models.Model):
+    appointment = models.ForeignKey(
+        Appointment, on_delete=models.CASCADE, related_name='details')
+    notes = models.TextField()
+
+
+class AppointmentDetailsForm(forms.ModelForm):
+    class Meta:
+        model = AppointmentDetails
+        exclude = ['appointment']
+
+
+class AppointmentDetailsAdmin(admin.ModelAdmin):
+    list_display = ('appointment', 'notes',)
+
+
+# --
+
+
 class MidWifeSpeciality(models.Model):
     specialty = models.CharField(max_length=60)
 
@@ -176,7 +287,8 @@ class MidWifeSpecialityAdmin(admin.ModelAdmin):
 
 class MidWife(models.Model):
     user = models.OneToOneField(User, primary_key=True)
-    photo = models.FileField(upload_to='images', null=True)
+    photo = models.FileField(
+        upload_to='images', default='default.jpg', null=True)
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     specialty = models.ForeignKey(MidWifeSpeciality)
@@ -202,11 +314,12 @@ class MidWifeAdmin(admin.ModelAdmin):
 
 
 class Medication(models.Model):
+    image = models.FileField(
+        upload_to='images', default='default.jpg', null=True)
     name = models.CharField(max_length=150)
     description = models.TextField()
-    grams = models.IntegerField()
-    image = models.FileField(upload_to='images', null=True)
-    price= models.IntegerField(null=True)
+    price = models.PositiveIntegerField(default=0)
+    grams = models.IntegerField(default=0)
 
     def __str__(self):
         return self.name
@@ -410,8 +523,8 @@ class DoctorReviewForm(forms.ModelForm):
         model = DoctorReview
         exclude = ['doctor', 'patient']
 
-
 # -- Live Chat
+
 
 class LiveChat(models.Model):
     doctor = models.ForeignKey(Doctor, null=True)

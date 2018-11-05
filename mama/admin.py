@@ -17,7 +17,11 @@ admin.site.register(Prescription, PrescriptionAdmin)
 
 admin.site.register(Vaccine, VaccineAdmin)
 admin.site.register(VaccineApplied, VaccineAppliedAdmin)
+admin.site.register(LiveChat, LiveChatAdmin)
 
 admin.site.register(Visit, VisitAdmin)
 admin.site.register(Patient, PatientAdmin)
 admin.site.register(Location, LocationAdmin)
+admin.site.register(DoctorWorkingHours, DoctorWorkingHoursAdmin)
+admin.site.register(Appointment, AppointmentAdmin)
+admin.site.register(AppointmentDetails, AppointmentDetailsAdmin)
