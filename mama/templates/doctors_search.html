@@ -8,13 +8,16 @@
 
 <div>
     <form action="{% url 'search_doctors' %}" method="GET">
-        {% csrf_token %}
         {{ search_form }}
         <button class="btn btn-info" type="submit">search</button>
     </form>
 </div>
 
-<div class="container">
+<div>
+
+</div>
+
+<div class="">
 
     <div class="list-of-doctors">
         <h1>Find a Doctor</h1>
@@ -30,13 +33,32 @@
             <div class="card-deck w-100">
                 {% for doctor in doctors %}
                 <div class="card w-25">
-                    <img class="card-img-top" src="" alt="">
+                    <div class="profile-photo">
+                        <img class="w-100" src="{{ doctor.photo.url }}" alt="">
+                    </div>
                     <div class="card-header">
                         <h5>{{ doctor.full_name}}</h5>
                     </div>
                     <div>
                         <h6>Book an Appointment</h6>
+                        <div class="form-contro">
+                            {% include 'includes/patient_calendar.html' %}
+                        </div>
+                        <div>
+                            <form action="" method="POST" id="book-form" data-url="http://localhost:8000/search_doctors/">
+                                <tr>
+                                    <th><label for="id_day">Day:</label></th>
+                                    <td><input type="date" name="day" required id="id_day" /></td>
+                                </tr>
+                                {% for slot in doctor.working_hours.appointment_slots %}
+                                <button onclick="submitForm(this.form.id)" class="btn btn-success slot-width" type="text"
+                                    id="id_time_slot" value="{{ slot }}">
+                                    {{ slot }}</button>
 
+                                {% endfor %}
+                                <button type="submit">asdfas</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
 
@@ -48,32 +70,33 @@
     <div class="row">
         {% if searched_doctors %}
         <h2 style="font-family: 'Kodchasan', sans-serif;"> Here are doctors you have searched for : {{message}}</h2>
+
+        <div class="">
+
+            {% for doctor in searched_doctors %}
+            <h5>{{ doctor.full_name }}</h5>
+            <div class="profile-photo border-secondary">
+                <img class="w-100" src="{{doctor.photo.url}}" data-target="#imageModal{{doctor.id}}" data-toggle="modal"
+                    alt="" class="img-fluid" id="eachimage" size="100px200">
+            </div>
+
+            <div>
+                {{ doctor.appointments.all }}
+                {% for slot in doctor.working_hours.appointment_slots %}
+                {{ slot }}
+                {% endfor %}
+            </div>
+
+            {% endfor %}
+        </div>
+
         {% endif %}
+
         {% if searched_doctors.count is 0 %}
         <h2 style="font-family: 'Kodchasan', sans-serif;"> It appears that there are 0 doctors for your search term
             {{message}}, please try again. </h2>
         {% endif %}
     </div>
-
-
-
-
-    {% if searched_doctors %}
-    <h1 style="font-family: 'Oswald', sans-serif;"><strong> These are the doctors we found </strong></h1>
-    <div class="">
-
-        <div class="card-columns">
-
-            {% for doctor in doctors %}
-            <div class="card border-secondary">
-                <img src="{{doctor.image.url}}" data-target="#imageModal{{doctor.id}}" data-toggle="modal" alt="" class="img-fluid"
-                    id="eachimage" size="100px200">
-            </div>
-            {% endfor %}
-        </div>
-    </div>
-
-    {% endif %}
 </div>
 
 
@@ -86,6 +109,7 @@
         <div class="modal-content">
             <img src="{{doctor.image.url}}" data-toggle="modal" alt="" style="height:600px;width:500px;">
             <div class="modal-header">
+
                 <h4 id="modal-text text-center">{{doctor.name}}</h4>
                 <h4 style="font-family: 'Kodchasan', sans-serif;color:blue;" id="modal-text ">{{doctor.location}}</h4>
 
@@ -111,6 +135,12 @@
     </div>
 </div>
 
+
 {% endfor %}
 
+{% endblock %}
+
+{% block scripts %}
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="{% static 'js/calendar.js' %}" charset="utf-8"></script>
 {% endblock %}
