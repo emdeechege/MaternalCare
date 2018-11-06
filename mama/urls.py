@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.conf.urls.static import static
 from django.conf.urls import url
-from . import views, patient, trimester
+from . import views, patient, trimester, doctor
 
 
 urlpatterns = [
@@ -28,6 +28,9 @@ urlpatterns = [
 
 
     # -- doctors views
+    url(r'^doctors_dashboard/$', doctor.dashboard, name='doctors_dashboard'),
+
+
 
     # --trimester views
     url(r'^trimester1/$', trimester.trimester1,

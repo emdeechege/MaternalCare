@@ -8,6 +8,7 @@ from datetime import datetime
 from datetime import date, datetime
 from django.utils import timezone
 import numpy as np
+from itertools import groupby
 
 
 TIME_CHOICES = (

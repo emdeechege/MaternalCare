@@ -12,3 +12,9 @@ li {
 .slot-width {
     width: 100px;
 }
+
+.doc-photo {
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
+}

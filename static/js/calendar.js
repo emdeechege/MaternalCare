@@ -63,6 +63,10 @@ $(document).ready(function () {
         // var $testContent = $('.js_update_items')
         // $testContent.html(info)
         console.log(info)
+        var $setSlot = $('#id_time_slot')
+        $setSlot.val('')
+        var $setDate = $('#id_day')
+        $setDate.val('')
     }
 
     function handleFormError(jqXHR, textStatus, errorThrown) {

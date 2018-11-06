@@ -1,0 +1,48 @@
+{%extends "base/layout.html"%}
+
+{% load bootstrap4 %}
+
+{%load static%}
+
+{% block content %}
+
+
+<main>
+    <div class="container d-flex">
+        <div class="w-25" id="menu">
+            <div class="doc-photo">
+                <img class="h-100" src="{{ doctor.photo.url }}" alt="">
+            </div>
+            <h2>{{ doctor.full_name }}</h2>
+            <p>
+                Appointments
+            </p>
+            <p>
+                Patients
+            </p>
+            <p>
+                Edit Profile
+            </p>
+        </div>
+        <div class="w-75" id="content">
+            <div id="appointments">
+                <div class="row flex-fill mx-0">
+                    <div class="col-md-1 mx-1 px-1 flex-fill my-3" id="days_column">
+                        <h6>Day</h6>
+                    </div>
+                    {% for slot in doctor.working_hours.appointment_slots %}
+                    <div class="mx-1 px-1 flex-fill my-3 text-center" id="days_column">
+                        <h6>{{ slot }}</h6>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div id="patients">
+
+            </div>
+        </div>
+    </div>
+</main>
+
+
+{% endblock %}
