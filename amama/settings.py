@@ -151,8 +151,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'amama',
-        'USER': 'vikki',
-        'PASSWORD': 'sasawa',
+        'USER': 'edith',
+        'PASSWORD': 'ADRIEL5e',
         'HOST': '127.0.0.1',
         'PORT': '',
     }
@@ -179,6 +179,6 @@ PESAPAL_TRANSACTION_DEFAULT_REDIRECT_URL = 'home'
 PESAPAL_TRANSACTION_FAILED_REDIRECT_URL = ""
 PESAPAL_ITEM_DESCRIPTION = False
 PESAPAL_TRANSACTION_MODEL = "pesapal.Transaction"
-PESAPAL_CONSUMER_KEY = "qn8+6iz9KNHNiBmBrsB9OdnEhOWb1KlO"
-PESAPAL_CONSUMER_SECRET = 'tvXP5OJCTpXYD6ZPeCmMnh/lqYc='
+PESAPAL_CONSUMER_KEY ="qn8+6iz9KNHNiBmBrsB9OdnEhOWb1KlO"
+PESAPAL_CONSUMER_SECRET='tvXP5OJCTpXYD6ZPeCmMnh/lqYc='
 # Override pesapal keys
