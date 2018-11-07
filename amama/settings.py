@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
     'django_pesapal',
+    'drift_chatwidget',
 
 ]
 
@@ -130,6 +131,9 @@ STATICFILES_DIRS = [
 ]
 
 
+DRIFT_CHAT_WIDGET = {
+    'ID': '[khbmcsxs57yx]'
+}
 # ***************************************************
 DISABLE_COLLECTSTATIC = config('DISABLE_COLLECTSTATIC')
 STATICFILES_DIRS = (
