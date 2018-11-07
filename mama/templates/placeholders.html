@@ -1,0 +1,143 @@
+{% extends "base/layout.html" %}
+{% load static %}
+
+{% block content %}
+
+
+<div class="my-5 container">
+    <div class="py-4">
+        <h4>
+            <span>Are you a member?</span>
+            <a class="c-blue" href="{% url 'home' %}">
+                login here
+            </a>
+        </h4>
+    </div>
+
+
+    <div class="py-2">
+        <h2>Register Now</h2>
+    </div>
+
+    <div class="errors">
+        {% if messages %}
+        {% for message in messages %}
+        <p class="alert alert-info">{{ message }}</p>
+        {% endfor %}
+        {% endif %}
+    </div>
+
+    <div class="register-area d-flex">
+
+
+        <div class="doctor-register-form w-50 m-5 p-3">
+            <div class="doctor">
+                <h3>Register as Doctor</h3>
+            </div>
+            <form method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <div class="my-3 field">
+                        {{ form.first_name.errors }}
+                        <input class="form-control py-4" type="text" name="first_name" id="id_first_name" required
+                            placeholder="Enter your first name" />
+                    </div>
+                    <div class="my-3 field">
+                        {{ form.last_name.errors }}
+                        <input class="form-control py-4" type="text" name="last_name" id="id_last_name" required
+                            placeholder="Enter your last name" />
+                    </div>
+                    <div class="my-3 field">
+                        {{ form.email.errors }}
+                        <input class="form-control py-4" type="text" name="email" id="id_email" required placeholder="Enter your email" />
+                    </div>
+                    <div class="my-3 field">
+                        {{ form.username.errors }}
+                        <input class="form-control py-4" type="text" name="username" id="id_username" required
+                            placeholder="Enter your username" />
+                    </div>
+                    <div class="my-3 field">
+                        {{ form.password1.errors }}
+                        <input class="form-control py-4" type="text" name="password1" id="id_password1" required
+                            placeholder="Enter new password" />
+                    </div>
+                    <div class="my-3 field">
+                        {{ form.password2.errors }}
+                        <input class="form-control py-4" type="text" name="password2" id="id_password2" required
+                            placeholder="Confirm password" />
+                    </div>
+                    <div class="form-group">
+                        <!-- <button type="submit" class="py-3 f-24 font-weight-bold form-control h-100 btn-blue d-flex border-0 justify-content-center align-items-center text-light">Register</button> -->
+                        <a class="typeform-share button" href="https://melissamalala.typeform.com/to/gF355j" data-mode="popup"
+                            style="display:inline-block;text-decoration:none;background-color:#0E7C33;color:white;cursor:pointer;font-family:Helvetica,Arial,sans-serif;font-size:18px;line-height:45px;text-align:center;margin:0;height:45px;padding:0px 30px;border-radius:7px;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:bold;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;"
+                            data-submit-close-delay="5" target="_blank">Register </a>
+                        <script>
+                            (function () {
+                                var qs, js, q, s, d = document,
+                                    gi = d.getElementById,
+                                    ce = d.createElement,
+                                    gt = d.getElementsByTagName,
+                                    id = "typef_orm_share",
+                                    b = "https://embed.typeform.com/";
+                                if (!gi.call(d, id)) {
+                                    js = ce.call(d, "script");
+                                    js.id = id;
+                                    js.src = b + "embed.js";
+                                    q = gt.call(d, "script")[0];
+                                    q.parentNode.insertBefore(js, q)
+                                }
+                            })()
+                        </script>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+
+
+
+        <div class="row mx-0 my-5">
+            <div class="w-50">
+
+            </div>
+            <div class="w-50">
+                <div>
+                    <h1 class="py-4">Sign in to continue</h1>
+                </div>
+
+                <div class="errors">
+                    {% if messages %}
+                    {% for message in messages %}
+                    <p class="alert alert-info">{{ message }}</p>
+                    {% endfor %}
+                    {% endif %}
+                </div>
+
+                <div class="login-form">
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <div class="form-group">
+                                <input class="form-control py-4" type="text" name="username" id="id_username" required
+                                    placeholder="Enter your username" />
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control py-4" type="password" name="password" id="id_password"
+                                    required placeholder="Emter your password" />
+                            </div>
+                            <div class="form-group d-flex justify-content-end">
+                                <input class="form-control py-4" type="hidden" name="next" value="">
+                                <button type="submit" class="py-3 f-24 border-0 font-weight-bold form-control h-100 btn-primary d-flex justify-content-center align-items-center text-light">Login</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="pl-4">
+                    <p class="mb-0 py-2 ">Not a member yet?
+                        <a class="c-blue" href="{% url 'signup' %}">
+                            Register now
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </div>

@@ -1,21 +1,92 @@
+body {
+    font-family: 'Dosis', sans-serif;
+    letter-spacing: 0.1em;
+}
+
+:root {
+    --sea: #c9e265;
+    --dark-blue: #114455
+}
+
 .font-dosis {
     font-family: 'Dosis', sans-serif;
+    letter-spacing: 0.1em;
 }
 
 .font-merriweather {
     font-family: 'Merriweather', serif;
 }
 
+.text-sea {
+    color: var(--sea)
+}
+
+.bg-sea {
+    background-color: var(--sea)
+}
 
 li {
     list-style: none;
 }
 
+.overflow-hidden {
+    overflow: hidden;
+}
+
+.vh-100 {
+    height: 90vh;
+}
+
+.landing-left-curve {}
+
+.vh-70 {
+    height: 70vh;
+}
+
+.vh-60 {
+    height: 60vh;
+}
+
+#mamaFooter a {
+    font-size: 14px;
+}
+
+.split-left {
+    background-color: var(--dark-blue);
+}
+
+.split-right {
+    background-color: #007788;
+}
+
+.border-dark-blue {
+    border-color: #007788
+}
+
+.text-dark-blue {
+    color: var(--dark-blue)
+}
+
+a:hover {
+    color: #114455
+}
+
+.bg-dark-blue {
+    background-color: var(--dark-blue)
+}
 
 .profile-photo {
     width: 50px;
     height: 50px;
     overflow: hidden;
+}
+
+.text-white-100 {
+    color: #ffffff
+}
+
+.opacity-9 {
+    opacity: 0.9;
 }
 
 .slot-width {
@@ -36,4 +107,11 @@ li {
 
 .mhand:hover {
     cursor: pointer;
+}
+
+.login-overlay {
+    position: absolute;
+    left: 25%;
+    width: 50%;
+    height: 100%;
 }

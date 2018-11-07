@@ -101,6 +101,7 @@ def search_doctors(request):
         'search_form': search_form,
         'doctors': doctors,
         'searched_doctors': searched_doctors
+    }
     if request.method == 'POST':
         ap_form = AppointmentForm(request.POST)
         print(ap_form.is_valid())
@@ -132,10 +133,13 @@ def individual_doctors_page(request, doctor_id, doctor_name):
     }
     return render(request, 'doctor_page.html', context)
 
+
 def medicines(request):
 
     if request.GET.get('search_term'):
-        medicines = Medication.search_medication(request.GET.get('search_term'))
+        medicines = Medication.search_medication(
+            request.GET.get('search_term'))
+
 
 def book_appointment(request):
     pass

@@ -4,32 +4,38 @@
 <html lang="en">
 <!-- Start of Async Drift Code -->
 <script>
-"use strict";
+    "use strict";
 
-!function() {
-  var t = window.driftt = window.drift = window.driftt || [];
-  if (!t.init) {
-    if (t.invoked) return void (window.console && console.error && console.error("Drift snippet included twice."));
-    t.invoked = !0, t.methods = [ "identify", "config", "track", "reset", "debug", "show", "ping", "page", "hide", "off", "on" ],
-    t.factory = function(e) {
-      return function() {
-        var n = Array.prototype.slice.call(arguments);
-        return n.unshift(e), t.push(n), t;
-      };
-    }, t.methods.forEach(function(e) {
-      t[e] = t.factory(e);
-    }), t.load = function(t) {
-      var e = 3e5, n = Math.ceil(new Date() / e) * e, o = document.createElement("script");
-      o.type = "text/javascript", o.async = !0, o.crossorigin = "anonymous", o.src = "https://js.driftt.com/include/" + n + "/" + t + ".js";
-      var i = document.getElementsByTagName("script")[0];
-      i.parentNode.insertBefore(o, i);
-    };
-  }
-}();
-drift.SNIPPET_VERSION = '0.3.1';
-drift.load('khbmcsxs57yx');
+    ! function () {
+        var t = window.driftt = window.drift = window.driftt || [];
+        if (!t.init) {
+            if (t.invoked) return void(window.console && console.error && console.error("Drift snippet included twice."));
+            t.invoked = !0, t.methods = ["identify", "config", "track", "reset", "debug", "show", "ping", "page",
+                    "hide", "off", "on"
+                ],
+                t.factory = function (e) {
+                    return function () {
+                        var n = Array.prototype.slice.call(arguments);
+                        return n.unshift(e), t.push(n), t;
+                    };
+                }, t.methods.forEach(function (e) {
+                    t[e] = t.factory(e);
+                }), t.load = function (t) {
+                    var e = 3e5,
+                        n = Math.ceil(new Date() / e) * e,
+                        o = document.createElement("script");
+                    o.type = "text/javascript", o.async = !0, o.crossorigin = "anonymous", o.src =
+                        "https://js.driftt.com/include/" + n + "/" + t + ".js";
+                    var i = document.getElementsByTagName("script")[0];
+                    i.parentNode.insertBefore(o, i);
+                };
+        }
+    }();
+    drift.SNIPPET_VERSION = '0.3.1';
+    drift.load('khbmcsxs57yx');
 </script>
 <!-- End of Async Drift Code -->
+
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -42,9 +48,9 @@ drift.load('khbmcsxs57yx');
 
     {% block styles %}
     <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     <link rel="stylesheet" href="{% static 'css/patient.css' %}">
     <link rel="stylesheet" href="{% static 'css/calendar.css' %}">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 
     {% endblock %}
 
@@ -54,18 +60,18 @@ drift.load('khbmcsxs57yx');
 </head>
 
 <body>
-    <section class="mx-1 border-bottom border-secondary">
+    <section class="bg-sea opacity-9">
         <!-- Actual navigation bar which is hella functional -->
-        <nav class="nav container py-2">
+        <nav class="nav container py-2 opacity-9">
             <div class="container-fluid px-0 d-flex justify-content-between align-items-center nav-border">
 
                 <div id="center" class="d-flex align-items-center">
                     <a class="nav-link navbar-brand " href="{% url 'home' %}">
-                        <h2 class="mb-0 text-success">Amama</h2>
+                        <h2 class="mb-0 text-dark-blue">AMAMA</h2>
                     </a>
                 </div>
                 <div class="about ml-auto">
-                    <a class="btn btn-success py-1 shadow-sm px-4" href="">
+                    <a class="btn bg-dark-blue py-1 shadow-sm text-sea px-4" href="">
                         about us
                     </a>
                 </div>
@@ -80,7 +86,7 @@ drift.load('khbmcsxs57yx');
                 </div>
                 <a class="btn btn-light py-1 shadow-sm px-4 mx-3" href="{% url 'logout' %}">logout</a>
                 {% else %}
-                <a href="{% url 'login' %}" class="btn btn-success py-1 shadow-sm px-4 mx-3">
+                <a href="{% url 'login' %}" class="btn bg-dark-blue text-sea py-1 shadow-sm px-4 mx-3">
                     Login
                 </a>
                 {% endif %}
@@ -92,6 +98,7 @@ drift.load('khbmcsxs57yx');
 
     {% block content %}
     {% endblock content %}
+
     {% include "base/footer.html" %}
 
     <!-- Optional JavaScript -->
