@@ -202,7 +202,6 @@ class DoctorWorkingHoursAdmin(admin.ModelAdmin):
 
 
 class Patient(models.Model):
-
     user = models.OneToOneField(User, primary_key=True)
     photo = models.FileField(
         upload_to='images', default='default.jpg', null=True)
