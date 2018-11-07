@@ -33,6 +33,7 @@ urlpatterns = [
 
 
     # --trimester views
+    url(r'^due/$', patient.due, name='due'),
     url(r'^trimester1/$', trimester.trimester1,
         name='trimester1'),
     url(r'^trimester2/$', trimester.trimester2,
