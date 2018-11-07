@@ -7,7 +7,7 @@
 {% block content %}
 
 
-<main>
+<main class="my-3">
     <div class="container d-flex">
         <div class="w-25" id="menu">
             <div class="doc-photo">
@@ -26,23 +26,53 @@
         </div>
         <div class="w-75" id="content">
             <div id="appointments">
-                <div class="row flex-fill mx-0">
-                    <div class="col-md-1 mx-1 px-1 flex-fill my-3" id="days_column">
-                        <h6>Day</h6>
+                <div class="row mx-0 bg-info py-3 px-3">
+                    <div class="col-md-3">
+                        <h6 class="mb-0">Day</h6>
                     </div>
-                    {% for slot in doctor.working_hours.appointment_slots %}
-                    <div class="mx-1 px-1 flex-fill my-3 text-center" id="days_column">
-                        <h6>{{ slot }}</h6>
+                    <div class="col-md-3">
+                        <h6 class="mb-0">Patient</h6>
+                    </div>
+                    <div class="col-md-2">
+                        <h6 class="mb-0">Time</h6>
+                    </div>
+                    <div class="col-md-2">
+                        <h6 class="mb-0">booked</h6>
+                    </div>
+                    <div class="col-md-2">
+                        <h6 class="mb-0">Rescheduled</h6>
+                    </div>
+                </div>
+                <div class="border-bottom border-info">
+                    {% for app in doctor.booked_appointments %}
+                    <div class="row mx-0 doc-apps-calendar">
+                        <div class="col-md-3 py-2">
+                            <h6 class="mb-0">{{ app.day }}</h6>
+                        </div>
+                        <div class="col-md-3 py-2 mhand">
+                            <h6 class="mb-0">{{ app.patient}}</h6>
+                        </div>
+                        <div class="col-md-2 py-2">
+                            {% include 'includes/time_slots.html' %}
+                        </div>
+                        <div class="col-md-2 py-2">
+                            <h6 class="mb-0">{{ app.is_booked }}</h6>
+                        </div>
+                        <div class="col-md-2 py-2">
+                            <h6 class="mb-0">{{ app.is_completed }}</h6>
+                        </div>
                     </div>
                     {% endfor %}
                 </div>
-            </div>
-            <div id="patients">
+                <div id="patients">
 
+                </div>
             </div>
         </div>
-    </div>
 </main>
 
+
+{% for booked in doctor.cal_appointments %}
+{% endfor %}
 
 {% endblock %}

@@ -82,6 +82,27 @@ class Doctor(models.Model):
     last_name = models.CharField(max_length=50)
     specialty = models.ForeignKey(DoctorSpeciality)
 
+
+    @property
+    def booked_slots(self):
+        apps = list(self.appointments.all().order_by('day'))
+        objects = []
+        for k,v in groupby(apps, lambda x : x.day):
+            objects.append(list(v))
+        return objects
+
+    @property
+    def booked_days(self):
+        apps = list(self.appointments.all().order_by('day'))
+        ls = []
+        for k,v in groupby(apps, lambda x : x.day):
+            ls.append(k)
+        return ls
+
+    @property
+    def booked_appointments(self):
+        return self.appointments.all().order_by('day')
+
     @property
     def full_name(self):
         return f'Dr.{self.first_name.capitalize()} {self.last_name.capitalize()}'
@@ -154,7 +175,7 @@ class DoctorWorkingHours(models.Model):
 
     @property
     def appointment_slots(self):
-        start = self.working_from
+        start = self.working_from   
         end = self.working_to
         ls = list(range(int(start), int(end)))
         dc = {6: '6:00 am', 7: '7:00 am', 8: '8:00 am', 9: '9:00 am', 10: '10:00 am', 11: '11:00 am',12: '12:00 am', 13: '1:00 pm', 14: '2:00 pm', 15: '3:00 pm', 16: '4:00 pm', 17: '5:00 pm', 18: '6:00 pm'}
