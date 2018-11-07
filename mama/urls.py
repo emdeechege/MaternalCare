@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.conf.urls.static import static
 from django.conf.urls import url
-from . import views, patient, trimester
+from . import views, patient, trimester, doctor
 
 
 urlpatterns = [
@@ -10,6 +10,7 @@ urlpatterns = [
     url(r'^login/$', views.login, name='login'),
     url(r'^logout/$', views.logout, name='logout'),
     url(r'^signup/$', views.signup, name='signup'),
+    url(r'^book_appointment/$', views.book_appointment, name='book_appointment'),
     url(r'^medicines/$', views.medicines, name='medicines'),
 
 
@@ -24,7 +25,12 @@ urlpatterns = [
         name='edit_patient_profile'),
     # url(r'^due/$', patient.due, name='due'),
 
+
+
     # -- doctors views
+    url(r'^doctors_dashboard/$', doctor.dashboard, name='doctors_dashboard'),
+
+
 
     # --trimester views
     url(r'^trimester1/$', trimester.trimester1,

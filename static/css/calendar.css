@@ -1,0 +1,21 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:300,400,700);
+
+.cbody {
+    background-color: #5bf8ff;
+}
+
+td button {
+    background-color: #57ffb9
+}
+
+.chead {
+    background-color: #6da0ff;
+}
+
+#crow {
+    width: 90px;
+}
+
+#day:hover {
+    background-color: #6da0ff;
+}

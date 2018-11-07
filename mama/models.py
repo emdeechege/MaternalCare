@@ -8,6 +8,7 @@ from datetime import datetime
 from datetime import date, datetime
 from django.utils import timezone
 import numpy as np
+from itertools import groupby
 
 
 TIME_CHOICES = (
@@ -18,12 +19,12 @@ TIME_CHOICES = (
     ('10', '10:00 am'),
     ('11', '11:00 am'),
     ('12', '12:00 am'),
-    ('13', '1: 00 pm'),
-    ('14', '2: 00 pm'),
-    ('15', '3: 00 pm'),
-    ('16', '4: 00 pm'),
-    ('17', '5: 00 pm'),
-    ('18', '6: 00 pm'),
+    ('13', '1:00 pm'),
+    ('14', '2:00 pm'),
+    ('15', '3:00 pm'),
+    ('16', '4:00 pm'),
+    ('17', '5:00 pm'),
+    ('18', '6:00 pm'),
 )
 
 # -- Location
@@ -80,6 +81,27 @@ class Doctor(models.Model):
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     specialty = models.ForeignKey(DoctorSpeciality)
+
+
+    @property
+    def booked_slots(self):
+        apps = list(self.appointments.all().order_by('day'))
+        objects = []
+        for k,v in groupby(apps, lambda x : x.day):
+            objects.append(list(v))
+        return objects
+
+    @property
+    def booked_days(self):
+        apps = list(self.appointments.all().order_by('day'))
+        ls = []
+        for k,v in groupby(apps, lambda x : x.day):
+            ls.append(k)
+        return ls
+
+    @property
+    def booked_appointments(self):
+        return self.appointments.all().order_by('day')
 
     @property
     def full_name(self):
@@ -146,10 +168,21 @@ class DoctorAdmin(admin.ModelAdmin):
 
 
 class DoctorWorkingHours(models.Model):
-    doctor = models.ForeignKey(
+    doctor = models.OneToOneField(
         Doctor, on_delete=models.CASCADE, related_name='working_hours')
-    working_from = models.CharField(max_length=2, choices=TIME_CHOICES)
-    working_to = models.CharField(max_length=2, choices=TIME_CHOICES)
+    working_from = models.CharField(max_length=20, choices=TIME_CHOICES)
+    working_to = models.CharField(max_length=20, choices=TIME_CHOICES)
+
+    @property
+    def appointment_slots(self):
+        start = self.working_from   
+        end = self.working_to
+        ls = list(range(int(start), int(end)))
+        dc = {6: '6:00 am', 7: '7:00 am', 8: '8:00 am', 9: '9:00 am', 10: '10:00 am', 11: '11:00 am',12: '12:00 am', 13: '1:00 pm', 14: '2:00 pm', 15: '3:00 pm', 16: '4:00 pm', 17: '5:00 pm', 18: '6:00 pm'}
+        slots = []
+        for i in ls:
+            slots.append(dc.get(i))
+        return slots
 
     def __str__(self):
         return f'from-{self.working_from} to-{self.working_to}'
@@ -169,7 +202,6 @@ class DoctorWorkingHoursAdmin(admin.ModelAdmin):
 
 
 class Patient(models.Model):
-    
     user = models.OneToOneField(User, primary_key=True)
     photo = models.FileField(
         upload_to='images', default='default.jpg', null=True)
@@ -189,6 +221,10 @@ class Patient(models.Model):
     @classmethod
     def doctor_patients(cls, doctor):
         return cls.objects.filter(doctor=doctor)
+
+    @classmethod
+    def get_patient(cls, pt):
+        return cls.objects.get(user=pt)
 
     def save_patient(self, user):
         self.user = user
@@ -214,34 +250,34 @@ class PatientForm(forms.ModelForm):
 
 class Appointment(models.Model):
     doctor = models.ForeignKey(
-        Doctor, on_delete=models.CASCADE, related_name='appointments')
+        Doctor, on_delete=models.CASCADE, related_name='appointments', null=True)
     day = models.DateField()
-    patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
-    time_slot = models.CharField(max_length=2, choices=TIME_CHOICES)
+    patient = models.ForeignKey(Patient, on_delete=models.CASCADE, null=True)
+    time_slot = models.CharField(max_length=20, choices=TIME_CHOICES)
     is_booked = models.BooleanField(default=False)
     is_completed = models.BooleanField(default=False)
 
-    def doctor_appointment_slots(self):
-        start = self.doctor.working_hours.working_from
-        end = self.doctor.working_hours.working_to
-        return list(range(start, end))
-
-    def book_appointment(self, doctor, patient, time):
-        self.doctor = doctor
-        self.patient = patient
-        self.time_slot = time
-        self.booked = True
-        self.save()
-
+    @property
     def complete_appointment(self):
         self.is_completed = True
         self.save()
+
+    @classmethod
+    def book_appointment(cls, appointment, doctor, patient):
+        # appointment = cls.objects.get(appointment_id)
+        appointment.doctor = doctor
+        appointment.patient = patient
+        appointment.booked = True
+        appointment.save()
+
+    def __str__(self):
+        return f'{self.doctor} {self.patient} {self.time_slot}'
 
 
 class AppointmentForm(forms.ModelForm):
     class Meta:
         model = Appointment
-        exclude = ['doctor', 'patient', 'day', ]
+        exclude = ['doctor', 'patient', ]
 
 
 class AppointmentAdmin(admin.ModelAdmin):

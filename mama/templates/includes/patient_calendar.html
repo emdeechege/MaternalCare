@@ -1,91 +1,119 @@
-<div class="container">
+{% load static %}
 
-    <div class="calendar-container">
-
-        <header>
-
-            <div class="day">18</div>
-            <div class="month">August</div>
-
-        </header>
-
-        <table class="calendar">
-
-            <thead>
-
-                <th>
-
-                <td>Mon</td>
-                <td>Tue</td>
-                <td>Wed</td>
-                <td>Thu</td>
-                <td>Fri</td>
-                <td>Sat</td>
-                <td>Sun</td>
-
-                </th>
-
-            </thead>
-
-            <tbody>
-
-                <tr>
-                    <td class="prev-month">29</td>
-                    <td class="prev-month">30</td>
-                    <td class="prev-month">31</td>
-                    <td>1</td>
-                    <td>2</td>
-                    <td>3</td>
-                    <td>4</td>
-                </tr>
-
-                <tr>
-                    <td>5</td>
-                    <td>6</td>
-                    <td>7</td>
-                    <td>8</td>
-                    <td>9</td>
-                    <td>10</td>
-                    <td>11</td>
-                </tr>
-
-                <tr>
-                    <td>12</td>
-                    <td>13</td>
-                    <td>14</td>
-                    <td>15</td>
-                    <td>16</td>
-                    <td>17</td>
-                    <td class="current-day">18</td>
-                </tr>
-
-                <tr>
-                    <td>19</td>
-                    <td>20</td>
-                    <td>21</td>
-                    <td>22</td>
-                    <td>23</td>
-                    <td>24</td>
-                    <td>25</td>
-                </tr>
-
-                <tr>
-                    <td>26</td>
-                    <td>27</td>
-                    <td>28</td>
-                    <td>29</td>
-                    <td>30</td>
-                    <td>31</td>
-                    <td class="next-month">1</td>
-                </tr>
-
-            </tbody>
-
-        </table>
-
-        <div class="ring-left"></div>
-        <div class="ring-right"></div>
-
-    </div> <!-- end calendar-container -->
-
-</div> <!-- end container -->
+<div class="border w-auto cbody p-3 rounded">
+    <table class="">
+        <thead>
+            <h1 class="display-4">November</h1>
+        </thead>
+        <thead cellpadding="10" class="card-header">
+            <tr class="d-flex">
+                <td class="d-flex" id="crow"><button class="chead flex-fill btn btn-lg px-3 m-1 my-3">sun</button></td>
+                <td class="d-flex" id="crow"><button class="chead flex-fill btn btn-lg px-3 m-1 my-3">mon</button></td>
+                <td class="d-flex" id="crow"><button class="chead flex-fill btn btn-lg px-3 m-1 my-3">tue</button></td>
+                <td class="d-flex" id="crow"><button class="chead flex-fill btn btn-lg px-3 m-1 my-3">wed</button></td>
+                <td class="d-flex" id="crow"><button class="chead flex-fill btn btn-lg px-3 m-1 my-3">thu</button></td>
+                <td class="d-flex" id="crow"><button class="chead flex-fill btn btn-lg px-3 m-1 my-3">fri</button></td>
+                <td class="d-flex" id="crow"><button class="chead flex-fill btn btn-lg px-3 m-1 my-3">sat</button></td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="d-flex">
+                <td class="d-flex" id="crow"><button class="flex-fill btn btn-sm bg-transparent m-1 mx-2" id="day"
+                        data-month="11" onclick="getId(this.id)">28</button></td>
+                <td class="d-flex" id="crow"><button class="flex-fill btn btn-sm bg-transparent m-1 mx-2" id="day"
+                        data-month="11" onclick="getId(this.id)">29</button></td>
+                <td class="d-flex" id="crow"><button class="flex-fill btn btn-sm bg-transparent m-1 mx-2" id="day"
+                        data-month="11" onclick="getId(this.id)">30</button></td>
+                <td class="d-flex" id="crow"><button class="flex-fill btn btn-sm bg-transparent m-1 mx-2" id="day"
+                        data-month="11" onclick="getId(this.id)">31</button></td>
+                <td class="d-flex" id="crow"><button class="flex-fill btn btn-sm m-1 mx-2" id="day" data-month="11"
+                        onclick="getId(this.id)">01</button></td>
+                <td class="d-flex" id="crow"><button class="flex-fill btn btn-sm m-1 mx-2" id="day" data-month="11"
+                        onclick="getId(this.id)">02</button></td>
+                <td class="d-flex" id="crow"><button class="flex-fill btn btn-sm m-1 mx-2" id="day" data-month="11"
+                        onclick="getId(this.id)">03</button></td>
+            </tr>
+            <tr class="d-flex">
+                <td class="d-flex" id="crow"><button class="flex-fill btn btn-sm m-1 mx-2" id="day" data-month="11"
+                        onclick="getId(this.id)">04</button></td>
+                <td class="d-flex" id="crow"><button class="flex-fill btn btn-sm m-1 mx-2" id="day" data-month="11"
+                        onclick="getId(this.id)">05</button></td>
+                <td class="d-flex" id="crow"><button class="flex-fill btn btn-sm m-1 mx-2" id="day" data-month="11"
+                        onclick="getId(this.id)">06</button></td>
+                <td class="d-flex" id="crow"><button class="flex-fill btn btn-sm m-1 mx-2" id="day" data-month="11"
+                        onclick="getId(this.id)">07</button></td>
+                <td class="d-flex" id="crow"><button class="flex-fill btn btn-sm m-1 mx-2" id="day" data-month="11"
+                        onclick="getId(this.id)">08</button></td>
+                <td class="d-flex" id="crow"><button class="flex-fill btn btn-sm m-1 mx-2" id="day" data-month="11"
+                        onclick="getId(this.id)">09</button></td>
+                <td class="d-flex" id="crow"><button class="flex-fill btn btn-sm m-1 mx-2" id="day" data-month="11"
+                        onclick="getId(this.id)">10</button></td>
+            </tr>
+            <tr class="d-flex">
+                <td class="d-flex" id="crow"><button class="flex-fill btn btn-sm m-1 mx-2" id="day" data-month="11"
+                        onclick="getId(this.id)">11</button></td>
+                <td class="d-flex" id="crow"><button class="flex-fill btn btn-sm m-1 mx-2" id="day" data-month="11"
+                        onclick="getId(this.id)">12</button></td>
+                <td class="d-flex" id="crow"><button class="flex-fill btn btn-sm m-1 mx-2" id="day" data-month="11"
+                        onclick="getId(this.id)">13</button></td>
+                <td class="d-flex" id="crow"><button class="flex-fill btn btn-sm m-1 mx-2" id="day" data-month="11"
+                        onclick="getId(this.id)">14</button></td>
+                <td class="d-flex" id="crow"><button class="flex-fill btn btn-sm m-1 mx-2" id="day" data-month="11"
+                        onclick="getId(this.id)">15</button></td>
+                <td class="d-flex" id="crow"><button class="flex-fill btn btn-sm m-1 mx-2" id="day" data-month="11"
+                        onclick="getId(this.id)">16</button></td>
+                <td class="d-flex" id="crow"><button class="flex-fill btn btn-sm m-1 mx-2" id="day" data-month="11"
+                        onclick="getId(this.id)">17</button></td>
+            </tr>
+            <tr class="d-flex">
+                <td class="d-flex" id="crow"><button class="flex-fill btn btn-sm m-1 mx-2" id="day" data-month="11"
+                        onclick="getId(this.id)">18</button></td>
+                <td class="d-flex" id="crow"><button class="flex-fill btn btn-sm m-1 mx-2" id="day" data-month="11"
+                        onclick="getId(this.id)">19</button></td>
+                <td class="d-flex" id="crow"><button class="flex-fill btn btn-sm m-1 mx-2" id="day" data-month="11"
+                        onclick="getId(this.id)">20</button></td>
+                <td class="d-flex" id="crow"><button class="flex-fill btn btn-sm m-1 mx-2" id="day" data-month="11"
+                        onclick="getId(this.id)">21</button></td>
+                <td class="d-flex" id="crow"><button class="flex-fill btn btn-sm m-1 mx-2" id="day" data-month="11"
+                        onclick="getId(this.id)">22</button></td>
+                <td class="d-flex" id="crow"><button class="flex-fill btn btn-sm m-1 mx-2" id="day" data-month="11"
+                        onclick="getId(this.id)">23</button></td>
+                <td class="d-flex" id="crow"><button class="flex-fill btn btn-sm m-1 mx-2" id="day" data-month="11"
+                        onclick="getId(this.id)">24</button></td>
+            </tr>
+            <tr class="d-flex">
+                <td class="d-flex" id="crow"><button class="flex-fill btn btn-sm m-1 mx-2" id="day" data-month="11"
+                        onclick="getId(this.id)">25</button></td>
+                <td class="d-flex" id="crow"><button class="flex-fill btn btn-sm m-1 mx-2" id="day" data-month="11"
+                        onclick="getId(this.id)">26</button></td>
+                <td class="d-flex" id="crow"><button class="flex-fill btn btn-sm m-1 mx-2" id="day" data-month="11"
+                        onclick="getId(this.id)">27</button></td>
+                <td class="d-flex" id="crow"><button class="flex-fill btn btn-sm m-1 mx-2" id="day" data-month="11"
+                        onclick="getId(this.id)">28</button></td>
+                <td class="d-flex" id="crow"><button class="flex-fill btn btn-sm m-1 mx-2" id="day" data-month="11"
+                        onclick="getId(this.id)">29</button></td>
+                <td class="d-flex" id="crow"><button class="flex-fill btn btn-sm m-1 mx-2" id="day" data-month="11"
+                        onclick="getId(this.id)">30</button></td>
+                <td class="d-flex" id="crow"><button class="flex-fill btn btn-sm m-1 mx-2 bg-transparent" id="day"
+                        data-month="11" onclick="getId(this.id)">01</button></td>
+            </tr>
+            <tr class="d-flex">
+                <td class="d-flex" id="crow"><button class="flex-fill btn btn-sm m-1 mx-2 bg-transparent" id="day"
+                        data-month="11" onclick="getId(this.id)">02</button></td>
+                <td class="d-flex" id="crow"><button class="flex-fill btn btn-sm m-1 mx-2 bg-transparent" id="day"
+                        data-month="11" onclick="getId(this.id)">03</button></td>
+                <td class="d-flex" id="crow"><button class="flex-fill btn btn-sm m-1 mx-2 bg-transparent" id="day"
+                        data-month="11" onclick="getId(this.id)">04</button></td>
+                <td class="d-flex" id="crow"><button class="flex-fill btn btn-sm m-1 mx-2 bg-transparent" id="day"
+                        data-month="11" onclick="getId(this.id)">05</button></td>
+                <td class="d-flex" id="crow"><button class="flex-fill btn btn-sm m-1 mx-2 bg-transparent" id="day"
+                        data-month="11" onclick="getId(this.id)">06</button></td>
+                <td class="d-flex" id="crow"><button class="flex-fill btn btn-sm m-1 mx-2 bg-transparent" id="day"
+                        data-month="11" onclick="getId(this.id)">07</button></td>
+                <td class="d-flex" id="crow"><button class="flex-fill btn btn-sm m-1 mx-2 bg-transparent" id="day"
+                        data-month="11" onclick="getId(this.id)">08</button></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<script src="{% static 'js/calendar.js' %}" charset="utf-8"></script>
