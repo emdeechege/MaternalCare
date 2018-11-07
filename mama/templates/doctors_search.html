@@ -13,13 +13,9 @@
     </form>
 </div>
 
-<div>
+<div class=" d-flex flex-column">
 
-</div>
-
-<div class="">
-
-    <div class="list-of-doctors">
+    <div class="d-block">
         <h1>Find a Doctor</h1>
         <div class="filter-doctors">
             <div class="d-flex my-3">
@@ -29,74 +25,99 @@
                 <button class="ml-3 btn btn-sm ">Price</button>
             </div>
         </div>
-        <div class="doctors">
-            <div class="card-deck w-100">
-                {% for doctor in doctors %}
-                <div class="card w-25">
-                    <div class="profile-photo">
-                        <img class="w-100" src="{{ doctor.photo.url }}" alt="">
-                    </div>
-                    <div class="card-header">
-                        <h5>{{ doctor.full_name}}</h5>
-                    </div>
-                    <div>
-                        <h6>Book an Appointment</h6>
-                        <div class="form-contro">
-                            {% include 'includes/patient_calendar.html' %}
-                        </div>
-                        <div>
-                            <form action="" method="POST" id="book-form" data-url="http://localhost:8000/search_doctors/">
-                                <tr>
-                                    <th><label for="id_day">Day:</label></th>
-                                    <td><input type="date" name="day" required id="id_day" /></td>
-                                </tr>
-                                {% for slot in doctor.working_hours.appointment_slots %}
-                                <button onclick="submitForm(this.form.id)" class="btn btn-success slot-width" type="text"
-                                    id="id_time_slot" value="{{ slot }}">
-                                    {{ slot }}</button>
+    </div>
 
-                                {% endfor %}
-                                <button type="submit">asdfas</button>
-                            </form>
-                        </div>
+
+    {% for doctor in doctors %}
+    <div class="container my-5">
+        <div class="d-flex">
+            <div class="profile-photo">
+                <img class="w-100" src="{{ doctor.photo.url }}" alt="">
+            </div>
+            <div class="d-flex align-items-center">
+                <h2>{{ doctor.full_name}}</h2>
+            </div>
+        </div>
+
+        <div>
+            <h3>Book an appointment</h3>
+        </div>
+
+        <div class="d-flex">
+
+            <div class="w-75 mx-auto">
+                <h5>Choose Day</h5>
+                <div class="d-flex">
+                    {% include 'includes/patient_calendar.html' %}
+                </div>
+            </div>
+
+            <div class="w-25">
+
+                <h5>Choose Time</h5>
+                <div class="d-flex flex-wrap">
+
+                    {% for slot in doctor.working_hours.appointment_slots %}
+                    <div class="m-1">
+                        <button class="slot-width btn cbody" id="{{ slot }}" onclick="setSlot(this.id); $('#submit-book-btn').click()">
+                            <span>
+                                {{ slot }}
+                            </span>
+                        </button>
                     </div>
+                    {% endfor %}
+
                 </div>
 
-                {% endfor %}
             </div>
         </div>
     </div>
+    {% endfor %}
 
-    <div class="row">
-        {% if searched_doctors %}
-        <h2 style="font-family: 'Kodchasan', sans-serif;"> Here are doctors you have searched for : {{message}}</h2>
+    <!-- form for submiting an appointment booking -->
+    <form action="" method="POST" id="book-form" data-url="http://localhost:8000/search_doctors/">
+        <input class="d-none" type="date" name="day" required id="id_day" />
+        <input class="d-none" type="text" name="time_slot" required id="id_time_slot" />
 
-        <div class="">
+        <button class="d-none" id="submit-book-btn" type="submit">book</button>
+    </form>
+    <!-- form for submiting an appointment booking -->
 
-            {% for doctor in searched_doctors %}
-            <h5>{{ doctor.full_name }}</h5>
-            <div class="profile-photo border-secondary">
-                <img class="w-100" src="{{doctor.photo.url}}" data-target="#imageModal{{doctor.id}}" data-toggle="modal"
-                    alt="" class="img-fluid" id="eachimage" size="100px200">
-            </div>
 
-            <div>
-                {{ doctor.appointments.all }}
-                {% for slot in doctor.working_hours.appointment_slots %}
-                {{ slot }}
-                {% endfor %}
-            </div>
+</div>
 
+</div>
+
+<div class="row">
+    {% if searched_doctors %}
+    <h2 style="font-family: 'Kodchasan', sans-serif;"> Here are doctors you have searched for : {{message}}</h2>
+
+    <div class="">
+
+        {% for doctor in searched_doctors %}
+        <h5>{{ doctor.full_name }}</h5>
+        <div class="profile-photo border-secondary">
+            <img class="w-100" src="{{doctor.photo.url}}" data-target="#imageModal{{doctor.id}}" data-toggle="modal"
+                alt="" class="img-fluid" id="eachimage" size="100px200">
+        </div>
+
+        <div>
+            {{ doctor.appointments.all }}
+            {% for slot in doctor.working_hours.appointment_slots %}
+            {{ slot }}
             {% endfor %}
         </div>
 
-        {% endif %}
-
-        {% if searched_doctors.count is 0 %}
-        <h2 style="font-family: 'Kodchasan', sans-serif;"> It appears that there are 0 doctors for your search term
-            {{message}}, please try again. </h2>
-        {% endif %}
+        {% endfor %}
     </div>
+
+    {% endif %}
+
+    {% if searched_doctors.count is 0 %}
+    <h2 style="font-family: 'Kodchasan', sans-serif;"> It appears that there are 0 doctors for your search term
+        {{message}}, please try again. </h2>
+    {% endif %}
+</div>
 </div>
 
 
@@ -109,7 +130,6 @@
         <div class="modal-content">
             <img src="{{doctor.image.url}}" data-toggle="modal" alt="" style="height:600px;width:500px;">
             <div class="modal-header">
-
                 <h4 id="modal-text text-center">{{doctor.name}}</h4>
                 <h4 style="font-family: 'Kodchasan', sans-serif;color:blue;" id="modal-text ">{{doctor.location}}</h4>
 

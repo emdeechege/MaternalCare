@@ -37,48 +37,6 @@ class PaymentView(TemplateView, PaymentRequestMixin):
         return ctx
 
 
-# class PaymentView(PaymentRequestMixin):
-#
-#     def get_pesapal_payment_iframe(self):
-#
-#         '''
-#         Authenticates with pesapal to get the payment iframe src
-#         '''
-#         order_info = {
-#             'first_name': 'Some',
-#             'last_name': 'User',
-#             'amount': 100,
-#             'description': 'Payment for X',
-#             'reference': 2,  # some object id
-#             'email': 'user@example.com',
-#         }
-#
-#         iframe_src_url = self.get_payment_url(**order_info)
-#         return iframe_src_url
-
-# @csrf_exempt
-# def index(request):
-#     if request.method == 'POST':
-#         session_id = request.POST.get('sessionId')
-#         service_code = request.POST.get('serviceCode')
-#         phone_number = request.POST.get('phoneNumber')
-#         text = request.POST.get('text')
-#
-#         response = ""
-#
-#         if text == "":
-#             response = "CON What would you want to check \n"
-#             # response .= "1. My Account \n"
-#             response += "1. My Phone Number"
-#
-#         elif text == "1":
-#             response = "END My Phone number is {0}".format(phone_number)
-#
-#         return HttpResponse(response)
-
-
-# -- Authentication views
-
 def login(request):
     if request.user.is_authenticated():
         return redirect('home')
@@ -139,6 +97,10 @@ def search_doctors(request):
         search_term = request.GET.get('search_term')
         searched_doctors = Doctor.search_doctors_by_term(search_term)
 
+    context = {
+        'search_form': search_form,
+        'doctors': doctors,
+        'searched_doctors': searched_doctors
     if request.method == 'POST':
         ap_form = AppointmentForm(request.POST)
         print(ap_form.is_valid())
@@ -146,7 +108,6 @@ def search_doctors(request):
 
         if ap_form.is_valid():
             print('booking appointement')
-            # save the ap_form and submit the new item to the database
             appointment = ap_form.save(commit=False)
             doctor = Doctor.get_one_doctor(1)
             patient = Patient.get_patient(user)
@@ -171,6 +132,10 @@ def individual_doctors_page(request, doctor_id, doctor_name):
     }
     return render(request, 'doctor_page.html', context)
 
+def medicines(request):
+
+    if request.GET.get('search_term'):
+        medicines = Medication.search_medication(request.GET.get('search_term'))
 
 def book_appointment(request):
     pass

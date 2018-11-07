@@ -8,6 +8,7 @@ from datetime import datetime
 from datetime import date, datetime
 from django.utils import timezone
 import numpy as np
+from itertools import groupby
 
 
 TIME_CHOICES = (
@@ -18,12 +19,12 @@ TIME_CHOICES = (
     ('10', '10:00 am'),
     ('11', '11:00 am'),
     ('12', '12:00 am'),
-    ('13', '1: 00 pm'),
-    ('14', '2: 00 pm'),
-    ('15', '3: 00 pm'),
-    ('16', '4: 00 pm'),
-    ('17', '5: 00 pm'),
-    ('18', '6: 00 pm'),
+    ('13', '1:00 pm'),
+    ('14', '2:00 pm'),
+    ('15', '3:00 pm'),
+    ('16', '4:00 pm'),
+    ('17', '5:00 pm'),
+    ('18', '6:00 pm'),
 )
 
 # -- Location
@@ -80,6 +81,26 @@ class Doctor(models.Model):
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     specialty = models.ForeignKey(DoctorSpeciality)
+
+    @property
+    def booked_slots(self):
+        apps = list(self.appointments.all().order_by('day'))
+        objects = []
+        for k, v in groupby(apps, lambda x: x.day):
+            objects.append(list(v))
+        return objects
+
+    @property
+    def booked_days(self):
+        apps = list(self.appointments.all().order_by('day'))
+        ls = []
+        for k, v in groupby(apps, lambda x: x.day):
+            ls.append(k)
+        return ls
+
+    @property
+    def booked_appointments(self):
+        return self.appointments.all().order_by('day')
 
     @property
     def full_name(self):
@@ -148,8 +169,8 @@ class DoctorAdmin(admin.ModelAdmin):
 class DoctorWorkingHours(models.Model):
     doctor = models.OneToOneField(
         Doctor, on_delete=models.CASCADE, related_name='working_hours')
-    working_from = models.CharField(max_length=2, choices=TIME_CHOICES)
-    working_to = models.CharField(max_length=2, choices=TIME_CHOICES)
+    working_from = models.CharField(max_length=20, choices=TIME_CHOICES)
+    working_to = models.CharField(max_length=20, choices=TIME_CHOICES)
 
     @property
     def appointment_slots(self):
@@ -181,7 +202,6 @@ class DoctorWorkingHoursAdmin(admin.ModelAdmin):
 
 
 class Patient(models.Model):
-
     user = models.OneToOneField(User, primary_key=True)
     photo = models.FileField(
         upload_to='images', default='default.jpg', null=True)
@@ -233,7 +253,7 @@ class Appointment(models.Model):
         Doctor, on_delete=models.CASCADE, related_name='appointments', null=True)
     day = models.DateField()
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE, null=True)
-    time_slot = models.CharField(max_length=2, choices=TIME_CHOICES)
+    time_slot = models.CharField(max_length=20, choices=TIME_CHOICES)
     is_booked = models.BooleanField(default=False)
     is_completed = models.BooleanField(default=False)
 

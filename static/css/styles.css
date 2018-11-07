@@ -12,3 +12,19 @@ li {
 .slot-width {
     width: 100px;
 }
+
+.doc-photo {
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
+}
+
+.doc-apps-calendar:nth-child(even) {
+    background-color: rgb(214, 214, 214)
+}
+
+.mhand {}
+
+.mhand:hover {
+    cursor: pointer;
+}
