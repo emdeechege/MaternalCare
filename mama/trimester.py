@@ -18,3 +18,6 @@ def trimester2(request):
 
 def trimester3(request):
     return render(request, 'trimester 3.html')
+
+def scrollytelling(request):
+    return render(request, 'scrollytelling.html')

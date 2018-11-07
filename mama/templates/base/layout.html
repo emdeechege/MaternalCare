@@ -53,6 +53,7 @@
     <link rel="stylesheet" href="{% static 'css/calendar.css' %}">
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     <link rel="stylesheet" href="{% static 'css/trimestermelissa.css' %}">
+    <link rel="stylesheet" href="{% static 'css/scrollytelling.css' %}">
     <link rel="stylesheet" href="{%static 'css/cssanimation.css'>
 
     {% endblock %}
@@ -119,6 +120,10 @@
     <script src="{% static 'js/csrf_token.js' %}"></script>
     <script src="{% static 'js/scripts.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/scrolly.js'%}"></script>
+    <script src='https://unpkg.com/intersection-observer@0.5.0/intersection-observer.js'></script>
+<script src='https://unpkg.com/scrollama'></script>
+    <script src="{% static 'js/scrollytelling.js' %}"></script>
+
     <script>
        window.onload = function() {
           scrolly();
