@@ -29,3 +29,15 @@ class MyRegistrationForm(UserCreationForm):
 
 class SearchDoctorsForm(forms.Form):
     search_term = forms.CharField(max_length=50)
+
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        exclude = ['poster']
+
+
+class PostForm(forms.ModelForm):
+    class Meta:
+        model = Posts
+        exclude = ['posted_by']

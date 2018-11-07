@@ -156,7 +156,8 @@ class DoctorWorkingHours(models.Model):
         start = self.working_from
         end = self.working_to
         ls = list(range(int(start), int(end)))
-        dc = {6: '6:00 am', 7: '7:00 am', 8: '8:00 am', 9: '9:00 am', 10: '10:00 am', 11: '11:00 am',12: '12:00 am', 13: '1:00 pm', 14: '2:00 pm', 15: '3:00 pm', 16: '4:00 pm', 17: '5:00 pm', 18: '6:00 pm'}
+        dc = {6: '6:00 am', 7: '7:00 am', 8: '8:00 am', 9: '9:00 am', 10: '10:00 am', 11: '11:00 am',
+              12: '12:00 am', 13: '1:00 pm', 14: '2:00 pm', 15: '3:00 pm', 16: '4:00 pm', 17: '5:00 pm', 18: '6:00 pm'}
         slots = []
         for i in ls:
             slots.append(dc.get(i))
@@ -180,7 +181,7 @@ class DoctorWorkingHoursAdmin(admin.ModelAdmin):
 
 
 class Patient(models.Model):
-    
+
     user = models.OneToOneField(User, primary_key=True)
     photo = models.FileField(
         upload_to='images', default='default.jpg', null=True)
@@ -567,3 +568,32 @@ class LiveChatForm(forms.ModelForm):
     class Meta:
         model = LiveChat
         exclude = ['doctor', 'patient']
+
+
+class Posts(models.Model):
+    title = models.CharField(max_length=300)
+    content = models.TextField()
+    posted_by = models.ForeignKey(User, null=True)
+
+    def save_posts(self):
+        self.save()
+
+    def __str__(self):
+        return self.title
+
+
+class Comment(models.Model):
+    poster = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    post = models.ForeignKey(Posts, on_delete=models.CASCADE, related_name='comments', null=True)
+    comment = models.CharField(max_length=200, null=True)
+
+    def __str__(self):
+        return self.comment
+
+    def save_comment(self):
+        self.save()
+
+    @classmethod
+    def get_comment(cls):
+        comment = Comment.objects.all()
+        return comment

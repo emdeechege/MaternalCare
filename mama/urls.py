@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.conf.urls.static import static
 from django.conf.urls import url
-from . import views, patient, trimester
+from . import views, patient, trimester, forum
 
 
 urlpatterns = [
@@ -37,6 +37,10 @@ urlpatterns = [
     url(r'^trimester3/$', trimester.trimester3,
         name='trimester3'),
 
+    # ---forum views
+    url(r'^blogpost/$', forum.create_post, name='create_post'),
+    url(r'^comment/', forum.add_comment, name='comment'),
+    url(r'^forum/$', forum.forum, name='forum'),
 
 ]
 
