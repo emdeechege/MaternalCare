@@ -1,0 +1,50 @@
+{%extends "base/layout.html"%}
+{% block content %}
+{{ block.super}}
+{% load bootstrap4 %}
+
+<br>
+<br>
+<script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+<div class="container-fluid">
+
+  <p><a href="{% url 'create_post' %}" class="btn btn-info">+ post</a>
+
+    <div class="row">
+      <div class="col-1"></div>
+      <div class="col-9" style="max-width:40rem; margin-top:20px;">
+        {% for post in posts %}
+
+        <div class="card mr-0" style="max-width:40rem; margin-top:10px;">
+          <div class="card-body">
+            <label>{{post.posted_by}}</label></a>
+          <p>{{post.content}}</p>
+
+          </div>
+
+          {% for comment in post.comments.all %}
+          <p><strong>{{comment.poster}}</strong> {{comment.comment}}</p>
+          {% endfor %}
+          {{form.media}}
+
+          <form action="/comment/" method="post" enctype="multipart/form-data" id="sema">
+            {% csrf_token %}
+          <input type="text" name="post" value="{{post.id}}" id="id_post" hidden>
+          <div class="form-group"><label for="id_comment">Comment</label><input type="text" name="comment" maxlength="200" class="form-control" placeholder="Comment" title="" required id="id_comment" /></div>
+
+          <button type="submit" name="button"> comment</button>
+          </form>
+
+          {% block scripts %}
+          <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+          {% bootstrap_javascript %}
+          {% endblock %}
+        </div>
+      </div>
+    </div>
+
+    {% endfor %}
+</div>
+
+{% endblock %}
