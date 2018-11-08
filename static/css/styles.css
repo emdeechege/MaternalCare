@@ -168,10 +168,18 @@ a:hover {
     top: 0%;
     width: 50%;
     height: 100%;
+<<<<<<< HEAD
+}
+
+
+modal-text {
+    font-family: 'Dosis', sans-serif;
+=======
     /* border-top-right-radius: 30%;
     border-bottom-right-radius: 30%; */
 }
 
 .post-border-left {
     border-left: 20px solid var(--aqua)
+>>>>>>> b9dab2819679036a52ca66ee3ec99d322a1f450d
 }

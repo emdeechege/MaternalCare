@@ -40,6 +40,8 @@ urlpatterns = [
         name='trimester2'),
     url(r'^trimester3/$', trimester.trimester3,
         name='trimester3'),
+url(r'^scrollytelling/$', trimester.scrollytelling,
+        name='scrollytelling'),
 
     # ---forum views
     url(r'^blogpost/$', forum.create_post, name='create_post'),
