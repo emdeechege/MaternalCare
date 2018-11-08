@@ -52,8 +52,27 @@ def create_post(request):
             post.posted_by = current_user
             post.save()
             messages.success(
-                request, 'You have succesfully created a Post')
+                request, 'Thank you for sharing..')
             return redirect('forum')
     else:
         form = PostForm()
     return render(request, 'forum/create_post.html', {"form": form})
+
+
+def single_blog(request, posts_id):
+    blogpost = Posts.objects.get(id=posts_id)
+    comments = Comment.get_comment()
+
+    current_user = request.user
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.post = post
+            comment.poster = current_user
+            comment.save()
+        return redirect('single_blog')
+
+    else:
+        form = CommentForm()
+    return render(request, 'forum/oneblog.html', {"blogpost": blogpost, "comments": comments})

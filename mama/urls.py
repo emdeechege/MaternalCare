@@ -45,6 +45,7 @@ urlpatterns = [
     url(r'^blogpost/$', forum.create_post, name='create_post'),
     url(r'^comment/', forum.add_comment, name='comment'),
     url(r'^forum/$', forum.forum, name='forum'),
+    url(r'^forum/single_blog/(\d+)', forum.single_blog, name='single_blog')
 
 ]
 

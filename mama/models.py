@@ -593,6 +593,7 @@ class LiveChatForm(forms.ModelForm):
 class Posts(models.Model):
     title = models.CharField(max_length=300)
     content = models.TextField()
+    date = models.DateTimeField(auto_now_add=datetime.utcnow)
     posted_by = models.ForeignKey(User, null=True)
 
     def save_posts(self):
