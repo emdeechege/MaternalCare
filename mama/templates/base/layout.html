@@ -49,7 +49,6 @@
 
     {% block styles %}
 
-
     <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
     <link rel="stylesheet" href="{% static 'css/patient.css' %}">
     <link rel="stylesheet" href="{% static 'css/calendar.css' %}">
@@ -57,7 +56,7 @@
     <link rel="stylesheet" href="{% static 'css/storytelling.css' %}">
     <link rel="stylesheet" href="{% static 'css/trimestermelissa.css' %}">
     <link rel="stylesheet" href="{% static 'css/scrollytelling.css' %}">
-    <link rel="stylesheet" href="{%static 'css/cssanimation.css'>
+    <link rel="stylesheet" href="{% static 'css/cssanimation.css' %}">
 
     {% endblock %}
 
@@ -77,12 +76,12 @@
                         <h2 class="mb-0 text-dark-blue">AMAMA</h2>
                     </a>
                     <a href="{% url 'search_doctors' %}">
-                        find doctors
+                        Find Doctors
                     </a>
                 </div>
                 <div class="about ml-auto">
                     <a class="btn bg-dark-blue py-1 shadow-sm text-sea px-4" href="">
-                        about us
+                        About Us
                     </a>
                 </div>
                 {% if user.is_authenticated %}
@@ -105,14 +104,10 @@
         </nav>
     </section>
 
-
     {% block content %}
     {% endblock content %}
 
     {% include "base/footer.html" %}
-
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
         crossorigin="anonymous"></script>
