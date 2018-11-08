@@ -5,11 +5,11 @@
 
 <div class="container">
 
-<div class="jumbotron text-center" style="background-color:white;">
+<div class="jumbotron text-center" style="background-color: var(--sea);">
 
-<h1 class="h1" style="font-family: 'Abril Fatface', cursive; color:black;font-size:70px;">Medicines</h1>
+<h1 class="h1" style="font-family: 'Dosis', cursive; color: var(--dark-blue);font-size:70px;">Shop Pregnancy Supplements</h1>
 
-<p style="font-family: 'Kodchasan', sans-serif;color:black;">Buy Supplements for you and your baby.</p>
+<p style="font-family: 'Dosis', sans-serif;color:var(--dark-blue);">It's also a good idea during pregnancy to take a prenatal vitamin to help cover any nutritional gaps in the mother's diet. Prenatal vitamins contain many vitamins and minerals. Their folic acid, iron, iodine, and calcium are especially important.</p>
 
 </div>
 </div>
@@ -41,19 +41,18 @@
               <h4 id="modal-text text-center">{{medicine.name}}</h4>
                   <h4 id="modal-text text-center">{{medicine.grams}} grams</h4>
 
-
             </div>
 
             <div class="modal-footer">
-                <a href="https://mydawa.com/#/home"> <button class="btn btn-success"  type="button" onclick="copyLink(this.value)" class="btn btn-outline-secondary my-2 my-sm-0 link-btn">BUY NOW</button></a>
+                <a href="{% url 'payment' %}"> <button class="btn btn-success"  type="button" onclick="copyLink(this.value)" class="btn btn-outline-secondary my-2 my-sm-0 link-btn" style=" font-family: 'Dosis', sans-serif;">BUY NOW</button></a>
 
             </div>
             <div class="modal-footer">
 
-              <h5 id=modal-text>{{medicine.description}}</h5>
+              <h5 style="font-family: 'Dosis', sans-serif;" id=modal-text>{{medicine.description}}</h5>
 
               <button type="button" class="btn btn-outline-secondary
-              my-2 my-sm-0" data-dismiss="modal">Close</button>
+              my-2 my-sm-0" data-dismiss="modal" style="font-family: 'Dosis', sans-serif;">Close</button>
 
             </div>
           </div>

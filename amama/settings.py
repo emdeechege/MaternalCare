@@ -155,11 +155,12 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'amama',
-        'USER': 'emdee',
-        'PASSWORD': 'arif@123',
+        'USER': 'vikki',
+        'PASSWORD': 'sasawa',
         'HOST': '127.0.0.1',
         'PORT': '',
     }
+
 }
 
 db_from_env = dj_database_url.config(conn_max_age=500)

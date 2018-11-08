@@ -16,6 +16,7 @@ from django.conf import settings
 from django.views.generic import TemplateView
 
 from django_pesapal.views import PaymentRequestMixin
+from datetime import datetime as dt
 
 
 class PaymentView(TemplateView, PaymentRequestMixin):
@@ -134,13 +135,6 @@ def individual_doctors_page(request, doctor_id, doctor_name):
     return render(request, 'doctor_page.html', context)
 
 
-def medicines(request):
-
-    if request.GET.get('search_term'):
-        medicines = Medication.search_medication(
-            request.GET.get('search_term'))
-
-
 def book_appointment(request):
     pass
 #     ap_form = AppointmentForm()
@@ -157,7 +151,6 @@ def book_appointment(request):
 
 
 def medicines(request):
-
     if request.GET.get('search_term'):
         medicines = Medication.search_medication(
             request.GET.get('search_term'))

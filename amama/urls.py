@@ -9,5 +9,4 @@ urlpatterns = [
     url(r'^payments/', include('pesapal.urls')),
     url(r"buy", PaymentView.as_view(), name="payment"),
     url(r'', include('mama.urls')),
-
 ]
