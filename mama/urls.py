@@ -29,6 +29,7 @@ urlpatterns = [
 
     # -- doctors views
     url(r'^doctors_dashboard/$', doctor.dashboard, name='doctors_dashboard'),
+    url(r'^doctor_profile/(\d+)$', doctor.doctor_profile, name='doctor_profile'),
 
 
 
@@ -40,7 +41,7 @@ urlpatterns = [
         name='trimester2'),
     url(r'^trimester3/$', trimester.trimester3,
         name='trimester3'),
-url(r'^scrollytelling/$', trimester.scrollytelling,
+    url(r'^scrollytelling/$', trimester.scrollytelling,
         name='scrollytelling'),
 
     # ---forum views
