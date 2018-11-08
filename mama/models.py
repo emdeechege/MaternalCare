@@ -8,6 +8,7 @@ from datetime import datetime
 from datetime import date, datetime
 from django.utils import timezone
 import numpy as np
+import pandas as pd
 from itertools import groupby
 
 
@@ -27,6 +28,9 @@ TIME_CHOICES = (
     ('18', '6:00 pm'),
 )
 
+
+days = ['Monday', 'Tuesday', 'Wednesday',
+        'Thursday', 'Friday', 'Saturday', 'Sunday']
 # -- Location
 
 
@@ -81,6 +85,15 @@ class Doctor(models.Model):
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     specialty = models.ForeignKey(DoctorSpeciality)
+    consultation_fee = models.FloatField(default=0, null=True)
+
+    def make_appointments(self):
+        days = pd.date_range('2012-05-25', '2012-06-27', freq='D')
+        appointments = []
+        for day in days:
+            app = Appointment.objects.create(doctor=self, day=day)
+            appointments.append(app)
+        return appointments
 
     @property
     def booked_slots(self):
@@ -99,7 +112,7 @@ class Doctor(models.Model):
         return ls
 
     @property
-    def booked_appointments(self):
+    def all_appointments(self):
         return self.appointments.all().order_by('day')
 
     @property
@@ -253,7 +266,7 @@ class Appointment(models.Model):
         Doctor, on_delete=models.CASCADE, related_name='appointments', null=True)
     day = models.DateField()
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE, null=True)
-    time_slot = models.CharField(max_length=20, choices=TIME_CHOICES)
+    time_slot = models.CharField(max_length=20, choices=TIME_CHOICES, null=True)
     is_booked = models.BooleanField(default=False)
     is_completed = models.BooleanField(default=False)
 
@@ -593,7 +606,12 @@ class LiveChatForm(forms.ModelForm):
 class Posts(models.Model):
     title = models.CharField(max_length=300)
     content = models.TextField()
+    date = models.DateTimeField(auto_now_add=datetime.utcnow)
     posted_by = models.ForeignKey(User, null=True)
+
+    @property
+    def all_comments(self):
+        return self.comments.all()[:5][::-1]
 
     def save_posts(self):
         self.save()
@@ -604,7 +622,8 @@ class Posts(models.Model):
 
 class Comment(models.Model):
     poster = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
-    post = models.ForeignKey(Posts, on_delete=models.CASCADE, related_name='comments', null=True)
+    post = models.ForeignKey(
+        Posts, on_delete=models.CASCADE, related_name='comments', null=True)
     comment = models.CharField(max_length=200, null=True)
 
     def __str__(self):

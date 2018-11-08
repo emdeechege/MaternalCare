@@ -21,7 +21,6 @@ from xml.etree import cElementTree as ET
 
 from . import conf as settings
 
-
 DEFAULT_TYPE = "MERCHANT"
 app_name, model_name = settings.PESAPAL_TRANSACTION_MODEL.split(".")
 Transaction = apps.get_model(app_label=app_name, model_name=model_name)

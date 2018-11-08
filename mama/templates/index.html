@@ -4,36 +4,44 @@
 {% block content %}
 
 <section id="landing">
-  <div class="row mx-0 vh-70">
-    <div class="col-md-6 h-100 bg-dark">
-
-    </div>
-    <div class="col-md-6 h-100">
-      <h2>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Rem, saepe at ab iusto quibusdam facere odit.
-        Reiciendis saepe voluptate dicta blanditiis consequatur. Perspiciatis rem asperiores possimus laboriosam
-        quaerat consectetur perferendis?</h2>
+  <div class="mx-0 vh-80">
+    <div class="h-100 d-flex">
+      <div class="h-100 w-50 bg-dark overflow-hidden">
+        <img class="w-100 align-self-end" src="{% static 'img/land.jpg' %}" alt="">
+      </div>
+      <div class="w-50 text-center d-flex align-items-center px-4 text-dark-blue bg-aqua">
+        <h2>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Rem, saepe at ab iusto quibusdam facere odit.
+          Reiciendis saepe voluptate dicta blanditiis consequatur. Perspiciatis rem asperiores possimus laboriosam
+          quaerat consectetur perferendis?</h2>
+      </div>
     </div>
   </div>
 </section>
 
 <section id="reason">
-  <div class="text-center d-flex flex-column vh-70">
+  <div class="text-center d-flex flex-column vh-100">
     <div class="justify-content-center my-auto">
       <h1>What We Offer</h1>
-      <div class="d-flex">
-        <div class="w-50">
-          <h3>Our Patients</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sed quod quo maxime nihil error laudantium
-            voluptatum sint iure minima praesentium modi corrupti illo, debitis magnam maiores totam atque. Laudantium,
-            aperiam.</p>
+      <div class="d-flex mt-4 justify-content-center">
+        <div class="w-25 mx-5 text-center">
+          <h3>Patients</h3>
+          <div class="w-100">
+            <img class="people-icon" src="{% static 'img/pregnant_woman.png' %}" alt="">
+          </div>
+          <p class="text-center">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt sapiente sequi magni quod. Nam aperiam
+            molestiae, itaque odit illum nostrum ab harum nesciunt eligendi libero. Ad sequi laborum repellat quis?
+          </p>
         </div>
-        <div class="w-50">
-          <h3>Our Doctors</h3>
-          <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Inventore, accusantium. Magnam architecto
-            commodi
-            temporibus possimus fugit, et error doloribus ipsa eum distinctio aspernatur, repudiandae debitis minus
-            quaerat
-            nobis modi sit?</p>
+        <div class="w-25 mx-5 text-center">
+          <h3>Patients</h3>
+          <div class="w-100">
+            <img class="people-icon" src="{% static 'img/pregnant_woman.png' %}" alt="">
+          </div>
+          <p class="text-center">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt sapiente sequi magni quod. Nam aperiam
+            molestiae, itaque odit illum nostrum ab harum nesciunt eligendi libero. Ad sequi laborum repellat quis?
+          </p>
         </div>
       </div>
     </div>
@@ -42,7 +50,7 @@
 
 
 <section id="testimonials">
-  <div>
+  <div class="vh-100 w-100 d-flex align-items-center">
     <div id="carouselExampleIndicators" class="carousel slide vh-60 overflow-hidden" data-ride="carousel">
       <ol class="carousel-indicators">
         <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
@@ -85,57 +93,73 @@
 </section>
 
 <section id="who-benefits">
-  <div class="text-center vh-70">
-    <h1>Who Benefits</h1>
-    <div class="row mx-0">
-      <div class="col-md-4">
-        <h3>Patients</h3>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt sapiente sequi magni quod. Nam aperiam
-          molestiae, itaque odit illum nostrum ab harum nesciunt eligendi libero. Ad sequi laborum repellat quis?
-        </p>
-      </div>
-      <div class="col-md-4">
-        <h3>Doctors</h3>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt sapiente sequi magni quod. Nam aperiam
-          molestiae, itaque odit illum nostrum ab harum nesciunt eligendi libero. Ad sequi laborum repellat quis?
-        </p>
-      </div>
-      <div class="col-md-4">
-        <h3>Mid-Wives</h3>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt sapiente sequi magni quod. Nam aperiam
-          molestiae, itaque odit illum nostrum ab harum nesciunt eligendi libero. Ad sequi laborum repellat quis?
-        </p>
+  <div class=" vh-80 bg-dark-aqua d-flex align-items-center text-sea">
+    <div class="text-center">
+      <h1 class="text">Who Benefits</h1>
+      <div class="d-flex mt-4 justify-content-center">
+        <div class="w-25 text-center">
+          <h3>Patients</h3>
+          <div class="w-100">
+            <img class="people-icon" src="{% static 'img/pregnant_woman.png' %}" alt="">
+          </div>
+          <p class="text-center">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt sapiente sequi magni quod. Nam aperiam
+            molestiae, itaque odit illum nostrum ab harum nesciunt eligendi libero. Ad sequi laborum repellat quis?
+          </p>
+        </div>
+        <div class="w-25 mx-5 text-center">
+          <h3>Patients</h3>
+          <div class="w-100">
+            <img class="people-icon" src="{% static 'img/pregnant_woman.png' %}" alt="">
+          </div>
+          <p class="text-center">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt sapiente sequi magni quod. Nam aperiam
+            molestiae, itaque odit illum nostrum ab harum nesciunt eligendi libero. Ad sequi laborum repellat quis?
+          </p>
+        </div>
+        <div class="w-25 text-center">
+          <h3>Patients</h3>
+          <div class="w-100">
+            <img class="people-icon" src="{% static 'img/pregnant_woman.png' %}" alt="">
+          </div>
+          <p class="text-center">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt sapiente sequi magni quod. Nam aperiam
+            molestiae, itaque odit illum nostrum ab harum nesciunt eligendi libero. Ad sequi laborum repellat quis?
+          </p>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
 <section>
-  <div class="vh-70 row mx-0">
-    <div class="col-md-4"></div>
-    <div class="col-md-8">
-      <h2>
-        YOUR DATA IS SECURE
-      </h2>
-      <p>
-        Nutrino protects patient confidentiality while furthering innovation and patient care.
-      </p>
-      <p>
-        Nutrino complies with the Health Insurance Portability and Accountability Act (HIPAA).
-        Administrative, Physical, and Technical Safeguards ensure the confidentiality, integrity, and security of all
-        protected
-        health information (PHI) collected by Nutrino’s platform. We will also comply with the General Data Protection
-        Regulation (GDPR) of the European Parliament & Council starting in 2018.
-      </p>
+  <div class="vh-100 d-flex align-items-center">
+    <div class="row mx-0  d-flex align-items-center">
+      <div class="col-md-4">
+        <img class="w-100 p-5" src="{% static 'img/datastorage.png' %}" alt="">
+      </div>
+      <div class="col-md-8">
+        <h2>
+          YOUR DATA IS SECURE
+        </h2>
+        <p>
+          Nutrino protects patient confidentiality while furthering innovation and patient care.
+        </p>
+        <p>
+          Nutrino complies with the Health Insurance Portability and Accountability Act (HIPAA).
+          Administrative, Physical, and Technical Safeguards ensure the confidentiality, integrity, and security of all
+          protected
+          health information (PHI) collected by Nutrino’s platform. We will also comply with the General Data
+          Protection
+          Regulation (GDPR) of the European Parliament & Council starting in 2018.
+        </p>
+      </div>
     </div>
   </div>
 </section>
 
 <section id="contact-us">
-  <div class="text-center d-flex">
+  <div class="text-center d-flex align-items-center vh-80 bg-dark-aqua">
     <div class="w-50 mx-auto">
       <div>
         <h3>Contact Us</h3>
