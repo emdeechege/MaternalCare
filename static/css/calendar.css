@@ -12,10 +12,24 @@ td button {
     background-color: #6da0ff;
 }
 
-#crow {
-    width: 90px;
-}
-
 #day:hover {
     background-color: #6da0ff;
+}
+
+.week {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+}
+
+.item {
+    -ms-flex: 0 0 14.28571%;
+    flex: 0 0 14.28571%;
+    max-width: 14.28571%;
+}
+
+.searched-doctors-photo {
+    width: 80%;
+    height: 100px;
 }

@@ -78,14 +78,9 @@ $(document).ready(function () {
 
 
 function getId(id) {
-    var el = $('#' + id)
-    var $month = el.attr('data-month')
-    var $day = $('#' + id).html();
-    var $date = '' + 2018 + '-' + $month + '-' + $day
+    console.log(id)
     var $setDate = $('#id_day')
-    $setDate.val($date)
-
-    console.log($date)
+    $setDate.val(id)
 }
 
 dc = {
@@ -110,4 +105,9 @@ function setSlot(id) {
     $setSlot.val(dc[id])
     // $setSlot.val(id)
 
+}
+
+function showBooking(id) {
+    console.log(id)
+    $('#doctor' + id).toggleClass('d-none');
 }
