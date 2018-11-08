@@ -23,7 +23,7 @@ urlpatterns = [
     # -- patient views
     url(r'^edit_patient_profile/$', patient.profile_edit,
         name='edit_patient_profile'),
-    # url(r'^due/$', patient.due, name='due'),
+    url(r'^antenatal/$', patient.antenatal, name='antenatal'),
 
 
 
