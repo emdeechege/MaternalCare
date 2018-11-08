@@ -4,7 +4,7 @@
 {% block content %}
 <br>
 <br>
-<script src="static/tom.js" charset="utf-8"></script>
+
 <div class="container">
 
   <div class="row">
@@ -46,6 +46,146 @@
         </tbody>
       </table>
     </div>
+    <div class="calculator-body">
+    <p class="description">Our pregnancy Due Date Calculator will work out how many days, weeks and months to go. Find out when baby will arrive!</p>
+    <div class="form-container">
+      <form class="form-inline" role="form" method="get" action="/due">
+        <div class="form-group">
+          <label for="menstruation-date">
+            First day of last period
+            <a href="/conception/ovulation/calculator/cycle" title="The first day of menstruation is counted as the first day of your ovulation cycle.">
+              <i class="fa fa-info-circle"></i>
+            </a>
+          </label>
+          <div class="custom-select-container" id="due-date-calculator-date">
+            <select class="last-period-day" id="menstruation-date" name="d"><option value="1">1</option>
+<option value="2">2</option>
+<option value="3">3</option>
+<option value="4">4</option>
+<option value="5">5</option>
+<option value="6">6</option>
+<option value="7">7</option>
+<option value="8">8</option>
+<option value="9">9</option>
+<option value="10">10</option>
+<option value="11">11</option>
+<option value="12">12</option>
+<option value="13">13</option>
+<option value="14">14</option>
+<option value="15">15</option>
+<option value="16">16</option>
+<option value="17">17</option>
+<option value="18">18</option>
+<option value="19">19</option>
+<option value="20">20</option>
+<option value="21">21</option>
+<option value="22">22</option>
+<option value="23">23</option>
+<option value="24">24</option>
+<option value="25">25</option>
+<option value="26">26</option>
+<option value="27">27</option>
+<option value="28">28</option>
+<option value="29">29</option>
+<option value="30">30</option>
+<option value="31" style="display: none;">31</option></select>
+          </div>
+
+          <div class="custom-select-container" id="due-date-calculator-month">
+            <select id="menstruation-month" class="last-period-month" name="m">
+              <option value="0">January</option>
+              <option value="1">February</option>
+              <option value="2">March</option>
+              <option value="3">April</option>
+              <option value="4">May</option>
+              <option value="5">June</option>
+              <option value="6">July</option>
+              <option value="7">August</option>
+              <option value="8">September</option>
+              <option value="9">October</option>
+              <option value="10">November</option>
+              <option value="11">December</option>
+            </select>
+          </div>
+          <div class="custom-select-container" id="due-date-calculator-year">
+            <select class="last-period-year" id="menstruation-year" name="y"><option value="2018">2018</option><option value="2019">2019</option></select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="c">
+            Cycle length
+            <a href="/conception/ovulation/calculator/cycle" title="The average cycle is said to be 28 days, but most women vary somewhat from the average cycle.">
+              <i class="fa fa-info-circle"></i>
+            </a>
+          </label>
+          <div class="custom-select-container">
+            <select class="cycle-length" id="c" name="c"><option value="21">21 days</option>
+<option value="22">22 days</option>
+<option value="23">23 days</option>
+<option value="24">24 days</option>
+<option value="25">25 days</option>
+<option value="26">26 days</option>
+<option value="27">27 days</option>
+<option value="28" selected="selected">28 days</option>
+<option value="29">29 days</option>
+<option value="30">30 days</option>
+<option value="31">31 days</option>
+<option value="32">32 days</option>
+<option value="33">33 days</option>
+<option value="34">34 days</option>
+<option value="35">35 days</option>
+<option value="36">36 days</option>
+<option value="37">37 days</option>
+<option value="38">38 days</option></select>
+          </div>
+        </div>
+
+        <div class="form-group luteal-phase-form-group" style="display: none">
+          <label for="l">
+            Luteal phase
+            <a href="/conception/ovulation/calculator/cycle/luteal-phase" title="The typical length for a luteal phase is 10-16 days, though most commonly lasts for around 14 days.">
+              <i class="fa fa-info-circle"></i>
+            </a>
+          </label>
+          <div class="custom-select-container">
+            <select class="luteal-phase" id="l" name="l"><option value="8">8 days</option>
+<option value="9">9 days</option>
+<option value="10">10 days</option>
+<option value="11">11 days</option>
+<option value="12">12 days</option>
+<option value="13">13 days</option>
+<option value="14" selected="selected">14 days</option>
+<option value="15">15 days</option>
+<option value="16">16 days</option>
+<option value="17">17 days</option>
+<option value="18">18 days</option>
+<option value="19">19 days</option>
+<option value="20">20 days</option></select>
+          </div>
+        </div>
+        <button type="submit" class="calculate-button">Calculate</button>
+      </form>
+    </div>
+
+      <div class="results hide" hidden>
+        <div class="heading">Your results</div>
+        <div class="calendar"><strong>8</strong><span>Oct 2016</span></div>
+        <div class="event conception">Conception date:
+          <div>Week 2</div><span>15 Jan 2015</span>
+        </div>
+        <div class="event second">Second Trimester:
+          <div>Week 14</div><span>9 Apr 2015</span>
+        </div>
+        <div class="event third">Third Trimester:
+          <div>Week 28</div><span>16 Jul 2016</span>
+        </div>
+        <div class="event due">Estimated due date:
+          <div>40 weeks full term</div><span>8 Oct 2016</span>
+        </div>
+        <div class="disclaimer">* Please remember this result is only an estimate. Your baby will arrive when he/she is ready. Do consult your healthcare provider to determine your correct due date.</div>
+      </div>
+  </div>
     <br>
     <div class="col6">
       <h3>How is my due date calculated?</h3>

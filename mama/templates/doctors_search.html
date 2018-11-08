@@ -5,32 +5,164 @@
 {%load static%}
 
 {% block content %}
-
-<div>
-    <form action="{% url 'search_doctors' %}" method="GET">
-        {{ search_form }}
-        <button class="btn btn-info" type="submit">search</button>
-    </form>
-</div>
-
-<div class=" d-flex flex-column">
-
-    <div class="d-block">
-        <h1>Find a Doctor</h1>
-        <div class="filter-doctors">
-            <div class="d-flex my-3">
-                <p class="mr-auto mb-0">Filter</p>
-                <button class="ml-3 btn btn-sm ">Location</button>
-                <button class="ml-3 btn btn-sm active">Ratings</button>
-                <button class="ml-3 btn btn-sm ">Price</button>
+<section id="search-header">
+    <div class="vh-80 bg-dark-blue">
+        <div class="container h-100">
+            <div class="w-50 h-100 bg-dark-aqua d-flex float-right text-sea px-5">
+                <div class="my-auto">
+                    <h5 class="text-white-50">Amama for expectant women</h5>
+                    <h1 class="display-4">Help is just an appointment away!</h1>
+                    <p class="pl-2 py-3">
+                        Find the perfect health proffessional for you to guide you through you pregnancy journey. All
+                        our
+                        practitioners have been veted and approved by the medical board. What are you waiting for?
+                    </p>
+                    <a href="#id_search_term">
+                        <label class="btn bg-dark-blue text-sea" for="id_search_term">Find a proffessional</label>
+                    </a>
+                </div>
+            </div>
+            <div class="w-50">
+                <img class="h-100 img-fluid" src="{% static 'img/black-doctor.png' %}" alt="">
             </div>
         </div>
     </div>
+</section>
 
 
+<section id="search-doctors-section">
+    <div class="my-5 d-flex flex-column">
+        <div class="container d-flex my-3">
+            <form action="/search_doctors/#id_search_term" method="GET">
+                <div class="d-flex">
+                    <input class="form-control w-auto" type="text" name="search_term" maxlength="50" required id="id_search_term"
+                        placeholder="Who are you looking for?" />
+                    <button class="btn btn-info ml-3 px-4" type="submit">search</button>
+                </div>
+            </form>
+            {% if searched_doctors %}
+            <h2 class="ml-4">
+                {{searched_doctors | length }} Doctor(s) Found</h2>
+            {% endif %}
+
+            {% if searched_doctors.count is 0 %}
+            <h2 class="ml-4"> It appears that there are 0 doctors for your search term
+                {{message}}, please try again. </h2>
+            {% endif %}
+        </div>
+        <div class="search_results container">
+            <div class="row mx-0 my-3">
+                {% for doctor in searched_doctors %}
+                <div class="col-md-3 text-center my-3">
+                    <div class="">
+                        <img class="w-100 rounded-circle" src="{{doctor.photo.url}}" data-target="#imageModal{{doctor.id}}"
+                            data-toggle="modal" alt="" class="img-fluid" id="eachimage">
+                    </div>
+                    <h3 class="my-2">{{ doctor.full_name }}</h3>
+                    <h5 class="mb-3">{{ doctor.consultation_fee }}
+                        <span class="ml-2">Ksh</span>
+                    </h5>
+                    <a href="#doctor{{ doctor.user.id }}">
+                        <button onclick="showBooking('{{ doctor.user.id }}')" class="btn bg-dark-blue text-aqua">Book
+                            an
+                            appointment</button>
+                    </a>
+                </div>
+
+                <div class="d-none calendars" id="doctor{{ doctor.user.id }}">
+                    <div class="d-flex my-2 mr-auto" id="calendaer-booking">
+                        <div class="w-75 mx-auto">
+                            <h3>Choose Day</h3>
+                            <div class="d-flex">
+                                {% include 'includes/patient_calendar.html' %}
+                            </div>
+                        </div>
+
+                        <div class="w-25">
+                            <h3>Choose Time</h3>
+                            <div class="d-flex flex-wrap">
+                                {% for slot in doctor.working_hours.appointment_slots %}
+                                <div class="m-1">
+                                    <a href="{% url 'payment' %}">
+                                        <button class="slot-width btn cbody" id="{{ slot }}" onclick="setSlot(this.id); $('#submit-book-btn').click()">
+                                            <span>
+                                                {{ slot }}
+                                            </span>
+                                        </button>
+                                    </a>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section id="how-works">
+    <div class="container">
+        <div class="text-center my-5">
+            <h2>How it Works</h2>
+        </div>
+        <div class="px-5 d-flex">
+            <div class="w-50">
+                <img src="{% static 'img/how-it-works.png' %}" alt="">
+            </div>
+            <div class="w-50">
+                <div class="mb-5">
+                    <h5 class="font-weight-bold">1. Register For Free</h5>
+                    <p>
+                        Signing up with us is a very quick process. Just click <a class="text-aqua" href="{% url 'signup' %}">here</a>
+                        and you will be done in a minute!
+                    </p>
+                </div>
+                <div class="mb-5">
+                    <h5 class="font-weight-bold">1. Register For Free</h5>
+                    <p>
+                        Signing up with us is a very quick process. Just click <a class="text-aqua" href="{% url 'signup' %}">here</a>
+                        and you will be done in a minute!
+                    </p>
+                </div>
+                <div class="mb-5">
+                    <h5 class="font-weight-bold">1. Register For Free</h5>
+                    <p>
+                        Signing up with us is a very quick process. Just click <a class="text-aqua" href="{% url 'signup' %}">here</a>
+                        and you will be done in a minute!
+                    </p>
+                </div>
+                <div class="mb-5">
+                    <h5 class="font-weight-bold">1. Register For Free</h5>
+                    <p>
+                        Signing up with us is a very quick process. Just click <a class="text-aqua" href="{% url 'signup' %}">here</a>
+                        and you will be done in a minute!
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section>
+    <div class="container d-flex border-bottom">
+        <h1 class="">Top Rated Doctors</h1>
+        <div class="filter-doctors ml-auto d-flex align-items-center">
+            <p class="ml-3 mb-0">Filter</p>
+            <button class="ml-3 my-2 btn btn-sm ">Location</button>
+            <button class="ml-3 my-2 btn btn-sm active">Ratings</button>
+            <button class="ml-3 my-2 btn btn-sm ">Price</button>
+        </div>
+    </div>
+</section>
+
+<section>
     {% for doctor in doctors %}
-    <div class="container my-5">
-        <div class="d-flex">
+    <div class="my-5">
+        <div class="d-flex container">
             <div class="profile-photo">
                 <img class="w-100" src="{{ doctor.photo.url }}" alt="">
             </div>
@@ -39,11 +171,10 @@
             </div>
         </div>
 
-        <div>
-            <h3>Book an appointment</h3>
-        </div>
-
-        <div class="d-flex">
+        <div class="d-none">
+            <div>
+                <h3>Book an appointment</h3>
+            </div>
 
             <div class="w-75 mx-auto">
                 <h5>Choose Day</h5>
@@ -73,51 +204,23 @@
         </div>
     </div>
     {% endfor %}
+</section>
 
-    <!-- form for submiting an appointment booking -->
-    <form action="" method="POST" id="book-form" data-url="http://localhost:8000/search_doctors/">
-        <input class="d-none" type="date" name="day" required id="id_day" />
-        <input class="d-none" type="text" name="time_slot" required id="id_time_slot" />
+<!-- form for submiting an appointment booking -->
+<form action="" method="POST" id="book-form" data-url="http://localhost:8000/search_doctors/">
+    <input class="d-none" type="date" name="day" required id="id_day" />
+    <input class="d-none" type="text" name="time_slot" required id="id_time_slot" />
 
-        <button class="d-none" id="submit-book-btn" type="submit">book</button>
-    </form>
-    <!-- form for submiting an appointment booking -->
+    <button class="d-none" id="submit-book-btn" type="submit">book</button>
+</form>
+<!-- form for submiting an appointment booking -->
 
 
 </div>
 
 </div>
 
-<div class="row">
-    {% if searched_doctors %}
-    <h2 style="font-family: 'Kodchasan', sans-serif;"> Here are doctors you have searched for : {{message}}</h2>
 
-    <div class="">
-
-        {% for doctor in searched_doctors %}
-        <h5>{{ doctor.full_name }}</h5>
-        <div class="profile-photo border-secondary">
-            <img class="w-100" src="{{doctor.photo.url}}" data-target="#imageModal{{doctor.id}}" data-toggle="modal"
-                alt="" class="img-fluid" id="eachimage" size="100px200">
-        </div>
-
-        <div>
-            {{ doctor.appointments.all }}
-            {% for slot in doctor.working_hours.appointment_slots %}
-            {{ slot }}
-            {% endfor %}
-        </div>
-
-        {% endfor %}
-    </div>
-
-    {% endif %}
-
-    {% if searched_doctors.count is 0 %}
-    <h2 style="font-family: 'Kodchasan', sans-serif;"> It appears that there are 0 doctors for your search term
-        {{message}}, please try again. </h2>
-    {% endif %}
-</div>
 </div>
 
 
@@ -139,7 +242,7 @@
 
                 <input class="form-control" type="text" value="https://linkedin.com{{doctor.image.url}}">
                 <button type="button" value="https://linkedin.com{{doctor.image.url}}" onclick="copyLink(this.value)"
-                    class="btn btn-outline-secondary my-2 my-sm-0 link-btn">Copy
+                    class="btn btn-outline-secondary my-2 my-0 link-btn">Copy
                     Photo Link</button>
 
             </div>
