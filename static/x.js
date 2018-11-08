@@ -25,7 +25,7 @@
     recalculate: false,
 
     // mini version redirects here
-    fullUrl: '/pregnancy/calculators-and-tools/due-date-calculator',
+    fullUrl: '/due',
 
     init: function () {
       this.$calculator = $('.due-date-calculator');

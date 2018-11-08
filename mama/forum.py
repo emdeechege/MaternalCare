@@ -29,7 +29,7 @@ def forum(request):
 
 
 def add_comment(request):
-    # post = get_object_or_404(Posts)
+
     current_user = request.user
     if request.method == 'POST':
         form = CommentForm(request.POST)
@@ -40,7 +40,7 @@ def add_comment(request):
             return redirect('forum')
     else:
         form = CommentForm()
-        return render(request, 'forum/comment.html', {"form": form})
+    return render(request, 'forum/comment.html', {"form": form})
 
 
 def create_post(request):
@@ -61,7 +61,7 @@ def create_post(request):
 
 def single_blog(request, posts_id):
     blogpost = Posts.objects.get(id=posts_id)
-    comments = Comment.get_comment()
+    comments = Comment.objects.get(id=posts_id)
 
     current_user = request.user
     if request.method == 'POST':
@@ -71,7 +71,7 @@ def single_blog(request, posts_id):
             comment.post = post
             comment.poster = current_user
             comment.save()
-        return redirect('single_blog')
+        return redirect('forum')
 
     else:
         form = CommentForm()

@@ -5,7 +5,8 @@ body {
 
 :root {
     --sea: #c9e265;
-    --dark-blue: #114455
+    --dark-blue: #114455;
+    --aqua: #4cc0b3;
 }
 
 .font-dosis {
@@ -114,4 +115,8 @@ a:hover {
     left: 25%;
     width: 50%;
     height: 100%;
+}
+
+.post-border-left {
+  border-left: 20px solid var(--aqua)
 }

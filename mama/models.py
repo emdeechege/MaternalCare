@@ -596,6 +596,10 @@ class Posts(models.Model):
     date = models.DateTimeField(auto_now_add=datetime.utcnow)
     posted_by = models.ForeignKey(User, null=True)
 
+    @property
+    def all_comments(self):
+        return self.comments.all()[:5][::-1]
+
     def save_posts(self):
         self.save()
 
