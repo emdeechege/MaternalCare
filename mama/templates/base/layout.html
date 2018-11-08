@@ -106,8 +106,9 @@
 
     {% block content %}
     {% endblock content %}
-
     {% include "base/footer.html" %}
+
+
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
         crossorigin="anonymous"></script>
@@ -119,13 +120,13 @@
     <script src="{% static 'js/scripts.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/scrolly.js'%}"></script>
     <script src='https://unpkg.com/intersection-observer@0.5.0/intersection-observer.js'></script>
-<script src='https://unpkg.com/scrollama'></script>
+    <script src='https://unpkg.com/scrollama'></script>
     <script src="{% static 'js/scrollytelling.js' %}"></script>
 
     <script>
-       window.onload = function() {
-          scrolly();
-       };
+        window.onload = function () {
+            scrolly();
+        };
     </script>
     <script src="{% static 'js/tom.js' %}"></script>
 
