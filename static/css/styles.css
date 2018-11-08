@@ -171,3 +171,7 @@ a:hover {
     /* border-top-right-radius: 30%;
     border-bottom-right-radius: 30%; */
 }
+
+.post-border-left {
+    border-left: 20px solid var(--aqua)
+}

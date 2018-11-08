@@ -34,7 +34,7 @@ class SearchDoctorsForm(forms.Form):
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
-        exclude = ['poster']
+        exclude = ['poster', 'date']
 
 
 class PostForm(forms.ModelForm):
