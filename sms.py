@@ -14,10 +14,10 @@ def main():
         print('\nAsync Done with -> ' + str(data['SMSMessageData']['Message']))
 
     # Send SMS asynchronously
-    sms.send('Hello Async', ['+254792752820'], callback=on_finish)
+    sms.send('Hello Async', ['+254724361712'], callback=on_finish)
     print('Waiting for async result....')
     # Send SMS synchronously
-    result = sms.send('Hello Sync Test', ['+254792752820'])
+    result = sms.send('Hello Sync Test', ['+254724361712'])
     print('\nSync Done with -> ' + result['SMSMessageData']['Message'])
 
 
