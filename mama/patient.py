@@ -15,5 +15,10 @@ def profile_edit(request):
     }
     return render(request, 'patient_edit.html', context)
 
+
 def due(request):
     return render(request, 'patient/info.html')
+
+
+def antenatal(request):
+    return render(request, 'patient/antenatal.html')

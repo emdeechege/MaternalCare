@@ -15,3 +15,9 @@ def dashboard(request):
         'doctor': doctor
     }
     return render(request, 'doctor_dashboard.html', context)
+
+
+def doctor_profile(request, doctor_id):
+    profile = Doctor.objects.get(pk=doctor_id)
+
+    return render(request, "doctor_profile.html", {"profile": profile})
