@@ -59,7 +59,6 @@
             <div>
                 <form method="post">
                     {% csrf_token %}
-                    <input type="text" id="reg_no" name="reg_no" value="" hidden>
                     {{ form.as_p }}
                     <div class="form-group d-flex mx-auto">
                         <input class="border-dark-blue opacity-7 form-control py-4" type="hidden" name="next" value="">

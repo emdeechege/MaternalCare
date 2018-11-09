@@ -84,7 +84,6 @@ class Doctor(models.Model):
         upload_to='images', default='default.jpg', null=True)
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
-    specialty = models.ForeignKey(DoctorSpeciality)
     consultation_fee = models.FloatField(default=0, null=True)
 
     @classmethod

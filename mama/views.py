@@ -132,28 +132,31 @@ def signup_doctor(request):
         form = DoctorRegistrationForm(request.POST)
         print(form.is_valid())
         if form.is_valid():
-            reg_no = form.cleaned_data['reg_no']
-            for i in doctors_found_list:
-                if reg_no == i['reg_no']:
-                    doc_details = i
-                    break
-            doc = form.save()
-            print(doc)
-            doctor = Doctor.create_doctor(doc, doc_details['specialty'])
-            DoctorProfile.objects.create(
-                doctor=doctor,
-                name=doc_details['name'],
-                score=doc_details['score'],
-                registration_number=doc_details['reg_no'],
-                registration_date=doc_details['reg_date'],
-                nationality=doc_details['doctor_type'],
-                facility=doc_details['facility'],
-                postal_address=doc_details['postal_address'],
-                speciality=doc_details['speciality'],
-                sub_speciality=doc_details['sub_speciality'],
-                qualifications=doc_details['qualifications']
-            )
-            print(DoctorProfile.objects.last())
+            form.save()
+        reg_no = form.cleaned_data['reg_no']
+        print(reg_no)
+        for i in doctors_found_list:
+            if reg_no == i['reg_no']:
+                doc_details = i
+                break
+        doc = User.objects.last()
+        print(doc)
+        doctor = Doctor.objects.create(doctor=doc, consultation_fee)
+        doctor.make_appointments()
+        DoctorProfile.objects.create(
+            doctor=doctor,
+            name=doc_details['name'],
+            score=doc_details['score'],
+            registration_number=doc_details['reg_no'],
+            registration_date=doc_details['reg_date'],
+            nationality=doc_details['doctor_type'],
+            facility=doc_details['facility'],
+            postal_address=doc_details['postal_address'],
+            speciality=doc_details['speciality'],
+            sub_speciality=doc_details['sub_speciality'],
+            qualifications=doc_details['qualifications']
+        )
+        print(DoctorProfile.objects.last())
         return redirect('login')
     return render(request, 'auth/register_doctor.html', context)
 
