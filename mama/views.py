@@ -134,6 +134,7 @@ def signup_doctor(request):
         if form.is_valid():
             form.save()
         reg_no = form.cleaned_data['reg_no']
+        fee = form.cleaned_data['fee']
         print(reg_no)
         for i in doctors_found_list:
             if reg_no == i['reg_no']:
@@ -141,7 +142,7 @@ def signup_doctor(request):
                 break
         doc = User.objects.last()
         print(doc)
-        doctor = Doctor.objects.create(doctor=doc, consultation_fee)
+        doctor = Doctor.objects.create(doctor=doc, consultation_fee=fee)
         doctor.make_appointments()
         DoctorProfile.objects.create(
             doctor=doctor,

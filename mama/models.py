@@ -84,12 +84,12 @@ class Doctor(models.Model):
         upload_to='images', default='default.jpg', null=True)
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
+    specialty = models.ForeignKey(DoctorSpeciality, null=True)
     consultation_fee = models.FloatField(default=0, null=True)
 
     @classmethod
-    def create_doctor(cls, user, specialty):
-        doc = cls.objects.create(user=user, specialty=specialty)
-        return doc
+    def create_doctor(cls, user, fee):
+        cls.objects.create(user=user, consultation_fee=fee)
         
     def make_appointments(self):
         days = pd.date_range('2012-05-25', '2012-06-27', freq='D')
