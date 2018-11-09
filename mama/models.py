@@ -87,6 +87,11 @@ class Doctor(models.Model):
     specialty = models.ForeignKey(DoctorSpeciality)
     consultation_fee = models.FloatField(default=0, null=True)
 
+    @classmethod
+    def create_doctor(cls, user, specialty):
+        doc = cls.objects.create(user=user, specialty=specialty)
+        return doc
+        
     def make_appointments(self):
         days = pd.date_range('2012-05-25', '2012-06-27', freq='D')
         appointments = []
@@ -141,9 +146,6 @@ class Doctor(models.Model):
     def delete_doctor(self):
         self.delete()
 
-    def save_doctor(self, user):
-        self.user = user
-        self.save()
 
     def average_service(self):
         service_ratings = list(
@@ -178,6 +180,30 @@ class DoctorAdmin(admin.ModelAdmin):
 
 # --
 
+
+class DoctorProfile(models.Model):
+    doctor = models.OneToOneField(
+        Doctor, on_delete=models.CASCADE, related_name='profile')
+    name = models.CharField(max_length=100)
+    score = models.IntegerField(default=0)
+    registration_number = models.CharField(max_length=100)
+    registration_date = models.CharField(max_length=100)
+    nationality = models.CharField(max_length=100)  
+    facility = models.CharField(max_length=100)
+    postal_address = models.CharField(max_length=100)
+    speciality = models.CharField(max_length=100)
+    sub_speciality = models.CharField(max_length=100)
+    qualifications = models.CharField(max_length=100)
+
+
+class DoctorProfileForm(forms.ModelForm):
+    class Meta:
+        model = DoctorProfile
+        exclude = ['doctor']
+
+
+
+# --
 
 class DoctorWorkingHours(models.Model):
     doctor = models.OneToOneField(

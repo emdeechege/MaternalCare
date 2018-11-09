@@ -17,6 +17,7 @@ from django.views.generic import TemplateView
 
 from django_pesapal.views import PaymentRequestMixin
 from datetime import datetime as dt
+import requests
 
 
 class PaymentView(TemplateView, PaymentRequestMixin):
@@ -64,6 +65,19 @@ def logout(request):
     return redirect('login')
 
 
+def verify_doctor(request):
+    check_form = CheckDoctorsForm()
+    context = {
+        'check_form': check_form
+    }
+    if 'check_doctor' in request.GET and request.GET['check_doctor']:
+        check_doctor = request.GET.get('check_doctor')
+        request.session['check_doctor'] = check_doctor
+        return redirect('signup_doctor')
+
+    return render(request, 'auth/verify.html', context)
+
+
 def signup(request):
     if request.method == 'POST':
         form = MyRegistrationForm(request.POST)
@@ -78,6 +92,70 @@ def signup(request):
     }
     return render(request, 'auth/register.html', context)
 
+
+def signup_doctor(request):
+
+    # verifying doctor section
+
+    form = DoctorRegistrationForm()
+
+    context = {
+        'form': form
+    }
+
+    url = 'https://api.healthtools.codeforafrica.org/search/doctors?q={}'
+    doctors_found = requests.get(url.format(
+        request.session.get('check_doctor'))).json()
+    doctors_found_list = []
+    doctor_profile = DoctorProfileForm()
+    context['doctor_profile'] = doctor_profile
+    for doc_object in doctors_found['result']['hits']:
+        doctor_obj = {
+            'id': doc_object['_id'],
+            'name': doc_object['_source']['name'],
+            'score': doc_object['_score'],
+            'doctor_type': doc_object['_source']['doctor_type'],
+            'facility': doc_object['_source']['facility'],
+            'postal_address': doc_object['_source']['postal_address'],
+            'qualifications': doc_object['_source']['qualifications'],
+            'reg_date': doc_object['_source']['reg_date'],
+            'reg_no': doc_object['_source']['reg_no'],
+            'speciality': doc_object['_source']['speciality'],
+            'sub_speciality': doc_object['_source']['sub_speciality'],
+        }
+        doctors_found_list.append(doctor_obj)
+        context['doctors'] = doctors_found_list[:10]
+
+    # --- add doctor t0 database
+
+    if request.method == 'POST':
+        form = DoctorRegistrationForm(request.POST)
+        print(form.is_valid())
+        if form.is_valid():
+            reg_no = form.cleaned_data['reg_no']
+            for i in doctors_found_list:
+                if reg_no == i['reg_no']:
+                    doc_details = i
+                    break
+            doc = form.save()
+            print(doc)
+            doctor = Doctor.create_doctor(doc, doc_details['specialty'])
+            DoctorProfile.objects.create(
+                doctor=doctor,
+                name=doc_details['name'],
+                score=doc_details['score'],
+                registration_number=doc_details['reg_no'],
+                registration_date=doc_details['reg_date'],
+                nationality=doc_details['doctor_type'],
+                facility=doc_details['facility'],
+                postal_address=doc_details['postal_address'],
+                speciality=doc_details['speciality'],
+                sub_speciality=doc_details['sub_speciality'],
+                qualifications=doc_details['qualifications']
+            )
+            print(DoctorProfile.objects.last())
+        return redirect('login')
+    return render(request, 'auth/register_doctor.html', context)
 
 # -- General Pages views
 

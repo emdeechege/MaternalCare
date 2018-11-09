@@ -1,119 +1,26 @@
-{% load static %}
-
-<div class="border w-auto cbody p-3 rounded">
-    <table class="">
-        <thead>
-            <h1 class="display-4">November</h1>
-        </thead>
-        <thead cellpadding="10" class="card-header">
-            <tr class="d-flex">
-                <td class="d-flex" id="crow"><button class="chead flex-fill btn btn-lg px-3 m-1 my-3">sun</button></td>
-                <td class="d-flex" id="crow"><button class="chead flex-fill btn btn-lg px-3 m-1 my-3">mon</button></td>
-                <td class="d-flex" id="crow"><button class="chead flex-fill btn btn-lg px-3 m-1 my-3">tue</button></td>
-                <td class="d-flex" id="crow"><button class="chead flex-fill btn btn-lg px-3 m-1 my-3">wed</button></td>
-                <td class="d-flex" id="crow"><button class="chead flex-fill btn btn-lg px-3 m-1 my-3">thu</button></td>
-                <td class="d-flex" id="crow"><button class="chead flex-fill btn btn-lg px-3 m-1 my-3">fri</button></td>
-                <td class="d-flex" id="crow"><button class="chead flex-fill btn btn-lg px-3 m-1 my-3">sat</button></td>
-            </tr>
-        </thead>
-        <tbody>
-            <tr class="d-flex">
-                <td class="d-flex" id="crow"><button class="flex-fill btn btn-sm bg-transparent m-1 mx-2" id="day"
-                        data-month="11" onclick="getId(this.id)">28</button></td>
-                <td class="d-flex" id="crow"><button class="flex-fill btn btn-sm bg-transparent m-1 mx-2" id="day"
-                        data-month="11" onclick="getId(this.id)">29</button></td>
-                <td class="d-flex" id="crow"><button class="flex-fill btn btn-sm bg-transparent m-1 mx-2" id="day"
-                        data-month="11" onclick="getId(this.id)">30</button></td>
-                <td class="d-flex" id="crow"><button class="flex-fill btn btn-sm bg-transparent m-1 mx-2" id="day"
-                        data-month="11" onclick="getId(this.id)">31</button></td>
-                <td class="d-flex" id="crow"><button class="flex-fill btn btn-sm m-1 mx-2" id="day" data-month="11"
-                        onclick="getId(this.id)">01</button></td>
-                <td class="d-flex" id="crow"><button class="flex-fill btn btn-sm m-1 mx-2" id="day" data-month="11"
-                        onclick="getId(this.id)">02</button></td>
-                <td class="d-flex" id="crow"><button class="flex-fill btn btn-sm m-1 mx-2" id="day" data-month="11"
-                        onclick="getId(this.id)">03</button></td>
-            </tr>
-            <tr class="d-flex">
-                <td class="d-flex" id="crow"><button class="flex-fill btn btn-sm m-1 mx-2" id="day" data-month="11"
-                        onclick="getId(this.id)">04</button></td>
-                <td class="d-flex" id="crow"><button class="flex-fill btn btn-sm m-1 mx-2" id="day" data-month="11"
-                        onclick="getId(this.id)">05</button></td>
-                <td class="d-flex" id="crow"><button class="flex-fill btn btn-sm m-1 mx-2" id="day" data-month="11"
-                        onclick="getId(this.id)">06</button></td>
-                <td class="d-flex" id="crow"><button class="flex-fill btn btn-sm m-1 mx-2" id="day" data-month="11"
-                        onclick="getId(this.id)">07</button></td>
-                <td class="d-flex" id="crow"><button class="flex-fill btn btn-sm m-1 mx-2" id="day" data-month="11"
-                        onclick="getId(this.id)">08</button></td>
-                <td class="d-flex" id="crow"><button class="flex-fill btn btn-sm m-1 mx-2" id="day" data-month="11"
-                        onclick="getId(this.id)">09</button></td>
-                <td class="d-flex" id="crow"><button class="flex-fill btn btn-sm m-1 mx-2" id="day" data-month="11"
-                        onclick="getId(this.id)">10</button></td>
-            </tr>
-            <tr class="d-flex">
-                <td class="d-flex" id="crow"><button class="flex-fill btn btn-sm m-1 mx-2" id="day" data-month="11"
-                        onclick="getId(this.id)">11</button></td>
-                <td class="d-flex" id="crow"><button class="flex-fill btn btn-sm m-1 mx-2" id="day" data-month="11"
-                        onclick="getId(this.id)">12</button></td>
-                <td class="d-flex" id="crow"><button class="flex-fill btn btn-sm m-1 mx-2" id="day" data-month="11"
-                        onclick="getId(this.id)">13</button></td>
-                <td class="d-flex" id="crow"><button class="flex-fill btn btn-sm m-1 mx-2" id="day" data-month="11"
-                        onclick="getId(this.id)">14</button></td>
-                <td class="d-flex" id="crow"><button class="flex-fill btn btn-sm m-1 mx-2" id="day" data-month="11"
-                        onclick="getId(this.id)">15</button></td>
-                <td class="d-flex" id="crow"><button class="flex-fill btn btn-sm m-1 mx-2" id="day" data-month="11"
-                        onclick="getId(this.id)">16</button></td>
-                <td class="d-flex" id="crow"><button class="flex-fill btn btn-sm m-1 mx-2" id="day" data-month="11"
-                        onclick="getId(this.id)">17</button></td>
-            </tr>
-            <tr class="d-flex">
-                <td class="d-flex" id="crow"><button class="flex-fill btn btn-sm m-1 mx-2" id="day" data-month="11"
-                        onclick="getId(this.id)">18</button></td>
-                <td class="d-flex" id="crow"><button class="flex-fill btn btn-sm m-1 mx-2" id="day" data-month="11"
-                        onclick="getId(this.id)">19</button></td>
-                <td class="d-flex" id="crow"><button class="flex-fill btn btn-sm m-1 mx-2" id="day" data-month="11"
-                        onclick="getId(this.id)">20</button></td>
-                <td class="d-flex" id="crow"><button class="flex-fill btn btn-sm m-1 mx-2" id="day" data-month="11"
-                        onclick="getId(this.id)">21</button></td>
-                <td class="d-flex" id="crow"><button class="flex-fill btn btn-sm m-1 mx-2" id="day" data-month="11"
-                        onclick="getId(this.id)">22</button></td>
-                <td class="d-flex" id="crow"><button class="flex-fill btn btn-sm m-1 mx-2" id="day" data-month="11"
-                        onclick="getId(this.id)">23</button></td>
-                <td class="d-flex" id="crow"><button class="flex-fill btn btn-sm m-1 mx-2" id="day" data-month="11"
-                        onclick="getId(this.id)">24</button></td>
-            </tr>
-            <tr class="d-flex">
-                <td class="d-flex" id="crow"><button class="flex-fill btn btn-sm m-1 mx-2" id="day" data-month="11"
-                        onclick="getId(this.id)">25</button></td>
-                <td class="d-flex" id="crow"><button class="flex-fill btn btn-sm m-1 mx-2" id="day" data-month="11"
-                        onclick="getId(this.id)">26</button></td>
-                <td class="d-flex" id="crow"><button class="flex-fill btn btn-sm m-1 mx-2" id="day" data-month="11"
-                        onclick="getId(this.id)">27</button></td>
-                <td class="d-flex" id="crow"><button class="flex-fill btn btn-sm m-1 mx-2" id="day" data-month="11"
-                        onclick="getId(this.id)">28</button></td>
-                <td class="d-flex" id="crow"><button class="flex-fill btn btn-sm m-1 mx-2" id="day" data-month="11"
-                        onclick="getId(this.id)">29</button></td>
-                <td class="d-flex" id="crow"><button class="flex-fill btn btn-sm m-1 mx-2" id="day" data-month="11"
-                        onclick="getId(this.id)">30</button></td>
-                <td class="d-flex" id="crow"><button class="flex-fill btn btn-sm m-1 mx-2 bg-transparent" id="day"
-                        data-month="11" onclick="getId(this.id)">01</button></td>
-            </tr>
-            <tr class="d-flex">
-                <td class="d-flex" id="crow"><button class="flex-fill btn btn-sm m-1 mx-2 bg-transparent" id="day"
-                        data-month="11" onclick="getId(this.id)">02</button></td>
-                <td class="d-flex" id="crow"><button class="flex-fill btn btn-sm m-1 mx-2 bg-transparent" id="day"
-                        data-month="11" onclick="getId(this.id)">03</button></td>
-                <td class="d-flex" id="crow"><button class="flex-fill btn btn-sm m-1 mx-2 bg-transparent" id="day"
-                        data-month="11" onclick="getId(this.id)">04</button></td>
-                <td class="d-flex" id="crow"><button class="flex-fill btn btn-sm m-1 mx-2 bg-transparent" id="day"
-                        data-month="11" onclick="getId(this.id)">05</button></td>
-                <td class="d-flex" id="crow"><button class="flex-fill btn btn-sm m-1 mx-2 bg-transparent" id="day"
-                        data-month="11" onclick="getId(this.id)">06</button></td>
-                <td class="d-flex" id="crow"><button class="flex-fill btn btn-sm m-1 mx-2 bg-transparent" id="day"
-                        data-month="11" onclick="getId(this.id)">07</button></td>
-                <td class="d-flex" id="crow"><button class="flex-fill btn btn-sm m-1 mx-2 bg-transparent" id="day"
-                        data-month="11" onclick="getId(this.id)">08</button></td>
-            </tr>
-        </tbody>
-    </table>
+<div class="form-group">
+        <div class="my-3 field d-flex">
+                {{ form.first_name.errors }}
+                <input class="border-dark-blue opacity-7 form-control py-4 mr-2" type="text" name="first_name" id="id_first_name"
+                        required placeholder="Enter your first name" />
+                {{ form.last_name.errors }}
+                <input class="border-dark-blue opacity-7 form-control py-4" type="text" name="last_name" id="id_last_name"
+                        required placeholder="Enter your last name" />
+        </div>
+        <div class="my-3 field d-flex">
+                {{ form.username.errors }}
+                <input class="border-dark-blue opacity-7 form-control py-4 mr-2" type="text" name="username" id="id_username"
+                        required placeholder="Enter your username" />
+                {{ form.email.errors }}
+                <input class="border-dark-blue opacity-7 form-control py-4" type="text" name="email" id="id_email"
+                        required placeholder="Enter your email" />
+        </div>
+        <div class="my-3 field d-flex">
+                {{ form.password1.errors }}
+                <input class="border-dark-blue opacity-7 form-control py-4 mr-2" type="password" name="password1" id="id_password1"
+                        required placeholder="Enter new password" />
+                {{ form.password2.errors }}
+                <input class="border-dark-blue opacity-7 form-control py-4" type="password" name="password2" id="id_password2"
+                        required placeholder="Confirm password" />
+        </div>
 </div>
-<script src="{% static 'js/calendar.js' %}" charset="utf-8"></script>

@@ -10,6 +10,8 @@ urlpatterns = [
     url(r'^login/$', views.login, name='login'),
     url(r'^logout/$', views.logout, name='logout'),
     url(r'^signup/$', views.signup, name='signup'),
+    url(r'^verify_doctor/$', views.verify_doctor, name='verify_doctor'),
+    url(r'^signup_doctor/$', views.signup_doctor, name='signup_doctor'),
     url(r'^book_appointment/$', views.book_appointment, name='book_appointment'),
     url(r'^medicines/$', views.medicines, name='medicines'),
 
@@ -40,7 +42,7 @@ urlpatterns = [
         name='trimester2'),
     url(r'^trimester3/$', trimester.trimester3,
         name='trimester3'),
-url(r'^scrollytelling/$', trimester.scrollytelling,
+    url(r'^scrollytelling/$', trimester.scrollytelling,
         name='scrollytelling'),
 
     # ---forum views

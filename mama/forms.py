@@ -27,6 +27,24 @@ class MyRegistrationForm(UserCreationForm):
         return user
 
 
+class DoctorRegistrationForm(UserCreationForm):
+    email = forms.EmailField(required=True)
+    reg_no = forms.CharField(required=False)
+
+    class Meta:
+        model = User
+        fields = ('username', 'email', 'password1', 'password2')
+
+    def save(self, commit=True):
+        user = super(MyRegistrationForm, self).save(commit=False)
+        user.email = self.cleaned_data['email']
+        reg_no = self.cleaned_data['reg_no']
+
+        user.save()
+
+        return [user, reg_no]
+
+
 class SearchDoctorsForm(forms.Form):
     search_term = forms.CharField(max_length=50)
 
@@ -41,3 +59,7 @@ class PostForm(forms.ModelForm):
     class Meta:
         model = Posts
         exclude = ['posted_by']
+
+
+class CheckDoctorsForm(forms.Form):
+    check_doctor = forms.CharField(max_length=50)

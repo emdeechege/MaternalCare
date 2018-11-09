@@ -60,6 +60,13 @@ li {
     overflow: hidden;
 }
 
+.overflow-scroll {
+    overflow-y: scroll;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    scrollbar-face-color: #007788;
+}
+
 .vh-100 {
     height: 90vh;
 }
@@ -182,6 +189,10 @@ a:hover {
 }
 
 .mhand {}
+
+.none {
+    display: none !important;
+}
 
 .mhand:hover {
     cursor: pointer;

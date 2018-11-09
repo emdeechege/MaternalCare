@@ -4,7 +4,7 @@
 {% block content %}
 
 
-<div class="vh-100 text-sea">
+<div class="vh-100 text-sea reg-patient">
     <div class="row h-100 mx-0">
         <div class="col-md-6 d-flex justify-content-center split-left h-100">
             <div class="d-flex align-items-center">
@@ -20,8 +20,11 @@
             </div>
             <div class="py-2 d-flex">
                 <h2>Register as patient</h2>
-                <button type="" class="ml-auto bg-dark-blue btn px-3 text-sea font-dosis">Register as
-                    Doctor</button>
+                <a class="mb-0 ml-auto " href="{% url 'verify_doctor' %}">
+                    <button type="" class="bg-dark-blue btn px-3 text-sea font-dosis" id="reg-patient">Register
+                        as
+                        Doctor</button>
+                </a>
             </div>
             <div class="errors">
                 {% if messages %}
@@ -55,8 +58,8 @@
                             <input class="border-dark-blue opacity-7 form-control py-4 mr-2" type="password" name="password1"
                                 id="id_password1" required placeholder="Enter new password" />
                             {{ form.password2.errors }}
-                            <input class="border-dark-blue opacity-7 form-control py-4" type="password" name="password2" id="id_password2"
-                                required placeholder="Confirm password" />
+                            <input class="border-dark-blue opacity-7 form-control py-4" type="password" name="password2"
+                                id="id_password2" required placeholder="Confirm password" />
                         </div>
                         <div class="form-group d-flex mx-auto">
                             <input class="border-dark-blue opacity-7 form-control py-4" type="hidden" name="next" value="">
@@ -68,5 +71,7 @@
         </div>
     </div>
 </div>
+
+
 
 {% endblock content %}
