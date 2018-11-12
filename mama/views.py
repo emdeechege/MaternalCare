@@ -98,9 +98,11 @@ def signup_doctor(request):
     # verifying doctor section
 
     form = DoctorRegistrationForm()
+    working_hours = DoctorWorkingHoursForm()
 
     context = {
-        'form': form
+        'form': form,
+        'working_hours': working_hours
     }
 
     url = 'https://api.healthtools.codeforafrica.org/search/doctors?q={}'
@@ -130,20 +132,27 @@ def signup_doctor(request):
 
     if request.method == 'POST':
         form = DoctorRegistrationForm(request.POST)
+        working_hours = DoctorWorkingHoursForm(request.POST)
         print(form.is_valid())
         if form.is_valid():
-            form.save()
+            doc = form.save()
         reg_no = form.cleaned_data['reg_no']
         fee = form.cleaned_data['fee']
-        print(reg_no)
+        last_name = form.cleaned_data['last_name']
+        first_name = form.cleaned_data['first_name']
+        print(reg_no, fee, last_name, first_name)
         for i in doctors_found_list:
             if reg_no == i['reg_no']:
                 doc_details = i
                 break
-        doc = User.objects.last()
-        print(doc)
-        doctor = Doctor.objects.create(doctor=doc, consultation_fee=fee)
+        doctor = Doctor.objects.create(
+            user=doc,
+            consultation_fee=fee,
+            last_name=last_name,
+            first_name=first_name)
+        working_hours.save(doctor)
         doctor.make_appointments()
+        print(doc_details)
         DoctorProfile.objects.create(
             doctor=doctor,
             name=doc_details['name'],

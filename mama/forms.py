@@ -28,6 +28,8 @@ class MyRegistrationForm(UserCreationForm):
 
 
 class DoctorRegistrationForm(UserCreationForm):
+    first_name = forms.CharField(required=False)
+    last_name = forms.CharField(required=False)
     email = forms.EmailField(required=True)
     reg_no = forms.CharField(required=False)
     fee = forms.IntegerField(required=False)
@@ -44,7 +46,7 @@ class DoctorRegistrationForm(UserCreationForm):
 
         user.save()
 
-        return [user, reg_no]
+        return user
 
 
 class SearchDoctorsForm(forms.Form):

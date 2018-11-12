@@ -36,6 +36,7 @@ function setDoctor(id) {
     $('#showName').text($doctor.attr('data-name'));
     $('#doc_reg_no').val($doctor.attr('data-registration_number'));
     $('#reg_no').val($doctor.attr('data-registration_number'));
+    $('#form_reg_no').val($doctor.attr('data-registration_number'));
 
 
     $('#id_name').val($doctor.attr('data-name'));
@@ -61,7 +62,8 @@ function verifyCredentials() {
     // console.log($doctor.attr('data-registration_number'))
     $no = $('#doc_reg_no').val();
     $ver_no = $('#id_verify_reg_no').val();
-    console.log($no, $ver_no)
+    $form_no = $('#form_reg_no').val();
+    console.log($no, $ver_no, $form_no)
     if ($no == $ver_no) {
         alert('verified')
         $('.verifyform').addClass('none');

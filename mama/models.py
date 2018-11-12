@@ -232,6 +232,12 @@ class DoctorWorkingHoursForm(forms.ModelForm):
         exclude = ['doctor']
 
 
+    def save(self, doctor, commit=True):
+        hours = super(DoctorWorkingHoursForm, self).save(commit=False)
+        hours.doctor = doctor
+        hours.save()
+
+
 class DoctorWorkingHoursAdmin(admin.ModelAdmin):
     list_display = ('doctor', 'working_from', 'working_to',)
 
