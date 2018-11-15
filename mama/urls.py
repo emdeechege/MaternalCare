@@ -26,12 +26,15 @@ urlpatterns = [
     url(r'^edit_patient_profile/$', patient.profile_edit,
         name='edit_patient_profile'),
     url(r'^antenatal/$', patient.antenatal, name='antenatal'),
+    url(r'^patient_profile/(\d+)/(\w+)$',
+        patient.patient_profile, name='patient_profile'),
 
 
 
     # -- doctors views
     url(r'^doctors_dashboard/$', doctor.dashboard, name='doctors_dashboard'),
-    url(r'^doctor_profile/(\d+)$', doctor.doctor_profile, name='doctor_profile'),
+    url(r'^doctor_profile/(\d+)/([A-Z|a-z\W\s]*)/$',
+        doctor.doctor_profile, name='doctor_profile'),
 
 
 

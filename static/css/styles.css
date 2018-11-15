@@ -139,12 +139,27 @@ li {
     color: var(--dark-blue);
 }
 
+
+.decoration-none {}
+
+.decoration-none:hover {
+    text-decoration: none;
+}
+
 .text-aqua {
     color: var(--aqua)
 }
 
+.top-max {
+    z-index: 20;
+}
+
+.text-dark-aqua {
+    color: var(--aqua-dark);
+}
+
 a:hover {
-    color: var(--sea);
+    color: var(--aqua-dark);
 }
 
 

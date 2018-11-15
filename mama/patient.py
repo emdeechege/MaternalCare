@@ -22,3 +22,7 @@ def due(request):
 
 def antenatal(request):
     return render(request, 'patient/antenatal.html')
+
+
+def patient_profile(request):
+    return render(request, 'patient_profile.html')

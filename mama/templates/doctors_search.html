@@ -58,7 +58,9 @@
                         <img class="w-100 rounded-circle" src="{{doctor.photo.url}}" data-target="#imageModal{{doctor.id}}"
                             data-toggle="modal" alt="" class="img-fluid" id="eachimage">
                     </div>
-                    <h3 class="my-2">{{ doctor.full_name }}</h3>
+                    <a href="{% url 'doctor_profile' doctor.user.id doctor.full_name %}">
+                        <h3 class="my-2">{{ doctor.full_name }}</h3>
+                    </a>
                     <h5 class="mb-3">{{ doctor.consultation_fee }}
                         <span class="ml-2">Ksh</span>
                     </h5>
@@ -102,6 +104,62 @@
         </div>
     </div>
 </section>
+
+
+<section>
+    {% for doctor in doctors %}
+    <div class="my-5">
+        <div class="d-flex container text-center">
+            <div class="profile-photo">
+                <img class="w-100" src="{{ doctor.photo.url }}" alt="">
+            </div>
+            <a class="text-dark-blue decoration-none" href="/doctor_profile/{{doctor.user.id}}/{{doctor.full_name}}/">
+                <h3 class="my-2">{{ doctor.full_name }}</h3>
+                <div>
+                    <h5>
+                        <span>Consultation fee: ksh </span>
+                        <span>{{ doctor.consultation_fee }}</span>
+                    </h5>
+                </div>
+            </a>
+        </div>
+
+        <div class="d-none">
+            <div>
+                <h3>Book an appointment</h3>
+            </div>
+
+            <div class="w-75 mx-auto">
+                <h5>Choose Day</h5>
+                <div class="d-flex">
+                    {% include 'includes/patient_calendar.html' %}
+                </div>
+            </div>
+
+            <div class="w-25">
+
+                <h5>Choose Time</h5>
+                <div class="d-flex flex-wrap">
+
+                    {% for slot in doctor.working_hours.appointment_slots %}
+                    <div class="m-1">
+                        <button class="slot-width btn cbody" id="{{ slot }}" onclick="setSlot(this.id); $('#submit-book-btn').click()">
+                            <span>
+                                {{ slot }}
+                            </span>
+                        </button>
+                    </div>
+                    {% endfor %}
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</section>
+
+
 
 
 <section id="how-works">
@@ -167,7 +225,10 @@
                 <img class="w-100" src="{{ doctor.photo.url }}" alt="">
             </div>
             <div class="d-flex align-items-center">
-                <h2>{{ doctor.full_name}}</h2>
+
+                <a href="/doctor_profile/{{doctor.user.id}}/{{doctor.full_name}}/">
+                    <h3 class="my-2">{{ doctor.full_name }}</h3>
+                </a>
             </div>
         </div>
 
