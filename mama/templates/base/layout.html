@@ -70,7 +70,7 @@
 </head>
 
 <body>
-    <section class="bg-sea opacity-9">
+    <section class="bg-sea opacity-9 position-fixed w-100 h-70px top-max">
         <!-- Actual navigation bar which is hella functional -->
         <nav class="nav container py-2 opacity-9">
             <div class="container-fluid px-0 d-flex justify-content-between align-items-center nav-border">
@@ -144,9 +144,11 @@
         </nav>
     </section>
 
-    {% block content %}
-    {% endblock content %}
-    {% include "base/footer.html" %}
+    <div class="top-70 position-relative">
+        {% block content %}
+        {% endblock content %}
+        {% include "base/footer.html" %}
+    </div>
 
 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
