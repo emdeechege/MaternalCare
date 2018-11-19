@@ -35,6 +35,7 @@ body {
 }
 
 .people-icon {
+    border-radius: 50% !important;
     width: 100px;
     height: 100px;
     overflow: hidden;
@@ -43,6 +44,18 @@ body {
     justify-content: center;
     justify-self: center;
 }
+
+.large-icon {
+    border-radius: 50% !important;
+    width: 250px;
+    height: 250px;
+    overflow: hidden;
+    align-self: center;
+    align-items: center;
+    justify-content: center;
+    justify-self: center;
+}
+
 
 .text-sea {
     color: var(--sea)
@@ -152,6 +165,14 @@ li {
 
 .top-max {
     z-index: 20;
+}
+
+.top-70 {
+    top: 70px;
+}
+
+.h-70px {
+    height: 70px;
 }
 
 .text-dark-aqua {

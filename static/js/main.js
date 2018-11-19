@@ -11,25 +11,6 @@ function copyLink(value) {
     document.execCommand('copy');
 }
 
-// var $regPatient = $('#reg-patient')
-// var $regDoctor = $('#reg-doctor')
-
-
-// $regPatient.click(function (e) {
-//     console.log('here')
-//     e.preventDefault();
-//     $('.reg-doctor').addClass('d-none');
-//     $('.reg-patient').removeClass('d-none');
-// });
-
-
-// $regDoctor.click(function (e) {
-//     console.log('here')
-//     e.preventDefault();
-//     $('.reg-patient').addClass('d-none');
-//     $('.reg-doctor').removeClass('d-none');
-// });
-
 function setDoctor(id) {
     var $doctor = $('div#' + id)
 
@@ -73,3 +54,13 @@ function verifyCredentials() {
         alert('wrong registration number')
     }
 }
+
+
+$(document).ready(function () {
+    console.log('ready')
+    $imgsindiv = document.getElementsByClassName('img-in-div')
+    console.log($imgsindiv)
+    $.each($imgsindiv, function (indexInArray, valueOfElement) {
+
+    });
+});

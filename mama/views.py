@@ -250,3 +250,17 @@ def medicines(request):
         medicines = Medication.objects.all()
 
     return render(request, 'medicines.html', {'medicines': medicines})
+
+
+def set_profile(request):
+    user = request.user
+    if request.method == 'POST':
+        try:
+            dpic = user.profile_picture
+            form = PhotoForm(request.POST, request.FILES, instance=dpic)
+        except:
+            form = PhotoForm(request.POST)
+        print(form.is_valid())
+        if form.is_valid():
+            form.save(user)
+    return redirect('home')

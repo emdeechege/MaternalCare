@@ -31,8 +31,37 @@ TIME_CHOICES = (
 
 days = ['Monday', 'Tuesday', 'Wednesday',
         'Thursday', 'Friday', 'Saturday', 'Sunday']
-# -- Location
 
+
+# -- Profile Photos 
+
+class Photo(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile_picture')
+    picture = models.FileField(
+        upload_to='profile_pictures', default='default.jpg', null=True)
+
+
+    def __str__(self):
+        return self.user.profile_picture.picture.url
+
+
+
+class PhotoAdmin(admin.ModelAdmin):
+    list_display = ['user', 'picture']
+
+
+class PhotoForm(forms.ModelForm):
+    class Meta:
+        model = Photo
+        exclude = ['user']
+
+    def save(self, user, commit=True):
+        dpic = super(PhotoForm, self).save(commit=False)
+        dpic.user = user
+        dpic.save()
+
+
+# -- Location
 
 class Location(models.Model):
     location = models.CharField(max_length=50)
@@ -193,6 +222,9 @@ class DoctorProfile(models.Model):
     speciality = models.CharField(max_length=100)
     sub_speciality = models.CharField(max_length=100)
     qualifications = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
 
 
 class DoctorProfileForm(forms.ModelForm):

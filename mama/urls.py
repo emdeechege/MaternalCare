@@ -14,6 +14,7 @@ urlpatterns = [
     url(r'^signup_doctor/$', views.signup_doctor, name='signup_doctor'),
     url(r'^book_appointment/$', views.book_appointment, name='book_appointment'),
     url(r'^medicines/$', views.medicines, name='medicines'),
+    url(r'^set_profile/$', views.set_profile, name='set_profile'),
 
 
     # -- general views

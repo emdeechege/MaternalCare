@@ -1,5 +1,4 @@
 {%extends "base/layout.html"%}
-{% load bootstrap4 %}
 {%load static%}
 {% block content %}
 <!-- HEADER -->
@@ -13,12 +12,26 @@
         <div class="row">
           <div class="col-sm-5">
             <div class="box-resume">
-              <div class="center-top doctor-info">
-                <img src="{{profile.photo.url}}" alt="" class="img-responsive" style="border-radius: 50%;height:400px;width: 400px;">
+              <div class="center-top people-icon">
+                <img src="{{ doctor.user.profile_picture.picture.url }}" alt="" class="img-responsive w-100">
+              </div>
+              <div>
+                {% if current_user == doctor.user %}
+                <form action="{% url 'set_profile' %}" method="post" enctype="multipart/form-data">
+                  {% csrf_token %}
+                  <div class="form-group">
+                    <label for="id_picture">Upload Profile Picture</label>
+                    <input type="file" name="picture" id="id_picture" />
+                  </div>
+                  <div class="form-group">
+                    <button class="btn bg-dark-blue text-aqua px-4" type="submit">save</button>
+                  </div>
+                </form>
+                {% endif %}
               </div>
               <ul>
-                <li><strong>Name</strong> {{ profile.name }}</li>
-                <li><strong>Speciality</strong> {{profile.specialty}}</li>
+                <li><strong>Name</strong> {{ doctor.profile.name }}</li>
+                <li><strong>Speciality</strong> {{doctor.profile.speciality}}</li>
               </ul>
               <div class="center-bottom"> <a href="3" class="btn btn-md btn-color-line ">Book Appointment</a> </div>
             </div>
@@ -39,33 +52,64 @@
 
               <div class="doctor-details">
 
-                <div class="desc"> <i class="fa fa-stethoscope bg-color"></i>
-                  <h4>SPECIALITY</h4>
-                  <p>{{profile.specialty}}</p>
-                </div>
-                <div class="desc"> <i class="fa fa-graduation-cap bg-color"></i>
-
-                  <h4>EDUCATION</h4>
-
-                  <p>Doctor of Gynaecological, University of Lorem, Uk</p>
-
-                  <p>Doctor of Rehabilitation, University of Lorem, US</p>
-
+                <div class="desc">
+                  <div class="d-flex">
+                    <i class="mr-2 fa fa-star bg-color"></i>
+                    <h4>SCORE</h4>
+                  </div>
+                  <p>{{doctor.profile.score}}</p>
                 </div>
 
-                <div class="desc"> <i class="fab fa-medapps"></i>
+                <div class="desc">
+                  <div class="d-flex">
+                    <i class="mr-2 fa fa-stethoscope bg-color"></i>
+                    <h4>SPECIALITY</h4>
+                  </div>
+                  <p>{{doctor.profile.speciality}}</p>
+                </div>
 
-                  <h4>EXPERIENCE</h4>
+                <div class="desc">
+                  <div class="d-flex">
+                    <i class="mr-2 fa fa-stethoscope bg-color"></i>
+                    <h4>SUB SPECIALITY</h4>
+                  </div>
+                  <p>{{doctor.profile.sub_speciality}}</p>
+                </div>
 
+                <div class="desc">
+                  <div class="d-flex">
+                    <i class="mr-2 fa fa-graduation-cap bg-color"></i>
+                    <h4>QUALIFICATIONS</h4>
+                  </div>
+                  <p>{{doctor.profile.qualifications}}</p>
+                </div>
+
+                <div class="desc">
+                  <div class="d-flex">
+                    <i class="mr-2 fa fa-flag bg-color"></i>
+                    <h4>NATIONALITY</h4>
+                  </div>
+                  {% if doctor.profile.nationality == 'local_doctor' %}
+                  <p>KENYAN</p>
+                  {% else %}
+                  <p>{{doctor.profile.nationality}}</p>
+                  {% endif %}
+                </div>
+
+                <div class="desc">
+                  <div class="d-flex">
+                    <i class="mr-2 fab fa-medapps"></i>
+                    <h4>EXPERIENCE</h4>
+                  </div>
                   <p>25 years of Experience in Gynaecological</p>
-
                   <p>10 years of Experience in Surgeon</p>
-
                 </div>
 
-                <div class="desc pb-80"> <i class="fa fa-trophy bg-color"></i>
-
-                  <h4>AWARDS & RECOGNITION</h4>
+                <div class="desc pb-80">
+                  <div class="d-flex">
+                    <i class="mr-2 fa fa-trophy bg-color"></i>
+                    <h4>AWARDS & RECOGNITION</h4>
+                  </div>
 
                   <p> Top Doctor ofDoctor of Gynaecological (2016)</p>
 

@@ -106,22 +106,28 @@
 </section>
 
 
-<section>
+<section class="container d-flex flex-wrap">
     {% for doctor in doctors %}
-    <div class="my-5">
-        <div class="d-flex container text-center">
-            <div class="profile-photo">
-                <img class="w-100" src="{{ doctor.photo.url }}" alt="">
+    <div class="my-3 mx-5">
+        <div class="d-flex flex-column text-center">
+            <div class="large-icon mx-auto img-div">
+                <img class="img-thumbnail img-in-div" src="{{ doctor.user.profile_picture.picture.url }}" alt="">
+            </div>
+            <div>
+                <h5>
+                    <span>Rating </span>
+                    <span class="ml-3">{{ doctor.profile.score }}/10</span>
+                </h5>
             </div>
             <a class="text-dark-blue decoration-none" href="/doctor_profile/{{doctor.user.id}}/{{doctor.full_name}}/">
                 <h3 class="my-2">{{ doctor.full_name }}</h3>
-                <div>
-                    <h5>
-                        <span>Consultation fee: ksh </span>
-                        <span>{{ doctor.consultation_fee }}</span>
-                    </h5>
-                </div>
             </a>
+            <div>
+                <h5>
+                    <span>Consultation fee: ksh </span>
+                    <span>{{ doctor.consultation_fee }}</span>
+                </h5>
+            </div>
         </div>
 
         <div class="d-none">
@@ -169,7 +175,7 @@
         </div>
         <div class="px-5 d-flex">
             <div class="w-50">
-                <img src="{% static 'img/how-it-works.png' %}" alt="">
+                <img src="{% static 'img/gears.png' %}" alt="">
             </div>
             <div class="w-50">
                 <div class="mb-5">
@@ -180,24 +186,21 @@
                     </p>
                 </div>
                 <div class="mb-5">
-                    <h5 class="font-weight-bold">1. Register For Free</h5>
+                    <h5 class="font-weight-bold">2. Browse regestered doctors</h5>
                     <p>
-                        Signing up with us is a very quick process. Just click <a class="text-aqua" href="{% url 'signup' %}">here</a>
-                        and you will be done in a minute!
+                        1200+ vetted women’s and family health practitioners across 18 specialties.
                     </p>
                 </div>
                 <div class="mb-5">
-                    <h5 class="font-weight-bold">1. Register For Free</h5>
+                    <h5 class="font-weight-bold">3. Book an appointment</h5>
                     <p>
-                        Signing up with us is a very quick process. Just click <a class="text-aqua" href="{% url 'signup' %}">here</a>
-                        and you will be done in a minute!
+                        Meet with practitioners on your terms. When, where, and how you want to.
                     </p>
                 </div>
                 <div class="mb-5">
-                    <h5 class="font-weight-bold">1. Register For Free</h5>
+                    <h5 class="font-weight-bold">4. Purches prescriptions from our patners</h5>
                     <p>
-                        Signing up with us is a very quick process. Just click <a class="text-aqua" href="{% url 'signup' %}">here</a>
-                        and you will be done in a minute!
+                        Birth control, UTI meds—you name it, we’ll send it to your local pharmacy.
                     </p>
                 </div>
             </div>
