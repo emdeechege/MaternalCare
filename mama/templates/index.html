@@ -227,7 +227,24 @@
       </div>
     </section>
   </div>
-  <div class="col-md-3"></div>
+  <div class="col-md-3 mt-5 pt-5">
+    <a href="{% url 'forum' %}" class="nav-link text-aqua p-0">
+      <button class="btn btn-outline-info ">Join the discussion</button>
+    </a>
+    <div class="my-4">
+      {% for post in posts.all %}
+      <p class="text-capitalize mb-0"><a href="single_blog/{{post.id}}">{{ post.title }}</a></p>
+      <small class="float-right font-italic">
+        <span>
+          {{ post.comments.all.count }}
+        </span>
+        <span class="ml-2">
+          comments
+        </span>
+      </small>
+      {% endfor %}
+    </div>
+  </div>
 </div>
 
 <!-- <iframe src="https://health.the-star.co.ke/dodgy-dr" frameborder="0" scrolling="no" height="200px" width="100%"></iframe> -->

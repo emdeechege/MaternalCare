@@ -174,7 +174,13 @@ def signup_doctor(request):
 
 
 def home(request):
-    return render(request, 'index.html')
+    posts = Posts.objects.all()
+    comments = Comment.get_comment()
+    context = {
+        "posts": posts,
+        "comments": comments,
+    }
+    return render(request, 'index.html', context)
 
 
 def search_doctors(request):

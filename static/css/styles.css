@@ -255,6 +255,12 @@ a:hover {
     font-family: 'Dosis', sans-serif;
 }
 
+.footer {
+    position: relative;
+    bottom: 0%;
+    width: 100%;
+}
+
 #mamaFooter a:hover {
     color: var(--aqua-dark)
 }

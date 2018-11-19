@@ -676,6 +676,14 @@ class Posts(models.Model):
     def all_comments(self):
         return self.comments.all()[:5][::-1]
 
+    @classmethod
+    def recent_posts(self):
+        return self
+
+    @classmethod
+    def popular_posts(self):
+        return self
+
     def save_posts(self):
         self.save()
 

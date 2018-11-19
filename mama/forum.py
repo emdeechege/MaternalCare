@@ -21,7 +21,6 @@ def forum(request):
             comment.poster = current_user
             comment.save()
         return redirect('forum')
-
     else:
         form = CommentForm()
 
