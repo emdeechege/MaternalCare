@@ -232,6 +232,8 @@
       <button class="btn btn-outline-info ">Join the discussion</button>
     </a>
     <div class="my-4">
+      <h4>Popular Posts</h4>
+      <hr>
       {% for post in posts.all %}
       <p class="text-capitalize mb-0"><a href="single_blog/{{post.id}}">{{ post.title }}</a></p>
       <small class="float-right font-italic">

@@ -264,3 +264,7 @@ a:hover {
 #mamaFooter a:hover {
     color: var(--aqua-dark)
 }
+
+.min-h-100 {
+    min-height: 90vh;
+}

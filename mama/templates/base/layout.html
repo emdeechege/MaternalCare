@@ -85,6 +85,9 @@
                     <a class="text-dark-blue ml-3" href="{% url 'scrollytelling' %}">
                         Journey
                     </a>
+                    <a class="text-dark-blue ml-3" href="{% url 'medicines' %}">
+                        Store
+                    </a>
                     <div class="input-group-prepend ml-2">
                         <button class="bg-transparent btn dropdown-toggle text-dark-blue" type="button" data-toggle="dropdown"
                             aria-haspopup="true" aria-expanded="false">Trimesters</button>
@@ -144,7 +147,7 @@
         </nav>
     </section>
 
-    <div class="top-70 position-relative mb-5">
+    <div class="top-70 position-relative mb-5 min-h-100">
         {% block content %}
         {% endblock content %}
     </div>
