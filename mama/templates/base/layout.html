@@ -49,7 +49,6 @@
     <link href="https://fonts.googleapis.com/css?family=Dosis%7CMerriweather" rel="stylesheet">
 
 
-    {% block styles %}
 
     <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
     <link rel="stylesheet" href="{% static 'css/patient.css' %}">
@@ -61,97 +60,98 @@
     <link rel="stylesheet" href="{% static 'css/cssanimation.css' %}">
     <link rel="stylesheet" href="{% static 'css/stuff.css' %}">
 
-    {% endblock %}
-
     {% block title %}
     <title>Amama</title>
     {% endblock title %}
     <link rel="icon" type="image/png" sizes="196x196" href="/static/img/favicon.png">
 </head>
 
-<body>
-    <section class="bg-sea opacity-9 position-fixed w-100 h-70px top-max">
-        <!-- Actual navigation bar which is hella functional -->
-        <nav class="nav container py-2 opacity-9">
-            <div class="container-fluid px-0 d-flex justify-content-between align-items-center nav-border">
+<section class="mynav bg-sea opacity-9 w-100 h-70px top-max">
+    <!-- Actual navigation bar which is hella functional -->
+    <nav class="nav container py-2 opacity-9">
+        <div class="container-fluid px-0 d-flex justify-content-between align-items-center nav-border">
 
-                <div id="center" class="d-flex align-items-center">
-                    <a class="nav-link navbar-brand " href="{% url 'home' %}">
-                        <h2 class="mb-0 text-dark-blue">AMAMA</h2>
-                    </a>
-                    <a class="text-dark-blue" href="{% url 'search_doctors' %}">
-                        Find Doctors
-                    </a>
-                    <a class="text-dark-blue ml-3" href="{% url 'scrollytelling' %}">
-                        Journey
-                    </a>
-                    <a class="text-dark-blue ml-3" href="{% url 'medicines' %}">
-                        Store
-                    </a>
-                    <div class="input-group-prepend ml-2">
-                        <button class="bg-transparent btn dropdown-toggle text-dark-blue" type="button" data-toggle="dropdown"
-                            aria-haspopup="true" aria-expanded="false">Trimesters</button>
-                        <div class="dropdown-menu bg-aqua top-max">
-                            <a class="dropdown-item text-dark-aqua" href="{% url 'trimester1' %}">Trimester one</a>
-                            <div role="separator" class="dropdown-divider">
-                            </div>
-                            <a class="dropdown-item text-dark-aqua" href="{% url 'trimester2' %}">trimester two</a>
-                            <div role="separator" class="dropdown-divider">
-                            </div>
-                            <a class="dropdown-item text-dark-aqua" href="{% url 'trimester3' %}">trimester three</a>
+            <div id="center" class="d-flex align-items-center">
+                <a class="nav-link navbar-brand " href="{% url 'home' %}">
+                    <h2 class="mb-0 text-dark-blue">AMAMA</h2>
+                </a>
+                <a class="text-dark-blue" href="{% url 'search_doctors' %}">
+                    Find Doctors
+                </a>
+                <a class="text-dark-blue ml-3" href="{% url 'scrollytelling' %}">
+                    Journey
+                </a>
+                <a class="text-dark-blue ml-3" href="{% url 'medicines' %}">
+                    Store
+                </a>
+                <div class="input-group-prepend ml-2">
+                    <button class="bg-transparent btn dropdown-toggle text-dark-blue" type="button" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">Trimesters</button>
+                    <div class="dropdown-menu bg-aqua top-max">
+                        <a class="dropdown-item text-dark-aqua" href="{% url 'trimester1' %}">Trimester one</a>
+                        <div role="separator" class="dropdown-divider">
                         </div>
+                        <a class="dropdown-item text-dark-aqua" href="{% url 'trimester2' %}">trimester two</a>
+                        <div role="separator" class="dropdown-divider">
+                        </div>
+                        <a class="dropdown-item text-dark-aqua" href="{% url 'trimester3' %}">trimester three</a>
                     </div>
+                </div>
 
-                </div>
-                <div class="about ml-auto">
-                    <a class="bg-transparent py-1 text-dark-blue px-4" href="">
-                        About Us
-                    </a>
-                </div>
-                {% if user.is_authenticated %}
-                {% if user.doctor %}
-                <div id="login-submit" class="d-flex">
-                    <a href="/doctor_profile/{{ user.id }}/{{ user.username }}/" class="nav-link">
-                        <span class="text-dark-blue">{{ user.username }}</span>
-                    </a>
-                    <a href="/doctor_profile/{{ user.id }}/{{ user.username }}/" class="md-icon d-flex justify-content-center rounded-circle border">
-                        <img class="h-100 judge-btn" src="{{ user.doctor.photo.url }}" alt="">
-                    </a>
-                    <a class="bg-transparent text-dark-blue px-4 d-flex align-items-center ml-3" href="{% url 'doctors_dashboard' %}">
-                        Dashboard
-                    </a>
-                </div>
-                {% else %}
-                <div id="login-submit" class="d-flex">
-                    <a class="nav-link" href="/patient_profile/{{ user.id }}/{{ user.username }}">
-                        <span class="">{{ user.usernane }}</span>
-                    </a>
-                    <a href="/patient_profile/{{ user.id }}/{{ user.username }}" class="md-icon d-flex justify-content-center rounded-circle border border-secondary mx-1">
-                        <img class="h-100 judge-btn" src="{{ user.profile.profile_photo.url }}" alt="">
-                    </a>
-                </div>
-                {% endif %}
-                <a class="btn btn-light py-1 shadow-sm px-4 mx-3" href="{% url 'logout' %}">logout</a>
-                {% else %}
-                <a href="{% url 'login' %}" class="btn bg-dark-blue text-sea py-1 shadow-sm px-4 mx-3">
-                    Login
-                </a>
-                {% if request.user.is_admin %}
-                <a href="http://localhost:8000/admin/" class="btn bg-danger text-white py-1 shadow-sm px-4 mx-3">
-                    Admin
-                </a>
-                {% endif %}
-                {% endif %}
             </div>
+            <div class="about ml-auto">
+                <a class="bg-transparent py-1 text-dark-blue px-4" href="">
+                    About Us
+                </a>
             </div>
-        </nav>
-    </section>
+            {% if user.is_authenticated %}
+            {% if user.doctor %}
+            <div id="login-submit" class="d-flex">
+                <a href="/doctor_profile/{{ user.id }}/{{ user.username }}/" class="nav-link">
+                    <span class="text-dark-blue">{{ user.username }}</span>
+                </a>
+                <a href="/doctor_profile/{{ user.id }}/{{ user.username }}/" class="md-icon d-flex justify-content-center rounded-circle border">
+                    <img class="h-100 judge-btn" src="{{ user.doctor.photo.url }}" alt="">
+                </a>
+                <a class="bg-transparent text-dark-blue px-4 d-flex align-items-center ml-3" href="{% url 'doctors_dashboard' %}">
+                    Dashboard
+                </a>
+            </div>
+            {% else %}
+            <div id="login-submit" class="d-flex">
+                <a class="nav-link" href="/patient_profile/{{ user.id }}/{{ user.username }}">
+                    <span class="">{{ user.usernane }}</span>
+                </a>
+                <a href="/patient_profile/{{ user.id }}/{{ user.username }}" class="md-icon d-flex justify-content-center rounded-circle border border-secondary mx-1">
+                    <img class="h-100 judge-btn" src="{{ user.profile.profile_photo.url }}" alt="">
+                </a>
+            </div>
+            {% endif %}
+            <a class="btn btn-light py-1 shadow-sm px-4 mx-3" href="{% url 'logout' %}">logout</a>
+            {% else %}
+            <a href="{% url 'login' %}" class="btn bg-dark-blue text-sea py-1 shadow-sm px-4 mx-3">
+                Login
+            </a>
+            {% if request.user.is_admin %}
+            <a href="http://localhost:8000/admin/" class="btn bg-danger text-white py-1 shadow-sm px-4 mx-3">
+                Admin
+            </a>
+            {% endif %}
+            {% endif %}
+        </div>
+        </div>
+    </nav>
+</section>
+
+<body class="position-relative">
 
     <div class="top-70 position-relative mb-5 min-h-100">
         {% block content %}
         {% endblock content %}
     </div>
-    {% include "base/footer.html" %}
+    <div class="footer">
+        {% include "base/footer.html" %}
+    </div>
 
 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>

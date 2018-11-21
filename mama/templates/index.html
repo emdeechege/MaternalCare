@@ -228,23 +228,32 @@
     </section>
   </div>
   <div class="col-md-3 mt-5 pt-5">
-    <a href="{% url 'forum' %}" class="nav-link text-aqua p-0">
-      <button class="btn btn-outline-info ">Join the discussion</button>
-    </a>
-    <div class="my-4">
-      <h4>Popular Posts</h4>
-      <hr>
-      {% for post in posts.all %}
-      <p class="text-capitalize mb-0"><a href="single_blog/{{post.id}}">{{ post.title }}</a></p>
-      <small class="float-right font-italic">
-        <span>
-          {{ post.comments.all.count }}
-        </span>
-        <span class="ml-2">
-          comments
-        </span>
-      </small>
-      {% endfor %}
+    <div class="mb-3 card shadow p-2">
+      <h4>Want to find out what your due date is?</h4>
+      <a href="{% url 'due' %}" class="nav-link text-aqua p-0 my-1">
+        <button class="btn btn-outline-info ">Due Date Calculator</button>
+      </a>
+    </div>
+    <div class="card shadow p-2">
+      <h4>See what other mothers are talking about. Join our forum
+        <a href="{% url 'forum' %}" class="text-white p-0 btn bg-info px-3">here
+        </a>
+      </h4>
+      <div class="my-4">
+        <h4>Popular Posts</h4>
+        <hr>
+        {% for post in posts.all %}
+        <p class="text-capitalize mb-0"><a href="forum/single_blog/{{post.id}}">{{ post.title }}</a></p>
+        <small class="float-right font-italic">
+          <span>
+            {{ post.comments.all.count }}
+          </span>
+          <span class="ml-2">
+            comments
+          </span>
+        </small>
+        {% endfor %}
+      </div>
     </div>
   </div>
 </div>

@@ -3,7 +3,7 @@
 }
 
 body {
-    font-family: 'Dosis', sans-serif;
+    font-family: "Dosis", sans-serif;
 }
 
 :root {
@@ -14,12 +14,12 @@ body {
 }
 
 .font-dosis {
-    font-family: 'Dosis', sans-serif;
+    font-family: "Dosis", sans-serif;
     letter-spacing: 0.1em;
 }
 
 .sdf {
-    color: #4cc0b2a7
+    color: #4cc0b2a7;
 }
 
 .vw-100 {
@@ -31,7 +31,7 @@ body {
 }
 
 .font-merriweather {
-    font-family: 'Merriweather', serif;
+    font-family: "Merriweather", serif;
 }
 
 .people-icon {
@@ -56,13 +56,12 @@ body {
     justify-self: center;
 }
 
-
 .text-sea {
-    color: var(--sea)
+    color: var(--sea);
 }
 
 .bg-sea {
-    background-color: var(--sea)
+    background-color: var(--sea);
 }
 
 li {
@@ -84,7 +83,8 @@ li {
     height: 90vh;
 }
 
-.landing-left-curve {}
+.landing-left-curve {
+}
 
 .vh-70 {
     height: 70vh;
@@ -124,7 +124,7 @@ li {
     width: 100%;
     height: 300px;
     color: var(--dark-blue);
-    background-color: var(--sea)
+    background-color: var(--sea);
 }
 
 .media2 {
@@ -133,7 +133,7 @@ li {
     width: 100%;
     height: 300px;
     color: var(--sea);
-    background-color: var(--dark-blue)
+    background-color: var(--dark-blue);
 }
 
 .col-md-4 {
@@ -152,15 +152,15 @@ li {
     color: var(--dark-blue);
 }
 
-
-.decoration-none {}
+.decoration-none {
+}
 
 .decoration-none:hover {
     text-decoration: none;
 }
 
 .text-aqua {
-    color: var(--aqua)
+    color: var(--aqua);
 }
 
 .top-max {
@@ -183,7 +183,6 @@ a:hover {
     color: var(--aqua-dark);
 }
 
-
 .bg-dark-blue {
     background-color: var(--dark-blue);
 }
@@ -203,7 +202,7 @@ a:hover {
 }
 
 .text-white-100 {
-    color: #ffffff
+    color: #ffffff;
 }
 
 .opacity-9 {
@@ -221,10 +220,11 @@ a:hover {
 }
 
 .doc-apps-calendar:nth-child(even) {
-    background-color: rgb(214, 214, 214)
+    background-color: rgb(214, 214, 214);
 }
 
-.mhand {}
+.mhand {
+}
 
 .none {
     display: none !important;
@@ -237,10 +237,22 @@ a:hover {
 .login-overlay {
     position: absolute;
     left: 25%;
-    width: calc(100%/2);
+    width: calc(100% / 2);
     height: 100%;
 }
 
+.mynav {
+    position: fixed;
+    top: 0%;
+    left: 0%;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0%;
+    left: 0%;
+    width: 100%;
+}
 
 .landing-overlay {
     position: absolute;
@@ -250,9 +262,8 @@ a:hover {
     height: 100%;
 }
 
-
 .modal-text {
-    font-family: 'Dosis', sans-serif;
+    font-family: "Dosis", sans-serif;
 }
 
 .footer {
@@ -262,7 +273,7 @@ a:hover {
 }
 
 #mamaFooter a:hover {
-    color: var(--aqua-dark)
+    color: var(--aqua-dark);
 }
 
 .min-h-100 {
